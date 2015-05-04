@@ -68,50 +68,10 @@
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.pony\\'" . ponylang-mode))
 
-;; Indentation
-(defun ponylang-indent-line ()
-  "Indent current line as pony code"
-  (interactive)
-  (beginning-of-line)
-  (if (bobp)
-      (indent-line-to 0)
-    
-    (let ((not-indented t) cur-indent)
-    
-      (if (looking-at "^[ \t]*end")
-	  (progn 
-	    (save-excursion
-	      (forward-line -1)
-	      (setq cur-indent (- (current-indentation) tab-width))
-
-	      (if (< cur-indent 0)
-		  (setq cur-indent 0))))
-
-	(save-excursion 
-	  (while not-indented
-	    (forward-line -1)
-	    (if (looking-at "^[ \t]*end")
-		(progn
-		  (setq cur-indent (current-indentation))
-		  (setq not-indented nil))
-
-	      (if (looking-at "^[ \t]*\\(fun\\|if\\|else\\|actor\\|new\\|try\\)")
-		  (progn
-		    (setq cur-indent (+ (current-indentation) tab-width))
-		    (setq not-indented nil))
-		(if (bobp)
-		    (setq not-indented nil)))))))
-
-      (if cur-indent
-	  (indent-line-to cur-indent)
-	(indent-line-to 0)))))
-
-;; Multi-line strings
-
 ;; define several class of keywords
-(setq ponylang-keywords '("new" "use" "var" "try" "else" "end" "if" "ref" "then" "fun" "tag")) ;'("new" "default" "do" "else" "for" "if" "return" "state" "while")
-(setq ponylang-types '("actor" "U64" "Env" "U32" "Range")) ;'("actor" "integer" "key" "list" "rotation" "string" "vector")
-(setq ponylang-constants '("false" "true")) ;'("ACTIVE" "AGENT" "ALL_SIDES" "ATTACH_BACK")
+(setq ponylang-keywords '("repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "ref" "then" "fun" "tag"))
+(setq ponylang-types '("actor" "U32" "U64" "Env" "Range" "F32" "Array" "File" "Options"))
+(setq ponylang-constants '("false" "true" "None"))
 ;(setq ponylang-events '("at_rot_target" "at_target" "attach"))
 ;(setq ponylang-functions '("llAbs" "llAcos" "llAddToLandBanList" "llAddToLandPassList"))
 
@@ -143,21 +103,54 @@
     ;; would be highlighted.
     ))
 
-;; define the mode
-(define-derived-mode ponylang-mode fundamental-mode
-  "Pony mode"
-  "Major mode for editing Pony"
+;; Indentation
+(defun ponylang-indent-line ()
+  "Indent current line as pony code"
+  (interactive)
+  (beginning-of-line)
+  (if (bobp)
+      (indent-line-to 0)
+    
+    (let ((not-indented t) cur-indent)
+    
+      (if (looking-at "^[ \t]*end")
+	  (progn 
+	    (save-excursion
+	      (forward-line -1)
+	      (setq cur-indent (- (current-indentation) tab-width))
 
-  ;; code for syntax highlighting
-  (setq font-lock-defaults '((ponylang-font-lock-keywords)))
+	      (if (< cur-indent 0)
+		  (setq cur-indent 0))))
 
-  ;; clear memory
-  (setq ponylang-keywords-regexp nil)
-  (setq ponylang-types-regexp nil)
-  (setq ponylang-constants-regexp nil)
-  ;(setq ponylang-events-regexp nil)
-  ;(setq ponylang-functions-regexp nil)
-  )
+	(save-excursion 
+	  (while not-indented
+	    (forward-line -1)
+	    (if (looking-at "^[ \t]*end")
+		(progn
+		  (setq cur-indent (current-indentation))
+		  (setq not-indented nil))
+
+	      ;; TODO: Construct the proper regexp from
+	      ;; ponylang-keywords for this. Or maybe not...perhaps
+	      ;; that's boneheaded.
+	      (if (looking-at "^[ \t]*\\(repeat\\|until\\|while\\|let\\|for\\|be\\|new\\|use\\|var\\|try\\|else\\|end\\|if\\|ref\\|then\\|fun\\|tag\\)")
+		(progn
+		  (setq cur-indent (+ (current-indentation) tab-width))
+		  (setq not-indented nil))
+		(if (bobp)
+		    (setq not-indented nil)))))))
+
+      (if cur-indent
+	  (indent-line-to cur-indent)
+	(indent-line-to 0)))))
+
+;; TODO: Multi-line strings
+
+; This can replace (defun wpdl-mode ()...
+(define-derived-mode ponylang-mode fundamental-mode "ponylang-mode"
+  "Major mode for editing Pony files."
+  (set (make-local-variable 'font-lock-defaults) '(ponylang-font-lock-keywords))
+  (set (make-local-variable 'indent-line-function) 'ponylang-indent-line))
 
 (provide 'ponylang-mode)
 
