@@ -174,8 +174,11 @@
 	  (indent-line-to cur-indent)
 	(indent-line-to 0)))))
 
+(defalias 'ponylang-parent-mode
+  (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
+
 ;;;###autoload
-(define-derived-mode ponylang-mode prog-mode "ponylang-mode"
+(define-derived-mode ponylang-mode ponylang-parent-mode "ponylang-mode"
   "Major mode for editing Pony files."
   :syntax-table ponylang-mode-syntax-table
   (set (make-local-variable 'font-lock-defaults) '(ponylang-font-lock-keywords))
