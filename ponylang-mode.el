@@ -59,6 +59,18 @@
 
 (defvar ponylang-mode-hook nil)
 
+(defconst ponylang-mode-syntax-table
+  (let ((table (make-syntax-table)))
+    ;; " is a string delimiter too
+    (modify-syntax-entry ?\" "\"" table)
+
+    ;; / is punctuation, but // is a comment starter
+    (modify-syntax-entry ?/ ". 12" table)
+    
+    ;; \n is a comment ender
+    (modify-syntax-entry ?\n ">" table)
+    table))
+
 (defvar ponylang-mode-map
   (let ((map (make-keymap)))
     (define-key map "\C-j" 'newline-and-indent)
@@ -153,6 +165,7 @@
 ; This can replace (defun wpdl-mode ()...
 (define-derived-mode ponylang-mode fundamental-mode "ponylang-mode"
   "Major mode for editing Pony files."
+  :syntax-table ponylang-mode-syntax-table
   (set (make-local-variable 'font-lock-defaults) '(ponylang-font-lock-keywords))
   (set (make-local-variable 'indent-line-function) 'ponylang-indent-line))
 
