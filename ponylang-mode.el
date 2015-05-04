@@ -69,15 +69,19 @@
 (add-to-list 'auto-mode-alist '("\\.pony\\'" . ponylang-mode))
 
 ;; define several class of keywords
-(setq ponylang-keywords '("repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "ref" "then" "fun" "tag"))
-(setq ponylang-types '("actor" "U32" "U64" "Env" "Range" "F32" "Array" "File" "Options"))
+(setq ponylang-primitives '("I8" "I16" "I32" "I64" "I128" "Bool" "U8" "U16" "U32" "U64" "U128" "F32" "F64"))
+(setq ponylang-types '("Env" "Range"  "Array" "File" "Options"))
+(setq ponylang-keywords '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "ref" "then" "fun" "tag"))
 (setq ponylang-constants '("false" "true" "None"))
 ;(setq ponylang-events '("at_rot_target" "at_target" "attach"))
-;(setq ponylang-functions '("llAbs" "llAcos" "llAddToLandBanList" "llAddToLandPassList"))
+;(setq ponylang-functions '("llAbs" e"llAcos" "llAddToLandBanList" "llAddToLandPassList"))
 
 ;; create the regex string for each class of keywords
 (setq ponylang-keywords-regexp (regexp-opt ponylang-keywords 'words))
-(setq ponylang-type-regexp (regexp-opt ponylang-types 'words))
+(setq ponylang-type-regexp (regexp-opt
+			    (append ponylang-types
+				    ponylang-primitives)
+			    'words))
 (setq ponylang-constant-regexp (regexp-opt ponylang-constants 'words))
 ;(setq ponylang-event-regexp (regexp-opt ponylang-events 'words))
 ;(setq ponylang-functions-regexp (regexp-opt ponylang-functions 'words))
