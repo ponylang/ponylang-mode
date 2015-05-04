@@ -1,4 +1,4 @@
-;;; ponylang-mode --- Language mode for Pony
+;;; ponylang-mode.el --- Language mode for Pony
 ;;
 ;; Author: Austin Bingham <austin.bingham@gmail.com>
 ;; Version: 1
@@ -81,43 +81,57 @@
 (add-to-list 'auto-mode-alist '("\\.pony\\'" . ponylang-mode))
 
 ;; define several class of keywords
-(setq ponylang-primitives '("I8" "I16" "I32" "I64" "I128" "Bool" "U8" "U16" "U32" "U64" "U128" "F32" "F64"))
-(setq ponylang-types '("Env" "Range"  "Array" "File" "Options"))
-(setq ponylang-keywords '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "ref" "then" "fun" "tag"))
-(setq ponylang-constants '("false" "true" "None"))
+(defconst ponylang-primitives
+  '("I8" "I16" "I32" "I64" "I128" "Bool" "U8" "U16" "U32" "U64" "U128" "F32" "F64")
+  "Names of primitive types.")
+
+(defconst ponylang-types
+  '("Env" "Range"  "Array" "File" "Options")
+  "Standard non-primitive types.")
+
+(defconst ponylang-keywords
+  '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "ref" "then" "fun" "tag")
+  "Pony language keywords.")
+
+(defconst ponylang-constants
+  '("false" "true" "None")
+  "Common constants.")
+
 ;(setq ponylang-events '("at_rot_target" "at_target" "attach"))
 ;(setq ponylang-functions '("llAbs" e"llAcos" "llAddToLandBanList" "llAddToLandPassList"))
 
 ;; create the regex string for each class of keywords
-(setq ponylang-keywords-regexp (regexp-opt ponylang-keywords 'words))
-(setq ponylang-type-regexp (regexp-opt
-			    (append ponylang-types
-				    ponylang-primitives)
-			    'words))
-(setq ponylang-constant-regexp (regexp-opt ponylang-constants 'words))
+(defconst ponylang-keywords-regexp
+  (regexp-opt ponylang-keywords 'words)
+  "Regular expression for matching keywords.")
+
+(defconst ponylang-type-regexp
+  (regexp-opt
+   (append ponylang-types
+	   ponylang-primitives)
+   'words)
+  "Regular expression for matching various types.")
+
+(defconst ponylang-constant-regexp
+  (regexp-opt ponylang-constants 'words)
+  "Regular expression for matching common constants.")
+
 ;(setq ponylang-event-regexp (regexp-opt ponylang-events 'words))
 ;(setq ponylang-functions-regexp (regexp-opt ponylang-functions 'words))
 
-;; clear memory
-(setq ponylang-keywords nil)
-(setq ponylang-types nil)
-(setq ponylang-constants nil)
-;(setq ponylang-events nil)
-;(setq ponylang-functions nil)
-
-;; create the list for font-lock.
-;; each class of keyword is given a particular face
-(setq ponylang-font-lock-keywords
+(defconst ponylang-font-lock-keywords
   `(
+    ("actor\\s+\\(.*\\)" 1 'font-lock-func-face)
     (,ponylang-type-regexp . font-lock-type-face)
     (,ponylang-constant-regexp . font-lock-constant-face)
-    ;(,ponylang-event-regexp . font-lock-builtin-face)
-    ;(,ponylang-functions-regexp . font-lock-function-name-face)
+					;(,ponylang-event-regexp . font-lock-builtin-face)
+					;(,ponylang-functions-regexp . font-lock-function-name-face)
     (,ponylang-keywords-regexp . font-lock-keyword-face)
     ;; note: order above matters. “ponylang-keywords-regexp” goes last because
     ;; otherwise the keyword “state” in the function “state_entry”
     ;; would be highlighted.
-    ))
+    )
+  "An alist mapping regexes to font-lock faces.")
 
 ;; Indentation
 (defun ponylang-indent-line ()
@@ -160,10 +174,8 @@
 	  (indent-line-to cur-indent)
 	(indent-line-to 0)))))
 
-;; TODO: Multi-line strings
-
-; This can replace (defun wpdl-mode ()...
-(define-derived-mode ponylang-mode fundamental-mode "ponylang-mode"
+;;;###autoload
+(define-derived-mode ponylang-mode prog-mode "ponylang-mode"
   "Major mode for editing Pony files."
   :syntax-table ponylang-mode-syntax-table
   (set (make-local-variable 'font-lock-defaults) '(ponylang-font-lock-keywords))
