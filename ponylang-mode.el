@@ -86,7 +86,7 @@
   "Names of primitive types.")
 
 (defconst ponylang-types
-  '("Env" "Range"  "Array" "File" "Options")
+  '("Env" "Range"  "Array" "File" "Options" "Number" "Signed" "Unsigned" "Float")
   "Standard non-primitive types.")
 
 (defconst ponylang-capabilities
@@ -94,7 +94,7 @@
   "Pony capability markers.")
 
 (defconst ponylang-keywords
-  '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "then" "fun")
+  '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "then" "fun" "primitive" "interface" "type" "is")
   "Pony language keywords.")
 
 (defconst ponylang-constants
