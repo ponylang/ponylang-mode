@@ -82,19 +82,42 @@
 
 ;; define several class of keywords
 (defconst ponylang-primitives
-  '("I8" "I16" "I32" "I64" "I128" "Bool" "U8" "U16" "U32" "U64" "U128" "F32" "F64")
+  '("I8" "I16" "I32" "I64" "I128"
+    "Bool"
+    "U8" "U16" "U32" "U64" "U128"
+    "F32" "F64")
   "Names of primitive types.")
 
 (defconst ponylang-types
-  '("Env" "Range"  "Array" "File" "Options" "Number" "Signed" "Unsigned" "Float")
-  "Standard non-primitive types.")
+  '("Array"
+    "Env"
+    "File"
+    "Float"
+    "Range"
+    "Number"
+    "Options"
+    "Signed"
+    "Unsigned")
+  "Standard non-primitive types (and aliases).")
 
 (defconst ponylang-capabilities
-  '("iso" "val" "ref" "box" "trn" "tag")
+  '("box" "iso" "ref" "tag" "trn" "val")
   "Pony capability markers.")
 
 (defconst ponylang-keywords
-  '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "then" "fun" "primitive" "interface" "type" "is")
+  '("actor"
+    "be"
+    "else" "end"
+    "for" "fun"
+    "interface" "if" "is"
+    "let"
+    "new"
+    "primitive"
+    "repeat"
+    "then" "try" "type"
+    "until" "use"
+    "var"
+    "while")
   "Pony language keywords.")
 
 (defconst ponylang-constants
