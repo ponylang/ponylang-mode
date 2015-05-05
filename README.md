@@ -11,3 +11,48 @@ writing an editing mode, so it probably has all sorts of issues. Let
 me know, provide patches, etc...I'm very happy to accept
 contributions and feedback!
 
+## Installation
+
+You can install `ponylang-mode` via melpa. The fundamental way is with
+`package-install`:
+
+```
+M-x package-install ponylang-mode
+```
+
+Then just make sure you `(require ponylang-mode)` at some point in
+your initialization.
+
+## Configuration
+
+Right now `ponylang-mode` doesn't take a lot of configuration
+(i.e. it's too simple to need any). If you want to make sure your
+indentation matches that in the `ponyc` project's examples, you can
+use something like this:
+
+```
+(add-hook
+  'ponylang-mode-hook
+  (lambda ()
+    (set-variable 'indent-tabs-mode nil)
+    (set-variable 'tab-width 2)))
+```
+
+### Using `use-package`
+
+If you're using the excellent
+[`use-package`](https://github.com/jwiegley/use-package) to manage
+your configuration, you can use something like the following to
+install and configure `ponylang-mode`:
+
+```
+(use-package ponylang-mode
+  :ensure t
+  :config
+  (progn
+    (add-hook
+     'ponylang-mode-hook
+     (lambda ()
+       (set-variable 'indent-tabs-mode nil)
+       (set-variable 'tab-width 2)))))
+```
