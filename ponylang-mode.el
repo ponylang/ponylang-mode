@@ -89,8 +89,12 @@
   '("Env" "Range"  "Array" "File" "Options")
   "Standard non-primitive types.")
 
+(defconst ponylang-capabilities
+  '("iso" "val" "ref" "box" "trn" "tag")
+  "Pony capability markers.")
+
 (defconst ponylang-keywords
-  '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "ref" "then" "fun" "tag")
+  '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "then" "fun")
   "Pony language keywords.")
 
 (defconst ponylang-constants
@@ -102,7 +106,10 @@
 
 ;; create the regex string for each class of keywords
 (defconst ponylang-keywords-regexp
-  (regexp-opt ponylang-keywords 'words)
+  (regexp-opt
+   (append ponylang-keywords
+	   ponylang-capabilities)
+   'words)
   "Regular expression for matching keywords.")
 
 (defconst ponylang-type-regexp
