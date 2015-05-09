@@ -66,7 +66,7 @@
 
     ;; / is punctuation, but // is a comment starter
     (modify-syntax-entry ?/ ". 12" table)
-    
+
     ;; \n is a comment ender
     (modify-syntax-entry ?\n ">" table)
     table))
@@ -106,18 +106,22 @@
 
 (defconst ponylang-keywords
   '("actor"
-    "be"
-    "else" "end"
+    "be" "break"
+    "class" "compiler_intrinsic" "consume" "continue"
+    "do"
+    "else" "elseif" "end" "error"
     "for" "fun"
-    "interface" "if" "is"
+    "if" "in" "interface" "is"
     "let"
+    "match"
     "new"
+    "object"
     "primitive"
-    "repeat"
-    "then" "try" "type"
+    "recover" "repeat" "return"
+    "then" "this" "trait" "try" "type"
     "until" "use"
     "var"
-    "while")
+    "where" "while" "with")
   "Pony language keywords.")
 
 (defconst ponylang-constants
@@ -170,11 +174,11 @@
   (beginning-of-line)
   (if (bobp)
       (indent-line-to 0)
-    
+
     (let ((not-indented t) cur-indent)
-    
+
       (if (looking-at "^[ \t]*end")
-	  (progn 
+	  (progn
 	    (save-excursion
 	      (forward-line -1)
 	      (setq cur-indent (- (current-indentation) tab-width))
@@ -182,7 +186,7 @@
 	      (if (< cur-indent 0)
 		  (setq cur-indent 0))))
 
-	(save-excursion 
+	(save-excursion
 	  (while not-indented
 	    (forward-line -1)
 	    (if (looking-at "^[ \t]*end")
