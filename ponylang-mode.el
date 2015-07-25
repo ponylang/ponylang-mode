@@ -156,45 +156,59 @@
   "An alist mapping regexes to font-lock faces.")
 
 ;; Indentation
-(defun ponylang-indent-line ()
-  "Indent current line as pony code"
-  (interactive)
+(defun ponylang-syntactic-indent-line ()
+  "Indent current line as pony code based on language syntax and
+the current context."
   (beginning-of-line)
-  (if (bobp)
-      (indent-line-to 0)
-    
-    (let ((not-indented t) cur-indent)
-    
-      (if (looking-at "^[ \t]*end")
-	  (progn 
-	    (save-excursion
-	      (forward-line -1)
-	      (setq cur-indent (- (current-indentation) tab-width))
+  (cond
+   ((bobp)
+    (indent-line-to 0))
+   
+   ((looking-at "^[ \t]*end")
+    (progn 
+      (save-excursion
+	(forward-line -1)
+	(setq cur-indent (- (current-indentation) tab-width))
+	
+	(if (< cur-indent 0)
+	    (setq cur-indent 0)))))
 
-	      (if (< cur-indent 0)
-		  (setq cur-indent 0))))
+   (t
+    (save-excursion
+      (let ((not-indented t))
+	(while not-indented
+	  (forward-line -1)
+	  (cond
+	   ((-any? (lambda (k) (looking-at (concat  "^[ \t]*" k))) ponylang-indent-start-keywords)
+	    (progn
+	      (setq cur-indent (+ (current-indentation) tab-width))
+	      (setq not-indented nil)))
 
-	(save-excursion 
-	  (while not-indented
-	    (forward-line -1)
-	    (if (looking-at "^[ \t]*end")
-		(progn
-		  (setq cur-indent (current-indentation))
-		  (setq not-indented nil))
+	   ((not (looking-at "^[ \t]*$"))
+	    (progn
+	      (setq cur-indent (current-indentation))
+	      (setq not-indented nil)))
 
-	      ;; TODO: Construct the proper regexp from
-	      ;; ponylang-keywords for this. Or maybe not...perhaps
-	      ;; that's boneheaded.
-	      (if (looking-at "^[ \t]*\\(repeat\\|until\\|while\\|let\\|for\\|be\\|new\\|use\\|var\\|try\\|else\\|end\\|if\\|ref\\|then\\|fun\\|tag\\)")
-		(progn
-		  (setq cur-indent (+ (current-indentation) tab-width))
-		  (setq not-indented nil))
-		(if (bobp)
-		    (setq not-indented nil)))))))
+	   ((bobp)
+	    (progn
+	      (setq cur-indent 0)
+	      (setq not-indented nil)))))))))
+  
+  (indent-line-to cur-indent))
 
-      (if cur-indent
-	  (indent-line-to cur-indent)
-	(indent-line-to 0)))))
+;; TODO: Cycle forward/right after reaching 0
+(defun ponylang-cycle-indentation ()
+  (unless (eq (current-indentation) 0)
+    (indent-line-to (max 0 (- (current-indentation) tab-width)))))
+
+(defun ponylang-indent-line ()
+  "Indent the current line based either on syntax or repeated use
+  of the TAB key."
+  (interactive)
+  (let ((first-indent (eq nil (memq this-command ponylang-indent-trigger-commands))))
+    (if first-indent
+	(ponylang-syntactic-indent-line)
+      (ponylang-cycle-indentation))))
 
 (defalias 'ponylang-parent-mode
   (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
