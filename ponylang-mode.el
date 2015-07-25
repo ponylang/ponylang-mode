@@ -4,7 +4,7 @@
 ;; Version: 1
 ;; URL: https://github.com/abingham/ponylang-mode.el
 ;; Keywords: programming
-;; Package-Requires: ()
+;; Package-Requires: ((dash "2.10.0"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -57,7 +57,18 @@
 
 ;;; Code:
 
+(require 'dash)
+
 (defvar ponylang-mode-hook nil)
+
+;; TODO: I don't like having to mention yas-* here, but that's how
+;; e.g. python does it. It seems like there should be more general way
+;; to detect "repeated tab presses".
+(defcustom ponylang-indent-trigger-commands
+  '(indent-for-tab-command yas-expand yas/expand)
+  "Commands that might trigger a `ponylang-indent-line' call."
+  :type '(repeat symbol)
+  :group 'ponylang)
 
 (defconst ponylang-mode-syntax-table
   (let ((table (make-syntax-table)))
