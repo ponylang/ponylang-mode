@@ -108,6 +108,10 @@
   '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "then" "fun")
   "Pony language keywords.")
 
+(defconst ponylang-indent-start-keywords
+  '("repeat" "until" "while" "for" "be" "new" "try" "else" "if" "ref" "then" "fun" "tag" "recover" "actor")
+  "Pony keywords which indicate a new indentation level.")
+
 (defconst ponylang-constants
   '("false" "true" "None")
   "Common constants.")
