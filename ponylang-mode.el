@@ -116,9 +116,6 @@
   '("false" "true" "None")
   "Common constants.")
 
-;(setq ponylang-events '("at_rot_target" "at_target" "attach"))
-;(setq ponylang-functions '("llAbs" e"llAcos" "llAddToLandBanList" "llAddToLandPassList"))
-
 ;; create the regex string for each class of keywords
 (defconst ponylang-keywords-regexp
   (regexp-opt
