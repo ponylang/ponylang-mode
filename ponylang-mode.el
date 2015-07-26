@@ -205,10 +205,10 @@ the current context."
   "Indent the current line based either on syntax or repeated use
   of the TAB key."
   (interactive)
-  (let ((first-indent (eq nil (memq this-command ponylang-indent-trigger-commands))))
-    (if first-indent
-	(ponylang-syntactic-indent-line)
-      (ponylang-cycle-indentation))))
+  (let ((repeated-indent (memq last-command ponylang-indent-trigger-commands)))
+    (if repeated-indent
+	(ponylang-cycle-indentation)
+      (ponylang-syntactic-indent-line))))
 
 (defalias 'ponylang-parent-mode
   (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
