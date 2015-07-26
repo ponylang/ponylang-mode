@@ -88,6 +88,8 @@
     map)
   "Keymap for Pony major mode")
 
+(defvar ponylang--indent-cycle-direction 'left)
+
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.pony\\'" . ponylang-mode))
 
@@ -198,10 +200,13 @@ the current context."
   
   (indent-line-to cur-indent))
 
-;; TODO: Cycle forward/right after reaching 0
 (defun ponylang-cycle-indentation ()
-  (unless (eq (current-indentation) 0)
-    (indent-line-to (max 0 (- (current-indentation) tab-width)))))
+  (if (eq (current-indentation) 0)
+      (setq ponylang--indent-cycle-direction 'right))
+
+  (if (eq ponylang--indent-cycle-direction 'left)
+      (indent-line-to (max 0 (- (current-indentation) tab-width)))
+    (indent-line-to (+ (current-indentation) tab-width))))
 
 (defun ponylang-indent-line ()
   "Indent the current line based either on syntax or repeated use
@@ -210,7 +215,9 @@ the current context."
   (let ((repeated-indent (memq last-command ponylang-indent-trigger-commands)))
     (if repeated-indent
 	(ponylang-cycle-indentation)
-      (ponylang-syntactic-indent-line))))
+      (progn
+	(setq ponylang--indent-cycle-direction 'left)
+	(ponylang-syntactic-indent-line)))))
 
 (defalias 'ponylang-parent-mode
   (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
