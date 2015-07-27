@@ -156,6 +156,11 @@
   "An alist mapping regexes to font-lock faces.")
 
 ;; Indentation
+(defun ponylang--looking-at-indent-start ()
+  "Determines if the current position is 'looking at' a keyword
+  that starts new indentation."
+  (-any? (lambda (k) (looking-at (concat  "^[ \t]*" k))) ponylang-indent-start-keywords))
+
 (defun ponylang-syntactic-indent-line ()
   "Indent current line as pony code based on language syntax and
 the current context."
@@ -179,7 +184,7 @@ the current context."
 	(while not-indented
 	  (forward-line -1)
 	  (cond
-	   ((-any? (lambda (k) (looking-at (concat  "^[ \t]*" k))) ponylang-indent-start-keywords)
+	   ((ponylang--looking-at-indent-start)
 	    (progn
 	      (setq cur-indent (+ (current-indentation) tab-width))
 	      (setq not-indented nil)))
