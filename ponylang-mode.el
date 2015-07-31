@@ -179,24 +179,29 @@ the current context."
 
    (t
     (save-excursion
-      (let ((not-indented t))
-	(while not-indented
+      (let ((keep-looking t))
+	(while keep-looking
+	  (setq keep-looking nil)
 	  (forward-line -1)
 	  (cond
+	   ;; if the previous line ends in =, indent one level
+	   ((looking-at ".*=[ \t]*")
+	    (setq cur-indent (+ (current-indentation) tab-width)))
+
 	   ((ponylang--looking-at-indent-start)
 	    (progn
 	      (setq cur-indent (+ (current-indentation) tab-width))
 	      (setq not-indented nil)))
 
+	   ;; if the previous line is all empty space, keep the current indentation
 	   ((not (looking-at "^[ \t]*$"))
-	    (progn
-	      (setq cur-indent (current-indentation))
-	      (setq not-indented nil)))
+	    (setq cur-indent (current-indentation)))
 
+	   ;; if it's the beginning of the buffer, indent to zero
 	   ((bobp)
-	    (progn
-	      (setq cur-indent 0)
-	      (setq not-indented nil)))))))))
+	    (setq cur-indent 0))
+
+	   (t (setq keep-looking t))))))))
   
   (indent-line-to cur-indent))
 
