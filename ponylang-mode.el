@@ -107,11 +107,11 @@
   "Pony capability markers.")
 
 (defconst ponylang-keywords
-  '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "then" "fun" "class")
+  '("actor" "repeat" "until" "while" "let" "for" "be" "new" "use" "var" "try" "else" "end" "if" "then" "fun" "class" "recover")
   "Pony language keywords.")
 
 (defconst ponylang-indent-start-keywords
-  '("class" "repeat" "until" "while" "for" "be" "new" "try" "else" "if" "ref" "then" "fun" "tag" "recover" "actor")
+  '("class" "repeat" "until" "while" "for" "be" "new" "try" "else" "if" "ref" "then" "fun" "tag" "recover" "actor" "recover")
   "Pony keywords which indicate a new indentation level.")
 
 (defconst ponylang-constants
