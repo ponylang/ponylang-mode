@@ -4,7 +4,7 @@
 ;; Version: 1
 ;; URL: https://github.com/abingham/ponylang-mode.el
 ;; Keywords: programming
-;; Package-Requires: ()
+;; Package-Requires: ((dash "2.10.0"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -57,7 +57,18 @@
 
 ;;; Code:
 
+(require 'dash)
+
 (defvar ponylang-mode-hook nil)
+
+;; TODO: I don't like having to mention yas-* here, but that's how
+;; e.g. python does it. It seems like there should be more general way
+;; to detect "repeated tab presses".
+(defcustom ponylang-indent-trigger-commands
+  '(indent-for-tab-command yas-expand yas/expand)
+  "Commands that might trigger a `ponylang-indent-line' call."
+  :type '(repeat symbol)
+  :group 'ponylang)
 
 (defconst ponylang-mode-syntax-table
   (let ((table (make-syntax-table)))
@@ -76,6 +87,8 @@
     (define-key map "\C-j" 'newline-and-indent)
     map)
   "Keymap for Pony major mode")
+
+(defvar ponylang--indent-cycle-direction 'left)
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.pony\\'" . ponylang-mode))
@@ -124,12 +137,13 @@
     "where" "while" "with")
   "Pony language keywords.")
 
+(defconst ponylang-indent-start-keywords
+  '("class" "repeat" "until" "while" "for" "be" "new" "try" "else" "if" "ref" "then" "fun" "tag" "recover" "actor" "recover")
+  "Pony keywords which indicate a new indentation level.")
+
 (defconst ponylang-constants
   '("false" "true" "None")
   "Common constants.")
-
-;(setq ponylang-events '("at_rot_target" "at_target" "attach"))
-;(setq ponylang-functions '("llAbs" e"llAcos" "llAddToLandBanList" "llAddToLandPassList"))
 
 ;; create the regex string for each class of keywords
 (defconst ponylang-keywords-regexp
@@ -168,9 +182,69 @@
   "An alist mapping regexes to font-lock faces.")
 
 ;; Indentation
+(defun ponylang--looking-at-indent-start ()
+  "Determines if the current position is 'looking at' a keyword
+  that starts new indentation."
+  (-any? (lambda (k) (looking-at (concat  "^[ \t]*" k))) ponylang-indent-start-keywords))
+
+(defun ponylang-syntactic-indent-line ()
+  "Indent current line as pony code based on language syntax and
+the current context."
+  (beginning-of-line)
+  (cond
+   ((bobp)
+    (indent-line-to 0))
+   
+   ((looking-at "^[ \t]*end")
+    (progn 
+      (save-excursion
+	(forward-line -1)
+	(setq cur-indent (- (current-indentation) tab-width))
+	
+	(if (< cur-indent 0)
+	    (setq cur-indent 0)))))
+
+   (t
+    (save-excursion
+      (let ((keep-looking t))
+	(while keep-looking
+	  (setq keep-looking nil)
+	  (forward-line -1)
+	  (cond
+	   ;; if the previous line ends in =, indent one level
+	   ((looking-at ".*=[ \t]*")
+	    (setq cur-indent (+ (current-indentation) tab-width)))
+
+	   ((ponylang--looking-at-indent-start)
+	    (progn
+	      (setq cur-indent (+ (current-indentation) tab-width))
+	      (setq not-indented nil)))
+
+	   ;; if the previous line is all empty space, keep the current indentation
+	   ((not (looking-at "^[ \t]*$"))
+	    (setq cur-indent (current-indentation)))
+
+	   ;; if it's the beginning of the buffer, indent to zero
+	   ((bobp)
+	    (setq cur-indent 0))
+
+	   (t (setq keep-looking t))))))))
+  
+  (indent-line-to cur-indent))
+
+(defun ponylang-cycle-indentation ()
+  (if (eq (current-indentation) 0)
+      (setq ponylang--indent-cycle-direction 'right))
+
+  (if (eq ponylang--indent-cycle-direction 'left)
+      (indent-line-to (max 0 (- (current-indentation) tab-width)))
+    (indent-line-to (+ (current-indentation) tab-width))))
+
 (defun ponylang-indent-line ()
-  "Indent current line as pony code"
+  "Indent the current line based either on syntax or repeated use
+  of the TAB key."
   (interactive)
+<<<<<<< HEAD
   (beginning-of-line)
   (if (bobp)
       (indent-line-to 0)
@@ -207,6 +281,14 @@
       (if cur-indent
 	  (indent-line-to cur-indent)
 	(indent-line-to 0)))))
+=======
+  (let ((repeated-indent (memq last-command ponylang-indent-trigger-commands)))
+    (if repeated-indent
+	(ponylang-cycle-indentation)
+      (progn
+	(setq ponylang--indent-cycle-direction 'left)
+	(ponylang-syntactic-indent-line)))))
+>>>>>>> indentation
 
 (defalias 'ponylang-parent-mode
   (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
