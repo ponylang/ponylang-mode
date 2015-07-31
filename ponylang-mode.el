@@ -138,7 +138,17 @@
   "Pony language keywords.")
 
 (defconst ponylang-indent-start-keywords
-  '("class" "repeat" "until" "while" "for" "be" "new" "try" "else" "if" "ref" "then" "fun" "tag" "recover" "actor" "recover")
+  '("actor"
+    "be"
+    "class"
+    "else"
+    "for" "fun"
+    "if"
+    "new"
+    "recover" "ref" "repeat"
+    "tag" "then" "try"
+    "until"
+    "while")
   "Pony keywords which indicate a new indentation level.")
 
 (defconst ponylang-constants
