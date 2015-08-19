@@ -204,13 +204,13 @@ the current context."
   (cond
    ((bobp)
     (indent-line-to 0))
-   
+
    ((looking-at "^[ \t]*end")
-    (progn 
+    (progn
       (save-excursion
 	(forward-line -1)
 	(setq cur-indent (- (current-indentation) tab-width))
-	
+
 	(if (< cur-indent 0)
 	    (setq cur-indent 0)))))
 
@@ -239,7 +239,7 @@ the current context."
 	    (setq cur-indent 0))
 
 	   (t (setq keep-looking t))))))))
-  
+
   (indent-line-to cur-indent))
 
 (defun ponylang-cycle-indentation ()
@@ -254,7 +254,6 @@ the current context."
   "Indent the current line based either on syntax or repeated use
   of the TAB key."
   (interactive)
-<<<<<<< HEAD
   (beginning-of-line)
   (if (bobp)
       (indent-line-to 0)
@@ -291,14 +290,6 @@ the current context."
       (if cur-indent
 	  (indent-line-to cur-indent)
 	(indent-line-to 0)))))
-=======
-  (let ((repeated-indent (memq last-command ponylang-indent-trigger-commands)))
-    (if repeated-indent
-	(ponylang-cycle-indentation)
-      (progn
-	(setq ponylang--indent-cycle-direction 'left)
-	(ponylang-syntactic-indent-line)))))
->>>>>>> indentation
 
 (defalias 'ponylang-parent-mode
   (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
