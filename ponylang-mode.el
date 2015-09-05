@@ -254,42 +254,12 @@ the current context."
   "Indent the current line based either on syntax or repeated use
   of the TAB key."
   (interactive)
-  (beginning-of-line)
-  (if (bobp)
-      (indent-line-to 0)
-
-    (let ((not-indented t) cur-indent)
-
-      (if (looking-at "^[ \t]*end")
-	  (progn
-	    (save-excursion
-	      (forward-line -1)
-	      (setq cur-indent (- (current-indentation) tab-width))
-
-	      (if (< cur-indent 0)
-		  (setq cur-indent 0))))
-
-	(save-excursion
-	  (while not-indented
-	    (forward-line -1)
-	    (if (looking-at "^[ \t]*end")
-		(progn
-		  (setq cur-indent (current-indentation))
-		  (setq not-indented nil))
-
-	      ;; TODO: Construct the proper regexp from
-	      ;; ponylang-keywords for this. Or maybe not...perhaps
-	      ;; that's boneheaded.
-	      (if (looking-at "^[ \t]*\\(repeat\\|until\\|while\\|let\\|for\\|be\\|new\\|use\\|var\\|try\\|else\\|end\\|if\\|ref\\|then\\|fun\\|tag\\)")
-		(progn
-		  (setq cur-indent (+ (current-indentation) tab-width))
-		  (setq not-indented nil))
-		(if (bobp)
-		    (setq not-indented nil)))))))
-
-      (if cur-indent
-	  (indent-line-to cur-indent)
-	(indent-line-to 0)))))
+  (let ((repeated-indent (memq last-command ponylang-indent-trigger-commands)))
+    (if repeated-indent
+	(ponylang-cycle-indentation)
+      (progn
+	(setq ponylang--indent-cycle-direction 'left)
+	(ponylang-syntactic-indent-line)))))
 
 (defalias 'ponylang-parent-mode
   (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
