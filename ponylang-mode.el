@@ -78,6 +78,9 @@
     ;; / is punctuation, but // is a comment starter
     (modify-syntax-entry ?/ ". 12" table)
 
+    ;; Don't treat underscores as whitespace
+    (modify-syntax-entry ?_ "w" table)
+    
     ;; \n is a comment ender
     (modify-syntax-entry ?\n ">" table)
     table))
