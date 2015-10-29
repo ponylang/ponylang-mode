@@ -226,7 +226,7 @@ the current context."
 	    (forward-line -1)
 	    (cond
 	     ;; if the previous line ends in =, indent one level
-	     ((looking-at ".*=[ \t]*")
+	     ((looking-at ".*=[ \t]*$")
 	      (setq cur-indent (+ (current-indentation) tab-width)))
 
 	     ((ponylang--looking-at-indent-start)
