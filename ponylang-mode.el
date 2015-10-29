@@ -204,7 +204,7 @@
   "Indent current line as pony code based on language syntax and
 the current context."
   (beginning-of-line)
-  (let (cur-indent)
+  (let ((cur-indent (current-indentation)))
     (cond
      ((bobp)
       (indent-line-to 0))
