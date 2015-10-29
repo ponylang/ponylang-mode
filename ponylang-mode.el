@@ -204,46 +204,45 @@
   "Indent current line as pony code based on language syntax and
 the current context."
   (beginning-of-line)
-  (cond
-   ((bobp)
-    (indent-line-to 0))
+  (let (cur-indent)
+    (cond
+     ((bobp)
+      (indent-line-to 0))
 
-   ((looking-at "^[ \t]*end")
-    (progn
-      (save-excursion
-	(forward-line -1)
-	(setq cur-indent (- (current-indentation) tab-width))
-
-	(if (< cur-indent 0)
-	    (setq cur-indent 0)))))
-
-   (t
-    (save-excursion
-      (let ((keep-looking t))
-	(while keep-looking
-	  (setq keep-looking nil)
+     ((looking-at "^[ \t]*end")
+      (progn
+	(save-excursion
 	  (forward-line -1)
-	  (cond
-	   ;; if the previous line ends in =, indent one level
-	   ((looking-at ".*=[ \t]*")
-	    (setq cur-indent (+ (current-indentation) tab-width)))
+	  (setq cur-indent (- (current-indentation) tab-width))
 
-	   ((ponylang--looking-at-indent-start)
-	    (progn
-	      (setq cur-indent (+ (current-indentation) tab-width))
-	      (setq not-indented nil)))
+	  (if (< cur-indent 0)
+	      (setq cur-indent 0)))))
 
-	   ;; if the previous line is all empty space, keep the current indentation
-	   ((not (looking-at "^[ \t]*$"))
-	    (setq cur-indent (current-indentation)))
+     (t
+      (save-excursion
+	(let ((keep-looking t))
+	  (while keep-looking
+	    (setq keep-looking nil)
+	    (forward-line -1)
+	    (cond
+	     ;; if the previous line ends in =, indent one level
+	     ((looking-at ".*=[ \t]*")
+	      (setq cur-indent (+ (current-indentation) tab-width)))
 
-	   ;; if it's the beginning of the buffer, indent to zero
-	   ((bobp)
-	    (setq cur-indent 0))
+	     ((ponylang--looking-at-indent-start)
+	      (setq cur-indent (+ (current-indentation) tab-width)))
 
-	   (t (setq keep-looking t))))))))
+	     ;; if the previous line is all empty space, keep the current indentation
+	     ((not (looking-at "^[ \t]*$"))
+	      (setq cur-indent (current-indentation)))
 
-  (indent-line-to cur-indent))
+	     ;; if it's the beginning of the buffer, indent to zero
+	     ((bobp)
+	      (setq cur-indent 0))
+
+	     (t (setq keep-looking t))))))))
+
+    (indent-line-to cur-indent)))
 
 (defun ponylang-cycle-indentation ()
   (if (eq (current-indentation) 0)
