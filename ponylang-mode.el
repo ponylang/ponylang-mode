@@ -209,6 +209,9 @@ the current context."
      ((bobp)
       (indent-line-to 0))
 
+     ((looking-at "[ \t]*class[ \t]")
+      (setq cur-indent 0))
+     
      ((looking-at "^[ \t]*end")
       (progn
 	(save-excursion
