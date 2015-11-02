@@ -56,3 +56,8 @@ install and configure `ponylang-mode`:
        (set-variable 'indent-tabs-mode nil)
        (set-variable 'tab-width 2)))))
 ```
+
+## Tests
+
+`ponylang-mode` has an `ert`-based regression test suite. To run it,
+evaluate `ponylang-tests.el` and run `M-x ert RET t RET`.
