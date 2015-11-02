@@ -211,6 +211,9 @@ the current context."
 
      ((looking-at "^[[:space:]]*class\\([[:space:]].*\\)?$")
       (setq cur-indent 0))
+
+     ((looking-at "^[[:space:]]*actor\\([[:space:]].*\\)?$")
+      (setq cur-indent 0))
      
      ((looking-at "^[ \t]*end")
       (progn
