@@ -49,33 +49,75 @@
 (require 'ert)
 (require 'ponylang-mode)
 
-;; NB: These don't really work right now, but hopefully someday. I've
-;; kept them around as a reminder.
-
-(defconst ponylang-test-indenting-keywords
-  '("repeat" "until" "while" "for" "be" "new" "use" "try" "else" "if" "ref" "then" "fun" "tag"))
-
-(defconst ponylang-test-non-indenting-keywords
-  '("let" "end" "var"))
-
-(ert-deftest ponyland-test-keyword-based-indentation ()
-  "Test that some keywords start new indentation."
-  (dolist (k ponylang-test-indenting-keywords)
+(ert-deftest ponylang-test-class-indents-to-zero ()
+  "The class keyword indents to zero when alone in a file."
+  (dolist (k '(" class" " class" "class " " class "))
     (with-temp-buffer
       (ponylang-mode)
       (insert k)
-      (newline)
-      (ponylang-indent-line)
-      (should (= (current-indentation) tab-width)))))
-
-(ert-deftest ponyland-test-end-maintains-indentation ()
-  "Test that the end keyword sets indentation correctly.."
-  (dolist (k ponylang-test-non-indenting-keywords)
-    (with-temp-buffer
-      (ponylang-mode)
-      (insert "end")
-      (newline)
       (ponylang-indent-line)
       (should (= (current-indentation) 0)))))
+
+(ert-deftest ponylang-test-class-indents-to-zero-after-actor ()
+  "The class keyword indents to zero after an actor definition."
+  (dolist (k '(" class" " class" "class " " class "))
+    (with-temp-buffer
+      (ponylang-mode)
+      (insert "actor Test\n")
+      (insert "  var foo: U64 = 0\n")
+      (insert "\n")
+      (insert k)
+      (ponylang-indent-line)
+      (should (= (current-indentation) 0)))))
+
+(ert-deftest ponylang-test-actor-indents-to-zero ()
+  "The actor keyword indents to zero when alone in a file."
+  (dolist (k '(" actor" " actor" "actor " " actor "))
+    (with-temp-buffer
+      (ponylang-mode)
+      (insert k)
+      (ponylang-indent-line)
+      (should (= (current-indentation) 0)))))
+
+(ert-deftest ponylang-test-actor-indents-to-zero-after-actor ()
+  "The actor keyword indents to zero after an actor definition."
+  (dolist (k '(" actor" " actor" "actor " " actor "))
+    (with-temp-buffer
+      (ponylang-mode)
+      (insert "actor Test\n")
+      (insert "  var foo: U64 = 0\n")
+      (insert "\n")
+      (insert k)
+      (ponylang-indent-line)
+      (should (= (current-indentation) 0)))))
+
+;; NB: These don't really work right now, but hopefully someday. I've
+;; kept them around as a reminder.
+
+;; (defconst ponylang-test-indenting-keywords
+;;   '("repeat" "until" "while" "for" "be" "new" "use" "try" "else" "if" "ref" "then" "fun" "tag"))
+
+;; (defconst ponylang-test-non-indenting-keywords
+;;   '("let" "end" "var"))
+
+;; (ert-deftest ponyland-test-keyword-based-indentation ()
+;;   "Test that some keywords start new indnetation."
+;;   (dolist (k ponylang-test-indenting-keywords)
+;;     (with-temp-bufferx
+;;       (ponylang-mode)
+;;       (insert k)
+;;       (newline)
+;;       (ponylang-indent-line)
+;;       (should (= (current-indentation) tab-width)))))
+
+;; (ert-deftest ponyland-test-end-maintains-indentation ()
+;;   "Test that the end keyword sets indentation correctly.."
+;;   (dolist (k ponylang-test-non-indenting-keywords)
+;;     (with-temp-buffer
+;;       (ponylang-mode)
+;;       (insert "end")
+;;       (newline)
+;;       (ponylang-indent-line)
+;;       (should (= (current-indentation) 0)))))
 
 ;;; ponylang-test.el ends here

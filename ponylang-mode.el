@@ -207,8 +207,14 @@ the current context."
   (let ((cur-indent (current-indentation)))
     (cond
      ((bobp)
-      (indent-line-to 0))
+      (setq cur-indent 0))
 
+     ((looking-at "^[[:space:]]*class\\([[:space:]].*\\)?$")
+      (setq cur-indent 0))
+
+     ((looking-at "^[[:space:]]*actor\\([[:space:]].*\\)?$")
+      (setq cur-indent 0))
+     
      ((looking-at "^[ \t]*end")
       (progn
 	(save-excursion
