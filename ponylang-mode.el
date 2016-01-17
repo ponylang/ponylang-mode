@@ -2,6 +2,7 @@
 ;;
 ;; Author: Austin Bingham <austin.bingham@gmail.com>
 ;; Version: 1
+;; Package-Version: 20160116.945
 ;; URL: https://github.com/abingham/ponylang-mode.el
 ;; Keywords: programming
 ;; Package-Requires: ((dash "2.10.0"))
@@ -80,7 +81,7 @@
 
     ;; Don't treat underscores as whitespace
     (modify-syntax-entry ?_ "w" table)
-    
+
     ;; \n is a comment ender
     (modify-syntax-entry ?\n ">" table)
     table))
@@ -214,8 +215,8 @@ the current context."
 
      ((looking-at "^[[:space:]]*actor\\([[:space:]].*\\)?$")
       (setq cur-indent 0))
-     
-     ((looking-at "^[ \t]*end")
+
+     ((looking-at "^[ \t]*\\(end\\|else\\|elseif\\|do\\|then\\|until\\)$")
       (progn
 	(save-excursion
 	  (forward-line -1)
