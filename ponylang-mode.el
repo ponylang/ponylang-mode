@@ -216,6 +216,12 @@ the current context."
      ((looking-at "^[[:space:]]*actor\\([[:space:]].*\\)?$")
       (setq cur-indent 0))
 
+     ((looking-at "^[[:space:]]*fun\\([[:space:]].*\\)?$")
+      (setq cur-indent tab-width))
+
+     ((looking-at "^[[:space:]]*be\\([[:space:]].*\\)?$")
+      (setq cur-indent tab-width))
+
      ((looking-at "^[ \t]*\\(end\\|else\\|elseif\\|do\\|then\\|until\\)$")
       (progn
 	(save-excursion
