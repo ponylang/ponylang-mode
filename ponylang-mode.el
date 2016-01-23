@@ -1,7 +1,7 @@
 ;;; ponylang-mode.el --- Language mode for Pony
 ;;
 ;; Author: Sean T Allen <sean@monkeysnatchbanana.com>
-;; Version: 1
+;; Version: 0.0.1
 ;; URL: https://github.com/seantallen/ponylang-mode
 ;; Keywords: programming
 ;; Package-Requires: ((dash "2.10.0"))

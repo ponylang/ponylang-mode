@@ -1,14 +1,15 @@
 ;;; ponylang-test.el --- Tests for ponylang-mode
 ;;
-;; Author: Austin Bingham <austin.bingham@gmail.com>
-;; Version: 1
-;; URL: https://github.com/abingham/ponylang-mode.el
+;; Author: Sean T Allen <sean@monkeysnatchbanana.com>
+;; Version: 0.0.1
+;; URL: https://github.com/seantallen/ponylang-mode
 ;; Keywords: programming
 ;; Package-Requires: ()
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;; Copyright (c) 2015 Austin Bingham
+;; Copyright (c) 2016 Sean T. Allen
 ;;
 ;;; Commentary:
 ;;
