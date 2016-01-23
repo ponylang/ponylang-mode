@@ -6,10 +6,14 @@ performance programming language."*
 
 `ponylang-mode` is an Emacs mode for editing Pony code.
 
-Right now the mode is very new and immature. This is my first time
-writing an editing mode, so it probably has all sorts of issues. Let
-me know, provide patches, etc...I'm very happy to accept
-contributions and feedback!
+At the moment, ponylang-mode is fairly new and immature. From the
+standpoint of indentation, it should work for about 95% of use cases.
+In order to work for the rest, it is going to require a rewrite.
+If you are interested in contributing to Emacs tooling for Pony, please
+get in touch. I'm happy to accept contributions and feedback.
+
+Big thanks to Austin Bingham who did the first version of ponylang-mode.
+We wouldn't be where we are now without your initial work Austin!
 
 ## Installation
 

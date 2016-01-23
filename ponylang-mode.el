@@ -1,15 +1,15 @@
 ;;; ponylang-mode.el --- Language mode for Pony
 ;;
-;; Author: Austin Bingham <austin.bingham@gmail.com>
+;; Author: Sean T Allen <sean@monkeysnatchbanana.com>
 ;; Version: 1
-;; Package-Version: 20160116.945
-;; URL: https://github.com/abingham/ponylang-mode.el
+;; URL: https://github.com/seantallen/ponylang-mode
 ;; Keywords: programming
 ;; Package-Requires: ((dash "2.10.0"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;; Copyright (c) 2015 Austin Bingham
+;; Copyright (c) 2016 Sean T. Allen
 ;;
 ;;; Commentary:
 ;;
@@ -18,7 +18,7 @@
 ;; This is a language mode for the Pony actor language
 ;;
 ;; For more details, see the project page at
-;; https://github.com/abingham/ponylang-mode.el
+;; https://github.com/seantallen/ponylang-mode
 ;;
 ;; Installation:
 ;;
