@@ -283,6 +283,8 @@ the current context."
 (define-derived-mode ponylang-mode ponylang-parent-mode "ponylang-mode"
   "Major mode for editing Pony files."
   :syntax-table ponylang-mode-syntax-table
+  (set (make-local-variable 'comment-start) "// ")
+  (set (make-local-variable 'comment-start-skip) "//+")
   (set (make-local-variable 'font-lock-defaults) '(ponylang-font-lock-keywords))
   (set (make-local-variable 'indent-line-function) 'ponylang-indent-line))
 
