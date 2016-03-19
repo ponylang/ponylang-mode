@@ -175,6 +175,9 @@
     ;; actor, class, and type references
     ("\\(\s\\|[\[]\\|[\(]\\)\\($?_?[A-Z][A-Za-z0-9_]*\\)" 2 'font-lock-type-face)
 
+    ;; ffi
+    ("@[A-Za-z_][A-Z-a-z0-9_]+" . 'font-lock-builtin-face)
+
     ;; constants
     (,ponylang-constant-regexp . font-lock-constant-face)
 
