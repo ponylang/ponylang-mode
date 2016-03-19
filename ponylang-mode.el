@@ -73,9 +73,6 @@
 
 (defconst ponylang-mode-syntax-table
   (let ((table (make-syntax-table)))
-    ;; " is a string delimiter too
-    (modify-syntax-entry ?\" "\"" table)
-
     ;; / is punctuation, but // is a comment starter
     (modify-syntax-entry ?/ ". 12" table)
 
