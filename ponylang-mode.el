@@ -74,13 +74,17 @@
 (defconst ponylang-mode-syntax-table
   (let ((table (make-syntax-table)))
     ;; / is punctuation, but // is a comment starter
-    (modify-syntax-entry ?/ ". 12" table)
+    (modify-syntax-entry ?/ ". 124" table)
+
+    ;; /* */ comments, which can be nested
+    (modify-syntax-entry ?* ". 23bn" table)
+
+    ;; \n is a comment ender
+    (modify-syntax-entry ?\n ">" table)
 
     ;; Don't treat underscores as whitespace
     (modify-syntax-entry ?_ "w" table)
 
-    ;; \n is a comment ender
-    (modify-syntax-entry ?\n ">" table)
     table))
 
 (defvar ponylang-mode-map
