@@ -277,7 +277,7 @@ the current context."
   (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
 
 ;;;###autoload
-(define-derived-mode ponylang-mode ponylang-parent-mode "ponylang-mode"
+(define-derived-mode ponylang-mode ponylang-parent-mode "Pony"
   "Major mode for editing Pony files."
   :syntax-table ponylang-mode-syntax-table
   (set (make-local-variable 'comment-start) "// ")
