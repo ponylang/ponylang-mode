@@ -162,6 +162,11 @@
      1
      'font-lock-function-name-face)
 
+    ;; type and primitive definitions
+    ("\\(?:type\\|primitive\\)\s+\\($?[A-Z_][A-Za-z0-9_]*\\)"
+     1
+     'font-lock-function-name-face)
+
     ;; constructor, method, and behavior definitions
     ("\\(?:new\\|fun\\|be\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[a-z_][A-Za-z0-9_]*\\)"
      1
