@@ -94,26 +94,6 @@
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.pony\\'" . ponylang-mode))
 
-;; define several class of keywords
-(defconst ponylang-primitives
-  '("I8" "I16" "I32" "I64" "I128"
-    "Bool"
-    "U8" "U16" "U32" "U64" "U128"
-    "F32" "F64")
-  "Names of primitive types.")
-
-(defconst ponylang-types
-  '("Array"
-    "Env"
-    "File"
-    "Float"
-    "Range"
-    "Number"
-    "Options"
-    "Signed"
-    "Unsigned")
-  "Standard non-primitive types (and aliases).")
-
 (defconst ponylang-capabilities
   '("box" "iso" "ref" "tag" "trn" "val")
   "Pony capability markers.")
@@ -164,13 +144,6 @@
    'words)
   "Regular expression for matching keywords.")
 
-(defconst ponylang-type-regexp
-  (regexp-opt
-   (append ponylang-types
-	   ponylang-primitives)
-   'words)
-  "Regular expression for matching various types.")
-
 (defconst ponylang-constant-regexp
   (regexp-opt ponylang-constants 'words)
   "Regular expression for matching common constants.")
@@ -180,12 +153,28 @@
 
 (defconst ponylang-font-lock-keywords
   `(
-    ("actor\\s+\\(.*\\)" 1 'font-lock-func-face)
-    (,ponylang-type-regexp . font-lock-type-face)
+    ;; actor and class definitions
+    ("\\(?:actor\\|class\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[A-Z_][A-Za-z0-9_]*\\)"
+     1
+     'font-lock-function-name-face)
+
+    ;; constructor, method, and behavior definitions
+    ("\\(?:new\\|fun\\|be\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[a-z_][A-Za-z0-9_]*\\)"
+     1
+     'font-lock-function-name-face)
+
+    ;; actor, class, and type references
+    ("\\(\s\\|[\[]\\|[\(]\\)\\($?_?[A-Z][A-Za-z0-9_]*\\)" 2 'font-lock-type-face)
+
+    ;; constants
     (,ponylang-constant-regexp . font-lock-constant-face)
-					;(,ponylang-event-regexp . font-lock-builtin-face)
-					;(,ponylang-functions-regexp . font-lock-function-name-face)
+
+    ;;(,ponylang-event-regexp . font-lock-builtin-face)
+    ;;(,ponylang-functions-regexp . font-lock-function-name-face)
+
+    ;; keywords
     (,ponylang-keywords-regexp . font-lock-keyword-face)
+
     ;; note: order above matters. “ponylang-keywords-regexp” goes last because
     ;; otherwise the keyword “state” in the function “state_entry”
     ;; would be highlighted.
