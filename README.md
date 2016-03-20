@@ -1,3 +1,6 @@
+[![MELPA](http://melpa.org/packages/ponylang-mode-badge.svg)](http://melpa.org/#/ponylang-mode)
+[![MELPA Stable](http://stable.melpa.org/packages/ponylang-mode-badge.svg)](http://stable.melpa.org/#/ponylang-mode)
+
 # Pony Mode
 
 An Emacs mode that provides syntax highlighting (font-lock) and
