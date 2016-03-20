@@ -64,7 +64,7 @@ your configuration, you can configure `ponylang-mode` like so:
 
 The tests require
 [ERT](https://www.gnu.org/software/emacs/manual/html_node/ert/). To
-run them, eval `ponylang-tests.el` and run <kbd>M-x ert [RET] t
+run them, eval `ponylang-test.el` and run <kbd>M-x ert [RET] t
 [RET]</kbd>
 
 ## Attribution
