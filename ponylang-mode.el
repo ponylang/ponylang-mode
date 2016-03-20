@@ -1,9 +1,9 @@
-;;; ponylang-mode.el --- Language mode for Pony
+;;; ponylang-mode.el --- Major mode for Pony code
 ;;
-;; Author: Sean T Allen <sean@monkeysnatchbanana.com>
-;; Version: 0.0.1
+;; Authors: Sean T Allen <sean@monkeysnatchbanana.com>
+;; Version: 0.0.2
 ;; URL: https://github.com/seantallen/ponylang-mode
-;; Keywords: programming
+;; Keywords: languages programming
 ;; Package-Requires: ((dash "2.10.0"))
 ;;
 ;; This file is not part of GNU Emacs.
