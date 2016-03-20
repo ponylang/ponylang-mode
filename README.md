@@ -1,36 +1,35 @@
-# ponylang-mode: An emacs mode for editing Pony code
+# Pony Mode
 
-*"Pony is an object-oriented, actor-model, capabilities-secure, high
-performance programming language."*
-*- ponylang.org*
-
-`ponylang-mode` is an Emacs mode for editing Pony code.
+An Emacs mode that provides syntax highlighting (font-lock) and
+indentation for the [Pony](http://www.ponylang.org/) programming
+language.
 
 At the moment, ponylang-mode is fairly new and immature. From the
 standpoint of indentation, it should work for about 95% of use cases.
-In order to work for the rest, it is going to require a rewrite.
-If you are interested in contributing to Emacs tooling for Pony, please
-get in touch. I'm happy to accept contributions and feedback.
-
-Big thanks to Austin Bingham who did the first version of ponylang-mode.
-We wouldn't be where we are now without your initial work Austin!
+In order to work for the rest, it is going to require a rewrite. If
+you are interested in contributing to Emacs tooling for Pony, please
+get in touch. Contributions and feedback are welcome.
 
 ## Installation
 
-You can install `ponylang-mode` via melpa. The fundamental way is with
-`package-install`:
+This package can be obtain from
+[MELPA](http://melpa.org/#/ponylang-mode) or
+[MELPA Stable](http://stable.melpa.org/#/ponylang-mode). The `master`
+branch is continuously deployed to MELPA, and released versions are
+deployed to MELPA Stable.
+
+<kbd>M-x package-install [RET] ponylang-mode [RET]</kbd>
+
+Then somewhere in your Emacs configuration, call:
 
 ```
-M-x package-install ponylang-mode
+(require 'ponylang-mode)
 ```
-
-Then just make sure you `(require ponylang-mode)` at some point in
-your initialization.
 
 ## Configuration
 
-Right now `ponylang-mode` doesn't take a lot of configuration
-(i.e. it's too simple to need any). If you want to make sure your
+Right now `ponylang-mode` doesn't take a lot of configuration (i.e.
+it's too simple to need any). If you want to make sure your
 indentation matches that in the `ponyc` project's examples, you can
 use something like this:
 
@@ -42,12 +41,9 @@ use something like this:
     (set-variable 'tab-width 2)))
 ```
 
-### Using `use-package`
-
-If you're using the excellent
+If you're using
 [`use-package`](https://github.com/jwiegley/use-package) to manage
-your configuration, you can use something like the following to
-install and configure `ponylang-mode`:
+your configuration, you can configure `ponylang-mode` like so:
 
 ```
 (use-package ponylang-mode
@@ -61,7 +57,14 @@ install and configure `ponylang-mode`:
        (set-variable 'tab-width 2)))))
 ```
 
-## Tests
+## Testing
 
-`ponylang-mode` has an `ert`-based regression test suite. To run it,
-evaluate `ponylang-tests.el` and run `M-x ert RET t RET`.
+The tests require
+[ERT](https://www.gnu.org/software/emacs/manual/html_node/ert/). To
+run them, eval `ponylang-tests.el` and run <kbd>M-x ert [RET] t
+[RET]</kbd>
+
+## Attribution
+
+Big thanks to Austin Bingham who did the first version of ponylang-mode.
+We wouldn't be where we are now without your initial work Austin!
