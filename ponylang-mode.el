@@ -128,10 +128,10 @@
     "class"
     "else"
     "for" "fun"
-    "if"
+    "if" "interface"
     "new"
     "recover" "ref" "repeat"
-    "tag" "then" "try"
+    "tag" "then" "trait" "try"
     "until"
     "while")
   "Pony keywords which indicate a new indentation level.")
