@@ -220,6 +220,9 @@ the current context."
      ((looking-at "^[[:space:]]*be\\([[:space:]].*\\)?$")
       (setq cur-indent tab-width))
 
+     ((looking-at "^[[:space:]]*new\\([[:space:]].*\\)?$")
+      (setq cur-indent tab-width))
+
      ((looking-at "^[ \t]*\\(end\\|else\\|elseif\\|do\\|then\\|until\\)$")
       (progn
 	(save-excursion

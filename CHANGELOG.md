@@ -7,6 +7,7 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Fixed
 
+- Constructor indenting: 'new' at beginning of line indents one level. 
 
 ### Added
 
