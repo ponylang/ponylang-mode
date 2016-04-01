@@ -110,7 +110,7 @@
     "else" "elseif" "end" "error"
     "for" "fun"
     "if" "in" "interface" "is"
-    "let"
+    "lambda" "let"
     "match"
     "new"
     "object"
