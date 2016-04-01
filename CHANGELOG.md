@@ -7,10 +7,20 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Fixed
 
+
+### Added
+
+
+### Changed
+
+
+## [0.0.4] - 2016-04-01
+
+### Fixed
+
 - Constructor indenting: 'new' at beginning of line indents one level. 
 
 ### Added
 
 - 'lambda' as a highlighted keyword
 
-### Changed
