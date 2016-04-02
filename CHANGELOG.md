@@ -7,6 +7,8 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Fixed
 
+- Indenting interfaces: force indentation as 0
+- Indenting traits: force indentation as 0
 
 ### Added
 

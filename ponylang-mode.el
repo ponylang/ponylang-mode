@@ -214,6 +214,12 @@ the current context."
      ((looking-at "^[[:space:]]*actor\\([[:space:]].*\\)?$")
       (setq cur-indent 0))
 
+     ((looking-at "^[[:space:]]*interface\\([[:space:]].*\\)?$")
+      (setq cur-indent 0))
+
+     ((looking-at "^[[:space:]]*trait\\([[:space:]].*\\)?$")
+      (setq cur-indent 0))
+
      ((looking-at "^[[:space:]]*fun\\([[:space:]].*\\)?$")
       (setq cur-indent tab-width))
 
