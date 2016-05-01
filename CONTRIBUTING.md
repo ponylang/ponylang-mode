@@ -31,3 +31,6 @@ multiple commits, we'll ask you to squash them into a single commit before we
 merge. Steve Klabnik wrote a handy guide for that: 
 [How to squash commits in a GitHub pull request](http://blog.steveklabnik.com/posts/2012-11-08-how-to-squash-commits-in-a-github-pull-request).
 
+Note that changes that are meaningful to end users of the mode are kept in our
+[CHANGELOG](CHANGELOG.md). Please make sure you update it accordingly with when
+submitting your PR.
