@@ -19,7 +19,7 @@ If you have improvements to Ponylang-mode, please open a pull request against
 this repo. Based on the state of your particular PR, we might request changing
 to comply with formatting or the content of the change itself.
 
-Be sure to keep your PR to a single pattern. If you are working on multiple
+Be sure to keep your PR to a single change. If you are working on multiple
 changes, make sure they are each on their own branch and that before creating a
 new branch that you are on the master branch (others multiple patterns might
 end up in your pull request). Each PR should be for a single logical change. We
