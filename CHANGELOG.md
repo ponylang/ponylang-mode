@@ -8,6 +8,7 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 ### Fixed
 
 - Indenting match statements: correct bad "else/end" indentation
+- Multiline method indentation
 
 ### Added
 
