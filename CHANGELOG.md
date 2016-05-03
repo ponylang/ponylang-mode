@@ -7,6 +7,7 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Fixed
 
+- Indenting primitives: force indentation as 0
 
 ### Added
 

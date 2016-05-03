@@ -130,6 +130,7 @@
     "for" "fun"
     "if" "interface"
     "new"
+    "primitive"
     "recover" "ref" "repeat"
     "tag" "then" "trait" "try"
     "until"
@@ -215,6 +216,9 @@ the current context."
       (setq cur-indent 0))
 
      ((looking-at "^[[:space:]]*interface\\([[:space:]].*\\)?$")
+      (setq cur-indent 0))
+
+     ((looking-at "^[[:space:]]*primitive\\([[:space:]].*\\)?$")
       (setq cur-indent 0))
 
      ((looking-at "^[[:space:]]*trait\\([[:space:]].*\\)?$")
