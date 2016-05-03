@@ -129,6 +129,7 @@
     "else"
     "for" "fun"
     "if" "interface"
+    "match"
     "new"
     "primitive"
     "recover" "ref" "repeat"
