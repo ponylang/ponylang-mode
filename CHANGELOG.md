@@ -7,13 +7,17 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Fixed
 
-- Indenting primitives: force indentation as 0
 
 ### Added
 
 
 ### Changed
 
+## [0.0.6] - 2016-05-03
+
+### Fixed
+
+- Indenting primitives: force indentation as 0
 
 ## [0.0.5] - 2016-04-03
 
