@@ -7,13 +7,17 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Fixed
 
-- Indenting match statements: correct bad "else/end" indentation
-- Multiline method indentation
-
 ### Added
 
 
 ### Changed
+
+## [0.0.7] - 2016-05-04
+
+### Fixed
+
+- Indenting match statements: correct bad "else/end" indentation
+- Multiline method indentation
 
 ## [0.0.6] - 2016-05-03
 
