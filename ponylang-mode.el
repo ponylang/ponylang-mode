@@ -107,7 +107,7 @@
     "be" "break"
     "class" "compiler_intrinsic" "consume" "continue"
     "do"
-    "else" "elseif" "end" "error"
+    "else" "elseif" "embed" "end" "error"
     "for" "fun"
     "if" "in" "interface" "is"
     "lambda" "let"
