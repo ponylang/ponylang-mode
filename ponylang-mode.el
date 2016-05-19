@@ -133,7 +133,8 @@
     "match"
     "new"
     "primitive"
-    "recover" "ref" "repeat" "struct"
+    "recover" "ref" "repeat" 
+    "struct"
     "tag" "then" "trait" "try"
     "until"
     "while")
