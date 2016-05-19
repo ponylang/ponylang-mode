@@ -116,6 +116,7 @@
     "object"
     "primitive"
     "recover" "repeat" "return"
+    "struct"
     "then" "this" "trait" "try" "type"
     "until" "use"
     "var"
@@ -132,7 +133,7 @@
     "match"
     "new"
     "primitive"
-    "recover" "ref" "repeat"
+    "recover" "ref" "repeat" "struct"
     "tag" "then" "trait" "try"
     "until"
     "while")
@@ -220,6 +221,9 @@ the current context."
       (setq cur-indent 0))
 
      ((looking-at "^[[:space:]]*primitive\\([[:space:]].*\\)?$")
+      (setq cur-indent 0))
+
+     ((looking-at "^[[:space:]]*struct\\([[:space:]].*\\)?$")
       (setq cur-indent 0))
 
      ((looking-at "^[[:space:]]*trait\\([[:space:]].*\\)?$")
