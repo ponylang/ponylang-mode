@@ -109,7 +109,7 @@
     "do"
     "else" "elseif" "embed" "end" "error"
     "for" "fun"
-    "if" "in" "interface" "is"
+    "if" "in" "interface" "is" "isnt"
     "lambda" "let"
     "match"
     "new"
