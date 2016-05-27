@@ -104,7 +104,7 @@
 
 (defconst ponylang-keywords
   '("actor"
-    "be" "break"
+    "as" "be" "break"
     "class" "compiler_intrinsic" "consume" "continue"
     "do"
     "else" "elseif" "embed" "end" "error"
