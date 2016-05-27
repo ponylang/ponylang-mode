@@ -9,8 +9,7 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Added
 
-- "embed" added as a highlighted keyword
-- "struct" added as highlighted keyword
+- "embed", "struct" and "isnt" added as highlighted keywords.
 
 ### Changed
 
