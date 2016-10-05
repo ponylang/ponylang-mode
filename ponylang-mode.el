@@ -103,7 +103,7 @@
   "Pony capability markers.")
 
 (defconst ponylang-keywords
-  '("actor" "as"
+  '("actor" "addressof" "as"
     "be" "break"
     "class" "compiler_intrinsic" "consume" "continue"
     "do"
