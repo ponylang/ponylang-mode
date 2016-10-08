@@ -1,7 +1,7 @@
 ;;; ponylang-mode.el --- Major mode for Pony code
 ;;
 ;; Authors: Sean T Allen <sean@monkeysnatchbanana.com>
-;; Version: 0.0.7
+;; Version: 0.0.8
 ;; URL: https://github.com/seantallen/ponylang-mode
 ;; Keywords: languages programming
 ;; Package-Requires: ((dash "2.10.0"))
@@ -133,7 +133,7 @@
     "match"
     "new"
     "primitive"
-    "recover" "ref" "repeat" 
+    "recover" "ref" "repeat"
     "struct"
     "tag" "then" "trait" "try"
     "until"

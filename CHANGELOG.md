@@ -3,16 +3,12 @@
 All notable changes to ponylang-mode are documented in this file. 
 This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
-
-### Fixed
+## [0.0.8] - 2016-10-8
 
 ### Added
 
 - "addressof", "as", "embed", "isnt", "ifdef", "not", and "struct" added as
   highlighted keywords.
-
-### Changed
 
 ## [0.0.7] - 2016-05-04
 
