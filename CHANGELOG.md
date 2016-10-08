@@ -9,7 +9,8 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Added
 
-- "as", "embed", "isnt", "ifdef", "not", and "struct" added as highlighted keywords.
+- "addressof", "as", "embed", "isnt", "ifdef", "not", and "struct" added as
+  highlighted keywords.
 
 ### Changed
 
