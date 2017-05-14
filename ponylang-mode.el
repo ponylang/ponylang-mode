@@ -73,6 +73,9 @@
 
 (defconst ponylang-mode-syntax-table
   (let ((table (make-syntax-table)))
+    ;; fontify " using ponylang-keywords
+    (modify-syntax-entry ?\" "w" table)
+
     ;; / is punctuation, but // is a comment starter
     (modify-syntax-entry ?/ ". 124" table)
 
@@ -191,6 +194,9 @@
     ;; keywords
     (,ponylang-keywords-regexp . font-lock-keyword-face)
 
+    ("\'\\\\?.\'" . font-lock-string-face)
+    ("\\\".*\\\"" . font-lock-string-face)
+
     ;; note: order above matters. “ponylang-keywords-regexp” goes last because
     ;; otherwise the keyword “state” in the function “state_entry”
     ;; would be highlighted.
@@ -299,6 +305,33 @@ the current context."
 (defalias 'ponylang-parent-mode
   (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
 
+(defconst ponylang-triple-quoted-string-rx (rx "\"\"\""))
+
+(defun ponylang-stringify-triple-quote ()
+  "Put `syntax-table' property on triple-quoted strings."
+  (let* ((string-end-pos (point))
+         (string-start-pos (- string-end-pos 3))
+         (ppss (prog2
+                   (backward-char 3)
+                   (syntax-ppss)
+                 (forward-char 3))))
+    (unless (nth 4 (syntax-ppss)) ;; not inside comment
+      (if (nth 8 (syntax-ppss))
+          ;; We're in a string, so this must be the closing triple-quote.
+          ;; Put | on the last " character.
+          (put-text-property (1- string-end-pos) string-end-pos
+                             'syntax-table (string-to-syntax "|"))
+        ;; We're not in a string, so this is the opening triple-quote.
+        ;; Put | on the first " character.
+        (put-text-property string-start-pos (1+ string-start-pos)
+                           'syntax-table (string-to-syntax "|"))))))
+
+(defconst ponylang-syntax-propertize-function
+  (syntax-propertize-rules
+   (ponylang-triple-quoted-string-rx
+    (0 (ignore (ponylang-stringify-triple-quote))))))
+
+
 ;;;###autoload
 (define-derived-mode ponylang-mode ponylang-parent-mode "Pony"
   "Major mode for editing Pony files."
@@ -306,7 +339,8 @@ the current context."
   (set (make-local-variable 'comment-start) "// ")
   (set (make-local-variable 'comment-start-skip) "//+")
   (set (make-local-variable 'font-lock-defaults) '(ponylang-font-lock-keywords))
-  (set (make-local-variable 'indent-line-function) 'ponylang-indent-line))
+  (set (make-local-variable 'indent-line-function) 'ponylang-indent-line)
+  (set (make-local-variable 'syntax-propertize-function) ponylang-syntax-propertize-function))
 
 (provide 'ponylang-mode)
 
