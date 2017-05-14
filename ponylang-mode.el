@@ -73,6 +73,9 @@
 
 (defconst ponylang-mode-syntax-table
   (let ((table (make-syntax-table)))
+    ;; fontify " using ponylang-keywords
+    (modify-syntax-entry ?\" "w" table)
+
     ;; / is punctuation, but // is a comment starter
     (modify-syntax-entry ?/ ". 124" table)
 
@@ -190,6 +193,9 @@
 
     ;; keywords
     (,ponylang-keywords-regexp . font-lock-keyword-face)
+
+    ("\'\\\\?.\'" . font-lock-string-face)
+    ("\\\".*\\\"" . font-lock-string-face)
 
     ;; note: order above matters. “ponylang-keywords-regexp” goes last because
     ;; otherwise the keyword “state” in the function “state_entry”
