@@ -137,7 +137,7 @@
     "struct"
     "tag" "then" "trait" "try"
     "until"
-    "while")
+    "while" "with")
   "Pony keywords which indicate a new indentation level.")
 
 (defconst ponylang-constants
