@@ -3,13 +3,15 @@
 All notable changes to ponylang-mode are documented in this file. 
 This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
+## [0.0.9] - 2017-05-14
 
 ### Added
 
-### Changed
+-  Add "with" to indenting keywords
 
 ### Fixed
+
+- Font lock strings and character constants correctly
 
 ## [0.0.8] - 2016-10-08
 
