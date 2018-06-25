@@ -303,8 +303,6 @@ the current context."
 (defalias 'ponylang-parent-mode
   (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
 
-(defconst ponylang-triple-quoted-string-rx (rx "\"\"\""))
-
 (defun ponylang-stringify-triple-quote ()
   "Put `syntax-table' property on triple-quoted strings."
   (let* ((string-end-pos (point))
@@ -326,7 +324,7 @@ the current context."
 
 (defconst ponylang-syntax-propertize-function
   (syntax-propertize-rules
-   (ponylang-triple-quoted-string-rx
+   ("\"\"\"" ; A triple quoted string
     (0 (ignore (ponylang-stringify-triple-quote))))))
 
 
