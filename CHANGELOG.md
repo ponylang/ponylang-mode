@@ -13,6 +13,8 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Fixed
 
+- Problem with triple quoted string handling
+
 
 ## [0.0.9] - 2017-05-14
 
