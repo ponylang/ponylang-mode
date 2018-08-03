@@ -3,18 +3,11 @@
 All notable changes to ponylang-mode are documented in this file. 
 This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - [unreleased]
-
-### Added
-
-
-### Changed
-
+## [0.0.10] - [2018-08-03]
 
 ### Fixed
 
 - Problem with triple quoted string handling
-
 
 ## [0.0.9] - 2017-05-14
 
