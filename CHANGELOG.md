@@ -3,6 +3,17 @@
 All notable changes to ponylang-mode are documented in this file. 
 This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
+## [unreleased] - [unreleased]
+
+### Added
+
+
+### Changed
+
+
+### Fixed
+
+
 ## [0.0.11] - [2018-08-04]
 
 ### Added
