@@ -3,16 +3,11 @@
 All notable changes to ponylang-mode are documented in this file. 
 This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - [unreleased]
+## [0.0.11] - [2018-08-04]
 
 ### Added
 
-
-### Changed
-
-
-### Fixed
-
+- Nothing. Attempt to get Melpa stable index to show new version.
 
 ## [0.0.10] - [2018-08-03]
 
