@@ -65,13 +65,12 @@
 ;; TODO: I don't like having to mention yas-* here, but that's how
 ;; e.g. python does it. It seems like there should be more general way
 ;; to detect "repeated tab presses".
-(defcustom ponylang-indent-trigger-commands
-  '(indent-for-tab-command yas-expand yas/expand)
-  "Commands that might trigger a `ponylang-indent-line' call."
-  :type '(repeat symbol)
+(defcustom ponylang-indent-trigger-commands '(indent-for-tab-command yas-expand yas/expand) 
+  "Commands that might trigger a `ponylang-indent-line' call." 
+  :type '(repeat symbol) 
   :group 'ponylang)
 
-(defconst ponylang-mode-syntax-table
+(defconst ponylang-mode-syntax-table 
   (let ((table (make-syntax-table)))
     ;; fontify " using ponylang-keywords
 
@@ -85,14 +84,11 @@
     (modify-syntax-entry ?\n ">" table)
 
     ;; Don't treat underscores as whitespace
-    (modify-syntax-entry ?_ "w" table)
+    (modify-syntax-entry ?_ "w" table) table))
 
-    table))
-
-(defvar ponylang-mode-map
-  (let ((map (make-keymap)))
-    (define-key map "\C-j" 'newline-and-indent)
-    map)
+(defvar ponylang-mode-map 
+  (let ((map (make-keymap))) 
+    (define-key map "\C-j" 'newline-and-indent) map) 
   "Keymap for Pony major mode")
 
 (defvar ponylang--indent-cycle-direction 'left)
@@ -100,92 +96,144 @@
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.pony\\'" . ponylang-mode))
 
-(defconst ponylang-capabilities
-  '("box" "iso" "ref" "tag" "trn" "val")
+(defconst ponylang-capabilities '("box" "iso" "ref" "tag" "trn" "val") 
   "Pony capability markers.")
 
-(defconst ponylang-keywords
-  '("actor" "addressof" "as"
-    "be" "break"
-    "class" "compiler_intrinsic" "consume" "continue"
-    "do"
-    "else" "elseif" "embed" "end" "error"
-    "for" "fun"
-    "if" "ifdef" "in" "interface" "is" "isnt"
-    "lambda" "let"
-    "match"
-    "new" "not"
-    "object"
-    "primitive"
-    "recover" "repeat" "return"
-    "struct"
-    "then" "this" "trait" "try" "type"
-    "until" "use"
-    "var"
-    "where" "while" "with")
+(defconst ponylang-capability-constraints '("#read" "#send" "#share" "#any" "#alias") 
+  "Pony capability constraints.")
+
+(defconst ponylang-keywords 
+  '("__loc"                                   ;;
+    "actor" "addressof" "and"                 ;;
+    "be"                                      ;;
+    "class"                                   ;;
+    "digestof" "do"                           ;;
+    "else" "elseif" "embed" "end" "for" "fun" ;;
+    "if" "ifdef" "iftype"                     ;;
+    ;;"in"
+    "interface"                 ;;"isnt"                   ;;
+    "match"                     ;;"not" "or"                  ;;
+    "primitive"                 ;;
+    "repeat"                    ;;
+    "struct"                    ;;
+    "then" "trait" "try" "type" ;;
+    "until"                     ;;"use"                             ;;
+    "where" "while" "with") 
   "Pony language keywords.")
 
-(defconst ponylang-indent-start-keywords
-  '("actor"
-    "be"
-    "class"
-    "else"
-    "for" "fun"
-    "if" "ifdef" "interface"
-    "match"
-    "new"
-    "primitive"
-    "recover" "ref" "repeat"
-    "struct"
-    "tag" "then" "trait" "try"
-    "until"
-    "while" "with")
+(defconst ponylang-special-keywords 
+  '("continue" "break" "return" ;;
+    "new" "object"              ;;
+    "consume" "recover"         ;;
+    "_init" "_final" "error" "compile_error" "compile_intrinsic") 
+  "Pony language special keywords.")
+
+(defconst ponylang-indent-start-keywords 
+  '("actor"                              ;;
+    "be" "class"                         ;;
+    "else" "for" "fun"                   ;;
+    "if" "ifdef" "iftype"                ;;
+    "interface"                          ;;
+    "match"                              ;;
+    "new"                                ;;
+    "object"                             ;;
+    "primitive" "recover" "ref" "repeat" ;;
+    "struct"                             ;;
+    "tag" "then" "trait" "try"           ;;
+    "until"                              ;;
+    "while" "with") 
   "Pony keywords which indicate a new indentation level.")
 
-(defconst ponylang-constants
-  '("false" "true" "None")
+(defconst ponylang-operator-symbols 
+  '("+" "-" "*"  "/" "%" "%%"        ;;
+    "<<" ">>"                        ;;
+    "=="  "!="  "<"  "<="  ">="  ">" ;;
+    ;;
+    ">~"  "<~"  "<=~" ">=~"         ;;
+    "+~" "-~" "*~" "/~"  "%~" "%%~" ;;
+    "<<~" ">>~" "==~"  "!=~"        ;;
+    ;;
+    "+?" "-?"  "*?" "/?" "%?"  "%%?" ) 
   "Common constants.")
 
+(defconst ponylang-operator-functions 
+  '("add" "sub""mul" "div""rem" "mod"               ;;
+    "shl" "shr"                                     ;;
+    "and" "op_and" "or" "op_or" "xor" "op_xor"      ;;
+    "eq" "ne" "lt" "le" "ge" "gt"                   ;;
+    ;;
+    "gt_unsafe" "lt_unsafe" "le_unsafe" "ge_unsafe" ;;
+    "add_unsafe" "sub_unsafe"                       ;;
+    "mul_unsafe" "div_unsafe"                       ;;
+    "rem_unsafe" "mod_unsafe"                       ;;
+    "shl_unsafe" "shr_unsafe"                       ;;
+    "eq_unsafe" "ne_unsafe"                         ;;
+    ;;
+    "add_partial" "sub_partial" ;;
+    "mul_partial" "div_partial" ;;
+    "rem_partial" "mod_partial") 
+  "Common constants.")
+
+(defconst ponylang-operators 
+  '("+" "add" "-" "sub" "*" "mul" "/" "div" "%" "rem" "%%" "mod" ;;
+    "<<" "shl" ">>" "shr"                                        ;;
+    "and" "op_and" "or" "op_or" "xor" "op_xor"                   ;;
+    "==" "eq" "!=" "ne" "<" "lt" "<=" "le" ">=" "ge" ">" "gt"    ;;
+    ;;
+    ">~" "gt_unsafe" "<~" "lt_unsafe" "<=~" "le_unsafe" ">=~" "ge_unsafe" ;;
+    "+~" "add_unsafe" "-~" "sub_unsafe" "*~" "mul_unsafe" "/~" "div_unsafe" ;;
+    "%~" "rem_unsafe" "%%~" "mod_unsafe"  ;;
+    "<<~" "shl_unsafe" ">>~" "shr_unsafe" ;;
+    "==~" "eq_unsafe" "!=~" "ne_unsafe"   ;;
+    ;;
+    "+?" "add_partial" "-?" "sub_partial" ;;
+    "*?" "mul_partial" "/?" "div_partial" ;;
+    "%?" "rem_partial" "%%?" "mod_partial") 
+  "Common constants.")
+
+(defconst ponylang-constants
+  ;;
+  '("None" "Any" "Env" ;;
+    "size" "hash" "string" "apply" "update") 
+  "Common constants.")
+
+(defconst ponylang-preprocessors
+  ;;
+  '("use" "let" "var" "=>" "| " "<:"  "this" ;;
+    "false" "true"                           ;;
+    "in" "is" "isnt" "as" "not") 
+  "Common preprocessors.")
+
 ;; create the regex string for each class of keywords
-(defconst ponylang-keywords-regexp
-  (regexp-opt
-   (append ponylang-keywords
-	   ponylang-capabilities)
-   'words)
+(defconst ponylang-keywords-regexp (regexp-opt ponylang-keywords 'words) 
   "Regular expression for matching keywords.")
 
-(defconst ponylang-constant-regexp
-  (regexp-opt ponylang-constants 'words)
+(defconst ponylang-special-keywords-regexp (regexp-opt ponylang-special-keywords 'words) 
+  "Regular expression for matching special keywords.")
+
+(defconst ponylang-capabilities-regexp 
+  (regexp-opt (append ponylang-capabilities ponylang-capability-constraints) 'words) 
+  "Regular expression for matching capabilities.")
+
+(defconst ponylang-constant-regexp (regexp-opt ponylang-constants 'words) 
   "Regular expression for matching common constants.")
 
-;(setq ponylang-event-regexp (regexp-opt ponylang-events 'words))
-;(setq ponylang-functions-regexp (regexp-opt ponylang-functions 'words))
+(defconst ponylang-operators-regexp (regexp-opt ponylang-operators 'words) 
+  "Regular expression for matching common constants.")
 
-(defconst ponylang-font-lock-keywords
+(defconst ponylang-preprocessors-regexp (regexp-opt ponylang-preprocessors 'words) 
+  "Regular expression for matching common constants.")
+
+;; (setq ponylang-event-regexp (regexp-opt ponylang-events 'words))
+;; (setq ponylang-functions-regexp (regexp-opt ponylang-functions 'words))
+
+(defconst ponylang-font-lock-keywords 
   `(
-    ;; actor and class definitions
-    ("\\(?:actor\\|class\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[A-Z_][A-Za-z0-9_]*\\)"
-     1
-     'font-lock-function-name-face)
-
-    ;; type and primitive definitions
-    ("\\(?:type\\|primitive\\)\s+\\($?[A-Z_][A-Za-z0-9_]*\\)"
-     1
-     'font-lock-function-name-face)
-
-    ;; constructor, method, and behavior definitions
-    ("\\(?:new\\|fun\\|be\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[a-z_][A-Za-z0-9_]*\\)"
-     1
-     'font-lock-function-name-face)
-
-    ;; actor, class, and type references
-    ("\\(\s\\|[\[]\\|[\(]\\)\\($?_?[A-Z][A-Za-z0-9_]*\\)" 2 'font-lock-type-face)
-
-    ;; ffi
-    ("@[A-Za-z_][A-Z-a-z0-9_]+" . 'font-lock-builtin-face)
-
     ;; constants
     (,ponylang-constant-regexp . font-lock-constant-face)
+
+    ;; preprocessors
+    (,ponylang-preprocessors-regexp . font-lock-preprocessor-face)
 
     ;;(,ponylang-event-regexp . font-lock-builtin-face)
     ;;(,ponylang-functions-regexp . font-lock-function-name-face)
@@ -193,149 +241,155 @@
     ;; keywords
     (,ponylang-keywords-regexp . font-lock-keyword-face)
 
+    ;; special keywords
+    (,ponylang-special-keywords-regexp . font-lock-warning-face)
+
+    ;; operators
+    (,ponylang-operators-regexp . font-lock-preprocessor-face)
+
+    ;; capabilities
+    (,ponylang-capabilities-regexp . font-lock-preprocessor-face)
+
+    ;; capability constraints
+    ("#[a-z_][a-z_]+" . 'font-lock-builtin-face) 
     ("\'\\\\?.\'" . font-lock-string-face)
+
+    ;; actor and class definitions
+    ("\\(?:actor\\|class\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[A-Z_][A-Za-z0-9_]*\\)"
+     1 'font-lock-type-face)
+
+    ;; type and primitive definitions
+    ("\\(?:type\\|primitive\\)\s+\\($?[A-Z_][A-Za-z0-9_]*\\)" 1 'font-lock-type-face)
+
+    ;; constructor, method, and behavior definitions
+    ("\\(?:new\\|fun\\|be\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[a-z_][A-Za-z0-9_]*\\)"
+     1 'font-lock-function-name-face)
+
+    ;; actor, class, and type references
+    ("\\(\s\\|[\[]\\|[\(]\\)\\($?_?[A-Z][A-Za-z0-9_]*\\)" 2 'font-lock-type-face)
+
+    ;; ffi
+    ("@[A-Za-z_][A-Z-a-z0-9_]+" . 'font-lock-builtin-face)
 
     ;; note: order above matters. “ponylang-keywords-regexp” goes last because
     ;; otherwise the keyword “state” in the function “state_entry”
     ;; would be highlighted.
-    )
+    ) 
   "An alist mapping regexes to font-lock faces.")
 
 ;; Indentation
-(defun ponylang--looking-at-indent-start ()
+(defun ponylang--looking-at-indent-start () 
   "Determines if the current position is 'looking at' a keyword
   that starts new indentation."
-  (-any? (lambda (k) (looking-at (concat  "^[ \t]*" k))) ponylang-indent-start-keywords))
+  (-any? (lambda (k) 
+           (looking-at (concat  "^[ \t]*" k))) ponylang-indent-start-keywords))
 
-(defun ponylang-syntactic-indent-line ()
+(defun ponylang-syntactic-indent-line () 
   "Indent current line as pony code based on language syntax and
 the current context."
-  (beginning-of-line)
-  (let ((cur-indent (current-indentation)))
-    (cond
-     ((bobp)
-      (setq cur-indent 0))
+  (beginning-of-line) 
+  (let ((cur-indent (current-indentation))) 
+    (cond ((bobp) 
+           (setq cur-indent 0)) 
+          ((looking-at "^[[:space:]]*class\\([[:space:]].*\\)?$") 
+           (setq cur-indent 0)) 
+          ((looking-at "^[[:space:]]*actor\\([[:space:]].*\\)?$") 
+           (setq cur-indent 0)) 
+          ((looking-at "^[[:space:]]*interface\\([[:space:]].*\\)?$") 
+           (setq cur-indent 0)) 
+          ((looking-at "^[[:space:]]*primitive\\([[:space:]].*\\)?$") 
+           (setq cur-indent 0)) 
+          ((looking-at "^[[:space:]]*struct\\([[:space:]].*\\)?$") 
+           (setq cur-indent 0)) 
+          ((looking-at "^[[:space:]]*trait\\([[:space:]].*\\)?$") 
+           (setq cur-indent 0)) 
+          ((looking-at "^[[:space:]]*fun\\([[:space:]].*\\)?$") 
+           (setq cur-indent tab-width)) 
+          ((looking-at "^[[:space:]]*be\\([[:space:]].*\\)?$") 
+           (setq cur-indent tab-width)) 
+          ((looking-at "^[[:space:]]*=>\\([[:space:]].*\\)?$") 
+           (setq cur-indent tab-width)) 
+          ((looking-at "^[[:space:]]*new\\([[:space:]].*\\)?$") 
+           (setq cur-indent tab-width)) 
+          ((looking-at "^[ \t]*\\(end\\|else\\|elseif\\|do\\|then\\|until\\)$") 
+           (progn (save-excursion (forward-line -1) 
+                                  (setq cur-indent (- (current-indentation) tab-width)) 
+                                  (if (< cur-indent 0) 
+                                      (setq cur-indent 0))))) 
+          (t (save-excursion (let ((keep-looking t)) 
+                               (while keep-looking 
+                                 (setq keep-looking nil) 
+                                 (forward-line -1) 
+                                 (cond
+                                  ;; if the previous line ends in =, indent one level
+                                  ((looking-at ".*=[ \t]*$") 
+                                   (setq cur-indent (+ (current-indentation) tab-width))) 
+                                  ((ponylang--looking-at-indent-start) 
+                                   (setq cur-indent (+ (current-indentation) tab-width)))
 
-     ((looking-at "^[[:space:]]*class\\([[:space:]].*\\)?$")
-      (setq cur-indent 0))
+                                  ;; if the previous line is all empty space, keep the current indentation
+                                  ((not (looking-at "^[ \t]*$")) 
+                                   (setq cur-indent (current-indentation)))
 
-     ((looking-at "^[[:space:]]*actor\\([[:space:]].*\\)?$")
-      (setq cur-indent 0))
-
-     ((looking-at "^[[:space:]]*interface\\([[:space:]].*\\)?$")
-      (setq cur-indent 0))
-
-     ((looking-at "^[[:space:]]*primitive\\([[:space:]].*\\)?$")
-      (setq cur-indent 0))
-
-     ((looking-at "^[[:space:]]*struct\\([[:space:]].*\\)?$")
-      (setq cur-indent 0))
-
-     ((looking-at "^[[:space:]]*trait\\([[:space:]].*\\)?$")
-      (setq cur-indent 0))
-
-     ((looking-at "^[[:space:]]*fun\\([[:space:]].*\\)?$")
-      (setq cur-indent tab-width))
-
-     ((looking-at "^[[:space:]]*be\\([[:space:]].*\\)?$")
-      (setq cur-indent tab-width))
-
-     ((looking-at "^[[:space:]]*=>\\([[:space:]].*\\)?$")
-      (setq cur-indent tab-width))
-
-     ((looking-at "^[[:space:]]*new\\([[:space:]].*\\)?$")
-      (setq cur-indent tab-width))
-
-     ((looking-at "^[ \t]*\\(end\\|else\\|elseif\\|do\\|then\\|until\\)$")
-      (progn
-	(save-excursion
-	  (forward-line -1)
-	  (setq cur-indent (- (current-indentation) tab-width))
-
-	  (if (< cur-indent 0)
-	      (setq cur-indent 0)))))
-
-     (t
-      (save-excursion
-	(let ((keep-looking t))
-	  (while keep-looking
-	    (setq keep-looking nil)
-	    (forward-line -1)
-	    (cond
-	     ;; if the previous line ends in =, indent one level
-	     ((looking-at ".*=[ \t]*$")
-	      (setq cur-indent (+ (current-indentation) tab-width)))
-
-	     ((ponylang--looking-at-indent-start)
-	      (setq cur-indent (+ (current-indentation) tab-width)))
-
-	     ;; if the previous line is all empty space, keep the current indentation
-	     ((not (looking-at "^[ \t]*$"))
-	      (setq cur-indent (current-indentation)))
-
-	     ;; if it's the beginning of the buffer, indent to zero
-	     ((bobp)
-	      (setq cur-indent 0))
-
-	     (t (setq keep-looking t))))))))
-
+                                  ;; if it's the beginning of the buffer, indent to zero
+                                  ((bobp) 
+                                   (setq cur-indent 0)) 
+                                  (t 
+                                   (setq keep-looking t)))))))) 
     (indent-line-to cur-indent)))
 
-(defun ponylang-cycle-indentation ()
-  (if (eq (current-indentation) 0)
-      (setq ponylang--indent-cycle-direction 'right))
-
-  (if (eq ponylang--indent-cycle-direction 'left)
-      (indent-line-to (max 0 (- (current-indentation) tab-width)))
+(defun ponylang-cycle-indentation () 
+  (if (eq (current-indentation) 0) 
+      (setq ponylang--indent-cycle-direction 'right)) 
+  (if (eq ponylang--indent-cycle-direction 'left) 
+      (indent-line-to (max 0 (- (current-indentation) tab-width))) 
     (indent-line-to (+ (current-indentation) tab-width))))
 
-(defun ponylang-indent-line ()
+(defun ponylang-indent-line () 
   "Indent the current line based either on syntax or repeated use
-  of the TAB key."
-  (interactive)
-  (let ((repeated-indent (memq last-command ponylang-indent-trigger-commands)))
-    (if repeated-indent
-	(ponylang-cycle-indentation)
-      (progn
-	(setq ponylang--indent-cycle-direction 'left)
-	(ponylang-syntactic-indent-line)))))
+  of the TAB key." 
+  (interactive) 
+  (let ((repeated-indent (memq last-command ponylang-indent-trigger-commands))) 
+    (if repeated-indent (ponylang-cycle-indentation) 
+      (progn 
+        (setq ponylang--indent-cycle-direction 'left) 
+        (ponylang-syntactic-indent-line)))))
 
-(defalias 'ponylang-parent-mode
-  (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
+(defalias 'ponylang-parent-mode (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
 
-(defun ponylang-stringify-triple-quote ()
+(defun ponylang-stringify-triple-quote () 
   "Put `syntax-table' property on triple-quoted strings."
-  (let* ((string-end-pos (point))
-         (string-start-pos (- string-end-pos 3))
-         (ppss (prog2
-                   (backward-char 3)
-                   (syntax-ppss)
-                 (forward-char 3))))
+  (let* ((string-end-pos (point)) 
+         (string-start-pos (- string-end-pos 3)) 
+         (ppss (prog2 (backward-char 3) 
+                   (syntax-ppss) 
+                 (forward-char 3)))) 
     (unless (nth 4 (syntax-ppss)) ;; not inside comment
       (if (nth 8 (syntax-ppss))
           ;; We're in a string, so this must be the closing triple-quote.
           ;; Put | on the last " character.
-          (put-text-property (1- string-end-pos) string-end-pos
-                             'syntax-table (string-to-syntax "|"))
+          (put-text-property (1- string-end-pos) string-end-pos 'syntax-table (string-to-syntax
+                                                                               "|"))
         ;; We're not in a string, so this is the opening triple-quote.
         ;; Put | on the first " character.
-        (put-text-property string-start-pos (1+ string-start-pos)
-                           'syntax-table (string-to-syntax "|"))))))
+        (put-text-property string-start-pos (1+ string-start-pos) 'syntax-table (string-to-syntax
+                                                                                 "|"))))))
 
-(defconst ponylang-syntax-propertize-function
-  (syntax-propertize-rules
-   ("\"\"\"" ; A triple quoted string
-    (0 (ignore (ponylang-stringify-triple-quote))))))
+(defconst ponylang-syntax-propertize-function 
+  (syntax-propertize-rules ("\"\"\""    ; A triple quoted string
+                            (0 (ignore (ponylang-stringify-triple-quote))))))
 
 
 ;;;###autoload
-(define-derived-mode ponylang-mode ponylang-parent-mode "Pony"
-  "Major mode for editing Pony files."
-  :syntax-table ponylang-mode-syntax-table
-  (set (make-local-variable 'comment-start) "// ")
-  (set (make-local-variable 'comment-start-skip) "//+")
-  (set (make-local-variable 'font-lock-defaults) '(ponylang-font-lock-keywords))
-  (set (make-local-variable 'indent-line-function) 'ponylang-indent-line)
+(define-derived-mode ponylang-mode ponylang-parent-mode 
+  "Pony"
+  "Major mode for editing Pony files." 
+  :syntax-table ponylang-mode-syntax-table 
+  (set (make-local-variable 'comment-start) "// ") 
+  (set (make-local-variable 'comment-start-skip) "//+") 
+  (set (make-local-variable 'font-lock-defaults) 
+       '(ponylang-font-lock-keywords)) 
+  (set (make-local-variable 'indent-line-function) 'ponylang-indent-line) 
   (set (make-local-variable 'syntax-propertize-function) ponylang-syntax-propertize-function))
 
 (provide 'ponylang-mode)
