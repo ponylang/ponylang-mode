@@ -104,26 +104,36 @@
   '("box" "iso" "ref" "tag" "trn" "val")
   "Pony capability markers.")
 
+(defconst ponylang-capability-constraints
+  '("#read" "#send" "#share" "#any" "#alias")
+  "Pony capability constraints.")
+
 (defconst ponylang-keywords
-  '("actor" "addressof" "as"
-    "be" "break"
-    "class" "compiler_intrinsic" "consume" "continue"
-    "do"
+  '("__loc"
+    "actor" "addressof" "and" "as"
+    "be" ;;"break"
+    "class" "compile_error" "compile_intrinsic" "consume" ;;"continue"
+    "digestof" "do"
     "else" "elseif" "embed" "end" "error"
-    "for" "fun"
-    "if" "ifdef" "in" "interface" "is" "isnt"
-    "lambda" "let"
+    "false" "for" "fun"
+    "if" "ifdef" "iftype" "in" "interface" "is" "isnt"
+    "let"
     "match"
     "new" "not"
-    "object"
+    "object" "or"
     "primitive"
-    "recover" "repeat" "return"
+    "recover" "repeat" ;;"return"
     "struct"
-    "then" "this" "trait" "try" "type"
+    "then" "this" "trait" "true" "try" "type"
     "until" "use"
     "var"
-    "where" "while" "with")
+    "where" "while" "with"
+    "xor")
   "Pony language keywords.")
+
+(defconst ponylang-jump-keywords
+  '("continue" "break" "return")
+  "Pony language jump keywords.")
 
 (defconst ponylang-indent-start-keywords
   '("actor"
@@ -143,16 +153,26 @@
   "Pony keywords which indicate a new indentation level.")
 
 (defconst ponylang-constants
-  '("false" "true" "None")
+  '("false" "true" "None" "Any")
   "Common constants.")
+
+font-lock-warning-face
+font-lock-warning-face
 
 ;; create the regex string for each class of keywords
 (defconst ponylang-keywords-regexp
-  (regexp-opt
-   (append ponylang-keywords
-	   ponylang-capabilities)
-   'words)
+  (regexp-opt ponylang-keywords 'words)
   "Regular expression for matching keywords.")
+
+(defconst ponylang-jump-keywords-regexp
+  (regexp-opt ponylang-jump-keywords 'words)
+  "Regular expression for matching jump keywords.")
+
+(defconst ponylang-capabilities-regexp
+  (regexp-opt
+   (append ponylang-capabilities ponylang-capability-constraints)
+   'words)
+  "Regular expression for matching capabilities.")
 
 (defconst ponylang-constant-regexp
   (regexp-opt ponylang-constants 'words)
@@ -166,12 +186,12 @@
     ;; actor and class definitions
     ("\\(?:actor\\|class\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[A-Z_][A-Za-z0-9_]*\\)"
      1
-     'font-lock-function-name-face)
+     'font-lock-type-face)
 
     ;; type and primitive definitions
     ("\\(?:type\\|primitive\\)\s+\\($?[A-Z_][A-Za-z0-9_]*\\)"
      1
-     'font-lock-function-name-face)
+     'font-lock-type-face)
 
     ;; constructor, method, and behavior definitions
     ("\\(?:new\\|fun\\|be\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[a-z_][A-Za-z0-9_]*\\)"
@@ -193,6 +213,14 @@
     ;; keywords
     (,ponylang-keywords-regexp . font-lock-keyword-face)
 
+    (,ponylang-jump-keywords-regexp . font-lock-warning-face)
+
+    ;; capabilities
+    (,ponylang-capabilities-regexp . font-lock-preprocessor-face)
+
+    ;; capability constraints
+    ("#[a-z_][a-z_]+" . 'font-lock-builtin-face)
+    
     ("\'\\\\?.\'" . font-lock-string-face)
 
     ;; note: order above matters. “ponylang-keywords-regexp” goes last because
