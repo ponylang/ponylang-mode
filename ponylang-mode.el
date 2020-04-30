@@ -104,25 +104,30 @@
   '("box" "iso" "ref" "tag" "trn" "val")
   "Pony capability markers.")
 
+(defconst ponylang-capability-constraints '("#read" "#send" "#share" "#any" "#alias")
+  "Pony capability constraint markers.")
+
 (defconst ponylang-keywords
-  '("actor" "addressof" "as"
+  '("__loc"
+    "actor" "addressof" "and" "as"
     "be" "break"
-    "class" "compiler_intrinsic" "consume" "continue"
-    "do"
+    "class" "compile_error" "compile_intrinsic" "consume" "continue"
+    "digestof" "do"
     "else" "elseif" "embed" "end" "error"
     "for" "fun"
-    "if" "ifdef" "in" "interface" "is" "isnt"
-    "lambda" "let"
+    "if" "ifdef" "iftype" "in" "interface" "is" "isnt"
+    "let"
     "match"
     "new" "not"
-    "object"
+    "object" "or"
     "primitive"
     "recover" "repeat" "return"
     "struct"
     "then" "this" "trait" "try" "type"
     "until" "use"
     "var"
-    "where" "while" "with")
+    "where" "while" "with"
+    "xor")
   "Pony language keywords.")
 
 (defconst ponylang-indent-start-keywords
@@ -141,6 +146,72 @@
     "until"
     "while" "with")
   "Pony keywords which indicate a new indentation level.")
+
+(defconst ponylang-declaration-keywords
+  '("use"
+    "type"
+    "class" "actor" "primitive" "struct" "trait" "interface"
+    "fun" "be"
+    "let" "var" "embed")
+  "Pony declaration keywords.")
+
+(defconst ponylang-careful-keywords
+  '("continue" "break" "return"
+    "new" "object"
+    "consume" "recover"
+    "_init" "_final"
+    "is" "isnt" "as"
+    "error" "compile_error" "compile_intrinsic")
+  "Pony language careful keywords.")
+
+(defconst ponylang-operator-symbols
+  '("+" "-" "*"  "/" "%" "%%"
+    "<<" ">>"
+    "=="  "!="  "<"  "<="  ">="  ">"
+    ;;
+    ">~"  "<~"  "<=~" ">=~"
+    "+~" "-~" "*~" "/~"  "%~" "%%~"
+    "<<~" ">>~" "==~"  "!=~"
+    ;;
+    "+?" "-?"  "*?" "/?" "%?"  "%%?" )
+  "Pony language operator symbols.")
+
+(defconst ponylang-operator-functions
+  '("and" "op_and" "or" "op_or" "xor" "op_xor"
+    ;;
+    "add" "sub""mul" "div""rem" "mod"
+    "shl" "shr"
+    "eq" "ne" "lt" "le" "ge" "gt"
+    ;;
+    "gt_unsafe" "lt_unsafe" "le_unsafe" "ge_unsafe"
+    "add_unsafe" "sub_unsafe"
+    "mul_unsafe" "div_unsafe"
+    "rem_unsafe" "mod_unsafe"
+    "shl_unsafe" "shr_unsafe"
+    "eq_unsafe" "ne_unsafe"
+    ;;
+    "add_partial" "sub_partial"
+    "mul_partial" "div_partial"
+    "rem_partial" "mod_partial")
+  "Pony language operator functions.")
+
+(defconst ponylang-all-operators
+  '("and" "op_and" "or" "op_or" "xor" "op_xor"
+
+    "+" "add" "-" "sub" "*" "mul" "/" "div" "%" "rem" "%%" "mod"
+    "<<" "shl" ">>" "shr"
+    "==" "eq" "!=" "ne" "<" "lt" "<=" "le" ">=" "ge" ">" "gt"
+    ;;
+    ">~" "gt_unsafe" "<~" "lt_unsafe" "<=~" "le_unsafe" ">=~" "ge_unsafe"
+    "+~" "add_unsafe" "-~" "sub_unsafe" "*~" "mul_unsafe" "/~" "div_unsafe"
+    "%~" "rem_unsafe" "%%~" "mod_unsafe"
+    "<<~" "shl_unsafe" ">>~" "shr_unsafe"
+    "==~" "eq_unsafe" "!=~" "ne_unsafe"
+    ;;
+    "+?" "add_partial" "-?" "sub_partial"
+    "*?" "mul_partial" "/?" "div_partial"
+    "%?" "rem_partial" "%%?" "mod_partial")
+  "ponylang all operators.")
 
 (defconst ponylang-constants
   '("false" "true" "None")
