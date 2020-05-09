@@ -165,7 +165,8 @@
   "Pony language careful keywords.")
 
 (defconst ponylang-common-functions
-  '("apply" "update" "string" "size" "hash")
+  '("apply" "update"
+    "string" "size" "hash")
   "Pony language careful keywords.")
 
 ;; (defconst ponylang-operator-symbols
@@ -260,14 +261,11 @@
     ;; careful
     (,ponylang-careful-keywords-regexp . font-lock-warning-face)
 
-    ;; sugar
-    (,ponylang-sugar-keywords-regexp . font-lock-constant-face)
-
     ;; declaration
     (,ponylang-declaration-keywords-regexp . font-lock-preprocessor-face)
 
     ;; functions
-    (,ponylang-functions-regexp . font-lock-preprocessor-face)
+    (,ponylang-functions-regexp . font-lock-constant-face)
 
     ;; capabilities
     (,ponylang-capabilities-regexp . font-lock-preprocessor-face)
