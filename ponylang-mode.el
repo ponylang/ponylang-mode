@@ -104,8 +104,8 @@
   '("box" "iso" "ref" "tag" "trn" "val")
   "Pony capability markers.")
 
-(defconst ponylang-capability-constraints '("#read" "#send" "#share" "#any" "#alias")
-  "Pony capability constraint markers.")
+;; (defconst ponylang-capability-constraints '("#read" "#send" "#share" "#any" "#alias")
+  ;; "Pony capability constraint markers.")
 
 (defconst ponylang-keywords
   '("__loc"
@@ -164,17 +164,21 @@
     "error" "compile_error" "compile_intrinsic")
   "Pony language careful keywords.")
 
-(defconst ponylang-operator-symbols
-  '("+" "-" "*"  "/" "%" "%%"
-    "<<" ">>"
-    "=="  "!="  "<"  "<="  ">="  ">"
-    ;;
-    ">~"  "<~"  "<=~" ">=~"
-    "+~" "-~" "*~" "/~"  "%~" "%%~"
-    "<<~" ">>~" "==~"  "!=~"
-    ;;
-    "+?" "-?"  "*?" "/?" "%?"  "%%?" )
-  "Pony language operator symbols.")
+(defconst ponylang-common-functions
+  '("apply" "update" "string" "size" "hash")
+  "Pony language careful keywords.")
+
+;; (defconst ponylang-operator-symbols
+  ;; '("+" "-" "*"  "/" "%" "%%"
+    ;; "<<" ">>"
+    ;; "=="  "!="  "<"  "<="  ">="  ">"
+
+    ;; ">~"  "<~"  "<=~" ">=~"
+    ;; "+~" "-~" "*~" "/~"  "%~" "%%~"
+    ;; "<<~" ">>~" "==~"  "!=~"
+
+    ;; "+?" "-?"  "*?" "/?" "%?"  "%%?" )
+  ;; "Pony language operator symbols.")
 
 (defconst ponylang-operator-functions
   '("and" "op_and" "or" "op_or" "xor" "op_xor"
@@ -195,23 +199,23 @@
     "rem_partial" "mod_partial")
   "Pony language operator functions.")
 
-(defconst ponylang-all-operators
-  '("and" "op_and" "or" "op_or" "xor" "op_xor"
+;; (defconst ponylang-all-operators
+  ;; '("and" "op_and" "or" "op_or" "xor" "op_xor"
 
-    "+" "add" "-" "sub" "*" "mul" "/" "div" "%" "rem" "%%" "mod"
-    "<<" "shl" ">>" "shr"
-    "==" "eq" "!=" "ne" "<" "lt" "<=" "le" ">=" "ge" ">" "gt"
-    ;;
-    ">~" "gt_unsafe" "<~" "lt_unsafe" "<=~" "le_unsafe" ">=~" "ge_unsafe"
-    "+~" "add_unsafe" "-~" "sub_unsafe" "*~" "mul_unsafe" "/~" "div_unsafe"
-    "%~" "rem_unsafe" "%%~" "mod_unsafe"
-    "<<~" "shl_unsafe" ">>~" "shr_unsafe"
-    "==~" "eq_unsafe" "!=~" "ne_unsafe"
-    ;;
-    "+?" "add_partial" "-?" "sub_partial"
-    "*?" "mul_partial" "/?" "div_partial"
-    "%?" "rem_partial" "%%?" "mod_partial")
-  "ponylang all operators.")
+    ;; "+" "add" "-" "sub" "*" "mul" "/" "div" "%" "rem" "%%" "mod"
+    ;; "<<" "shl" ">>" "shr"
+    ;; "==" "eq" "!=" "ne" "<" "lt" "<=" "le" ">=" "ge" ">" "gt"
+
+    ;; ">~" "gt_unsafe" "<~" "lt_unsafe" "<=~" "le_unsafe" ">=~" "ge_unsafe"
+    ;; "+~" "add_unsafe" "-~" "sub_unsafe" "*~" "mul_unsafe" "/~" "div_unsafe"
+    ;; "%~" "rem_unsafe" "%%~" "mod_unsafe"
+    ;; "<<~" "shl_unsafe" ">>~" "shr_unsafe"
+    ;; "==~" "eq_unsafe" "!=~" "ne_unsafe"
+
+    ;; "+?" "add_partial" "-?" "sub_partial"
+    ;; "*?" "mul_partial" "/?" "div_partial"
+    ;; "%?" "rem_partial" "%%?" "mod_partial")
+  ;; "ponylang all operators.")
 
 (defconst ponylang-constants
   '("false" "true" "None")
@@ -229,11 +233,48 @@
   (regexp-opt ponylang-constants 'words)
   "Regular expression for matching common constants.")
 
+(defconst ponylang-capabilities-regexp
+  (regexp-opt ponylang-capabilities 'words)
+  "Regular expression for matching capabilities.")
+
+(defconst ponylang-careful-keywords-regexp
+  (regexp-opt ponylang-careful-keywords 'words)
+  "Regular expression for matching careful keywords.")
+
+(defconst ponylang-declaration-keywords-regexp
+  (regexp-opt ponylang-declaration-keywords 'words)
+  "Regular expression for matching common constants.")
+
+(defconst ponylang-functions-regexp
+  (regexp-opt
+   (append ponylang-operator-functions
+	   ponylang-common-functions)
+   'words)
+  "Regular expression for matching keywords.")
+
 ;(setq ponylang-event-regexp (regexp-opt ponylang-events 'words))
 ;(setq ponylang-functions-regexp (regexp-opt ponylang-functions 'words))
 
 (defconst ponylang-font-lock-keywords
   `(
+    ;; careful
+    (,ponylang-careful-keywords-regexp . font-lock-warning-face)
+
+    ;; sugar
+    (,ponylang-sugar-keywords-regexp . font-lock-constant-face)
+
+    ;; declaration
+    (,ponylang-declaration-keywords-regexp . font-lock-preprocessor-face)
+
+    ;; functions
+    (,ponylang-functions-regexp . font-lock-preprocessor-face)
+
+    ;; capabilities
+    (,ponylang-capabilities-regexp . font-lock-preprocessor-face)
+
+    ;; capability constraints
+    ("#\\(?:read\\|send\\|share\\|any\\|alias\\)" . 'font-lock-builtin-face)
+
     ;; actor and class definitions
     ("\\(?:actor\\|class\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[A-Z_][A-Za-z0-9_]*\\)"
      1
