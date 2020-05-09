@@ -7,6 +7,7 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Added
 
+- Add missing keywords ([PR #36](https://github.com/ponylang/ponylang-mode/pull/36))
 
 ### Changed
 
