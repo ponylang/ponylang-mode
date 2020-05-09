@@ -164,7 +164,7 @@
 (defconst ponylang-common-functions
   '("apply" "update"
     "string" "size" "hash")
-  "Pony language careful keywords.")
+  "Pony language common functons.")
 
 (defconst ponylang-operator-functions
   '("and" "op_and" "or" "op_or" "xor" "op_xor"
