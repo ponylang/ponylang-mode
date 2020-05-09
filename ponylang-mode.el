@@ -164,7 +164,7 @@
 (defconst ponylang-common-functions
   '("apply" "update"
     "string" "size" "hash")
-  "Pony language common functons.")
+  "Pony language common functions.")
 
 (defconst ponylang-operator-functions
   '("and" "op_and" "or" "op_or" "xor" "op_xor"
@@ -183,7 +183,7 @@
     "add_partial" "sub_partial"
     "mul_partial" "div_partial"
     "rem_partial" "mod_partial")
-  "Pony language operator functions.")
+  "Pony language operators functions.")
 
 (defconst ponylang-constants
   '("false" "true" "None")
@@ -211,14 +211,14 @@
 
 (defconst ponylang-declaration-keywords-regexp
   (regexp-opt ponylang-declaration-keywords 'words)
-  "Regular expression for matching common constants.")
+  "Regular expression for matching declaration keywords.")
 
 (defconst ponylang-functions-regexp
   (regexp-opt
    (append ponylang-operator-functions
 	   ponylang-common-functions)
    'words)
-  "Regular expression for matching keywords.")
+  "Regular expression for matching functions.")
 
 ;(setq ponylang-event-regexp (regexp-opt ponylang-events 'words))
 ;(setq ponylang-functions-regexp (regexp-opt ponylang-functions 'words))
