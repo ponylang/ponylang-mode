@@ -104,9 +104,6 @@
   '("box" "iso" "ref" "tag" "trn" "val")
   "Pony capability markers.")
 
-;; (defconst ponylang-capability-constraints '("#read" "#send" "#share" "#any" "#alias")
-  ;; "Pony capability constraint markers.")
-
 (defconst ponylang-keywords
   '("__loc"
     "actor" "addressof" "and" "as"
@@ -169,18 +166,6 @@
     "string" "size" "hash")
   "Pony language careful keywords.")
 
-;; (defconst ponylang-operator-symbols
-  ;; '("+" "-" "*"  "/" "%" "%%"
-    ;; "<<" ">>"
-    ;; "=="  "!="  "<"  "<="  ">="  ">"
-
-    ;; ">~"  "<~"  "<=~" ">=~"
-    ;; "+~" "-~" "*~" "/~"  "%~" "%%~"
-    ;; "<<~" ">>~" "==~"  "!=~"
-
-    ;; "+?" "-?"  "*?" "/?" "%?"  "%%?" )
-  ;; "Pony language operator symbols.")
-
 (defconst ponylang-operator-functions
   '("and" "op_and" "or" "op_or" "xor" "op_xor"
     ;;
@@ -199,24 +184,6 @@
     "mul_partial" "div_partial"
     "rem_partial" "mod_partial")
   "Pony language operator functions.")
-
-;; (defconst ponylang-all-operators
-  ;; '("and" "op_and" "or" "op_or" "xor" "op_xor"
-
-    ;; "+" "add" "-" "sub" "*" "mul" "/" "div" "%" "rem" "%%" "mod"
-    ;; "<<" "shl" ">>" "shr"
-    ;; "==" "eq" "!=" "ne" "<" "lt" "<=" "le" ">=" "ge" ">" "gt"
-
-    ;; ">~" "gt_unsafe" "<~" "lt_unsafe" "<=~" "le_unsafe" ">=~" "ge_unsafe"
-    ;; "+~" "add_unsafe" "-~" "sub_unsafe" "*~" "mul_unsafe" "/~" "div_unsafe"
-    ;; "%~" "rem_unsafe" "%%~" "mod_unsafe"
-    ;; "<<~" "shl_unsafe" ">>~" "shr_unsafe"
-    ;; "==~" "eq_unsafe" "!=~" "ne_unsafe"
-
-    ;; "+?" "add_partial" "-?" "sub_partial"
-    ;; "*?" "mul_partial" "/?" "div_partial"
-    ;; "%?" "rem_partial" "%%?" "mod_partial")
-  ;; "ponylang all operators.")
 
 (defconst ponylang-constants
   '("false" "true" "None")
