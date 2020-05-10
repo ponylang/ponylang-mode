@@ -2,17 +2,11 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
-
-### Fixed
-
+## [0.0.12] - 2020-05-10
 
 ### Added
 
 - Add missing keywords ([PR #36](https://github.com/ponylang/ponylang-mode/pull/36))
-
-### Changed
-
 
 ## [0.0.11] - 2018-08-04
 
@@ -69,7 +63,7 @@ All notable changes to this project will be documented in this file. This projec
 
 - Constructor indenting: 'new' at beginning of line indents one level.
 
-
 ### Added
 
 - 'lambda' as a highlighted keyword
+
