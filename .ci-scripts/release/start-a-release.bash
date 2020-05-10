@@ -80,7 +80,7 @@ git pull
 
 # version for melpa
 echo -e "\e[34mUpdating VERSION to ${VERSION}\e[0m"
-sed -i -e 's/;; Version: \(.*\)$/;; Version: ${VERSION}/g' ponylang-mode.el ponylang-test.el
+sed -i -e "s/;; Version: \(.*\)$/;; Version: ${VERSION}/g" ponylang-mode.el ponylang-test.el
 
 # version the changelog
 echo -e "\e[34mUpdating CHANGELOG.md for release\e[0m"
