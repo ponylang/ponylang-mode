@@ -1,9 +1,11 @@
 # Change Log
 
-All notable changes to ponylang-mode are documented in this file. 
-This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
+All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - [unreleased]
+## [unreleased] - unreleased
+
+### Fixed
+
 
 ### Added
 
@@ -12,16 +14,13 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 ### Changed
 
 
-### Fixed
-
-
-## [0.0.11] - [2018-08-04]
+## [0.0.11] - 2018-08-04
 
 ### Added
 
 - Nothing. Attempt to get Melpa stable index to show new version.
 
-## [0.0.10] - [2018-08-03]
+## [0.0.10] - 2018-08-03
 
 ### Fixed
 
@@ -29,13 +28,13 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ## [0.0.9] - 2017-05-14
 
-### Added
-
--  Add "with" to indenting keywords
-
 ### Fixed
 
 - Font lock strings and character constants correctly
+
+### Added
+
+-  Add "with" to indenting keywords
 
 ## [0.0.8] - 2016-10-08
 
@@ -68,9 +67,9 @@ This project adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ### Fixed
 
-- Constructor indenting: 'new' at beginning of line indents one level. 
+- Constructor indenting: 'new' at beginning of line indents one level.
+
 
 ### Added
 
 - 'lambda' as a highlighted keyword
-
