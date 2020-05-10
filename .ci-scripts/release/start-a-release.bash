@@ -3,9 +3,7 @@
 # Starts the release process by:
 #
 # - Getting latest changes on master
-# - Updating version in
-#   - VERSION
-#   - CHANGELOG.md
+# - Updating version in CHANGELOG.md
 # - Versioning for melpa
 # - Pushing updated CHANGELOG.md back to master
 # - Pushing tag to kick off melpa stable updating to new release
@@ -88,9 +86,9 @@ sed -i -e 's/;; Version: \(.*\)$/;; Version: ${VERSION}/g' ponylang-mode.el pony
 echo -e "\e[34mUpdating CHANGELOG.md for release\e[0m"
 changelog-tool release "${VERSION}" -e
 
-# commit CHANGELOG and VERSION updates
+# commit CHANGELOG, ponylang-mode.el, and ponylang-test.el updates
 echo -e "\e[34mCommiting VERSION and CHANGELOG.md changes\e[0m"
-git add CHANGELOG.md VERSION
+git add CHANGELOG.md ponylang-mode.el ponylang-test.el
 git commit -m "${VERSION} release"
 
 # tag release
