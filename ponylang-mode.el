@@ -463,6 +463,40 @@ the current context."
   (if (file-exists-p "corral.json")
   (ponylang-run-command "corral fetch")))
 
+(easy-menu-define ponylang-mode-menu ponylang-mode-map
+  "Menu for Ponylang mode."
+  '("Ponylang"
+     ["Build" ponylang-project-build t]
+     ["Run" ponylang-project-run t]
+     "---"
+     ("Corral"
+       ["Fetch" ponylang-corral-fetch t]
+       ["Update" ponylang-corral-update t])))
+
+(defhydra hydra-ponylang-menu
+  (:color blue :hint none)
+"
+ 6,dPPYba,   ,adPPYba,   6,dPPYba,  8b       d8
+88P'     8a a8       8a 88P'   ` 8a `8b     d8'
+88       d8 8b       d8 88       88  `8b   d8'
+88b,   ,a8  8a,    ,a8  88       88   `8b,d8'
+88`YbbdP '   ` YbbdP '  88       88     Y88'
+88                                      d8'
+88                                     d8'
+
+  _b_: Build   _r_: Run
+  _f_: Fetch   _u_: Update           _q_: Quit
+"
+  ("b" ponylang-project-build "Build" :color blue)
+  ("r" ponylang-project-run "Run" :color green)
+  ("f" ponylang-corral-fetch "Fetch" :color pink)
+  ("u" ponylang-corral-update "Update" :color pink)
+  ("q" nil "Quit"))
+
+(defun ponylang-menu ()
+  (interactive)
+  (hydra-ponylang-menu/body))
+
 ;;;###autoload
 (define-derived-mode ponylang-mode ponylang-parent-mode "Pony"
   "Major mode for editing Pony files."
