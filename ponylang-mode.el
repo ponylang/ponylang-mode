@@ -452,9 +452,10 @@ the current context."
   (interactive)
   (let* ((bin1 (concat (ponylang-project-root) "bin/" (ponylang-project-name)))
           (bin2 (concat (ome-buf-dirpath) "/" (ponylang-project-name))))
-    (if (ponylang-project-file-exists-p "Makefile")
-        (ponylang-run-command bin1)
-      (ponylang-run-command bin2))))
+    (if (ponylang-project-file-exists-p bin1)
+      (ponylang-run-command bin1)
+      (if (ponylang-project-file-exists-p bin2)
+        (ponylang-run-command bin2)))))
 
 (defun ponylang-corral-fetch ()
   (interactive)
