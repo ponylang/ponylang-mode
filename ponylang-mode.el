@@ -4,7 +4,7 @@
 ;; Version: 0.0.12
 ;; URL: https://github.com/seantallen/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((dash "2.10.0"))
+;; Package-Requires: ((dash "2.10.0") (hydra "0.15.0))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -59,6 +59,8 @@
 ;;; Code:
 
 (require 'dash)
+(require 'hydra)
+(require 'easymenu)
 
 (defvar ponylang-mode-hook nil)
 
@@ -92,6 +94,7 @@
 (defvar ponylang-mode-map
   (let ((map (make-keymap)))
     (define-key map "\C-j" 'newline-and-indent)
+    (define-key map [f6] 'ponylang-menu)
     map)
   "Keymap for Pony major mode")
 
@@ -450,28 +453,33 @@ the current context."
   (let* ((bin1 (concat (ponylang-project-root) "bin/" (ponylang-project-name)))
           (bin2 (concat (ome-buf-dirpath) "/" (ponylang-project-name))))
     (if (ponylang-project-file-exists-p "Makefile")
-      (ponylang-run-command bin1)
+        (ponylang-run-command bin1)
       (ponylang-run-command bin2))))
 
 (defun ponylang-corral-fetch ()
   (interactive)
   (if (file-exists-p "corral.json")
-  (ponylang-run-command "corral update")))
+      (ponylang-run-command "corral fetch")))
 
 (defun ponylang-corral-update ()
   (interactive)
   (if (file-exists-p "corral.json")
-  (ponylang-run-command "corral fetch")))
+      (ponylang-run-command "corral update")))
+
+(defun ponylang-corral-open ()
+  (interactive)
+  (find-file (concat (ponylang-project-root) "corral.json")))
 
 (easy-menu-define ponylang-mode-menu ponylang-mode-map
   "Menu for Ponylang mode."
   '("Ponylang"
-     ["Build" ponylang-project-build t]
-     ["Run" ponylang-project-run t]
-     "---"
-     ("Corral"
-       ["Fetch" ponylang-corral-fetch t]
-       ["Update" ponylang-corral-update t])))
+    ["Build" ponylang-project-build t]
+    ["Run" ponylang-project-run t]
+    "---"
+    ("Corral"
+     ["Open" ponylang-corral-open t]
+     ["Fetch" ponylang-corral-fetch t]
+     ["Update" ponylang-corral-update t])))
 
 (defhydra hydra-ponylang-menu
   (:color blue :hint none)
@@ -484,13 +492,14 @@ the current context."
 88                                      d8'
 88                                     d8'
 
-  _b_: Build   _r_: Run
-  _f_: Fetch   _u_: Update           _q_: Quit
+  _b_: Build   _r_: Run      _o_: corral.json
+  _f_: Fetch   _u_: Update   _q_: Quit
 "
-  ("b" ponylang-project-build "Build" :color blue)
-  ("r" ponylang-project-run "Run" :color green)
-  ("f" ponylang-corral-fetch "Fetch" :color pink)
-  ("u" ponylang-corral-update "Update" :color pink)
+  ("b" ponylang-project-build "Build")
+  ("r" ponylang-project-run "Run")
+  ("o" ponylang-corral-open "Open corral.json")
+  ("f" ponylang-corral-fetch "corral fetch")
+  ("u" ponylang-corral-update "corral udate")
   ("q" nil "Quit"))
 
 (defun ponylang-menu ()
@@ -507,8 +516,9 @@ the current context."
   (setq-local indent-line-function 'ponylang-indent-line)
   (setq-local syntax-propertize-function ponylang-syntax-propertize-function)
   (setq-local indent-tabs-mode nil)
-  (setq-local 'tab-width 2))
+  (setq-local tab-width 2))
 
 (provide 'ponylang-mode)
 
 ;;; ponylang-mode.el ends here
+
