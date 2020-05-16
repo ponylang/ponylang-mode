@@ -404,6 +404,64 @@ the current context."
    ("\"\"\"" ; A triple quoted string
     (0 (ignore (ponylang-stringify-triple-quote))))))
 
+(defun ponylang-root-p (directory)
+  (setq-local files '("corral.json" "lock.json" "Makefile" "Dockerfile"
+                       ".editorconfig" ".gitignore" "CMakeLists.txt"))
+  (setq-local found nil)
+  (while (and files
+           (not found))
+    (let* ((filename (car files))
+            (filepath (concat (file-name-as-directory directory) filename)))
+      (setq-local files (cdr files))
+      (setq-local found (file-exists-p filepath))))
+  found)
+
+(defun ponylang-project-root (&optional path)
+  (let* ((bufdir (if buffer-file-name
+                   (file-name-directory buffer-file-name) default-directory))
+          (curdir (if path (file-name-as-directory path) bufdir))
+          (parent (file-name-directory (directory-file-name curdir))))
+    (if (or (not parent)
+          (string= parent curdir)
+          (string= parent "/")
+          (ponylang-root-p curdir))
+      curdir (ponylang-project-root parent))))
+
+(defun ponylang-project-name ()
+  (file-name-base (directory-file-name (ponylang-project-root))))
+
+(defun ponylang-project-file-exists-p (filename)
+  (file-exists-p (concat (ponylang-project-root) filename)))
+
+(defun ponylang-run-command (command &optional path)
+  (setq default-directory (if path path (ponylang-project-root path)))
+  (compile command))
+
+(defun ponylang-project-build ()
+  (interactive)
+  (if (ponylang-project-file-exists-p "corral.json")
+    (ponylang-run-command "corral run -- ponyc --debug")
+    (if (ponylang-project-file-exists-p "Makefile")
+      (ponylang-run-command "make")
+      (ponylang-run-command "ponyc"))))
+
+(defun ponylang-project-run ()
+  (interactive)
+  (let* ((bin1 (concat (ponylang-project-root) "bin/" (ponylang-project-name)))
+          (bin2 (concat (ome-buf-dirpath) "/" (ponylang-project-name))))
+    (if (ponylang-project-file-exists-p "Makefile")
+      (ponylang-run-command bin1)
+      (ponylang-run-command bin2))))
+
+(defun ponylang-corral-fetch ()
+  (interactive)
+  (if (file-exists-p "corral.json")
+  (ponylang-run-command "corral update")))
+
+(defun ponylang-corral-update ()
+  (interactive)
+  (if (file-exists-p "corral.json")
+  (ponylang-run-command "corral fetch")))
 
 ;;;###autoload
 (define-derived-mode ponylang-mode ponylang-parent-mode "Pony"
