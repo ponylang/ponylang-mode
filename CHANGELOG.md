@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- Compilation Integration ([PR #41](https://github.com/ponylang/ponylang-mode/pull/41))
 
 ### Changed
 
