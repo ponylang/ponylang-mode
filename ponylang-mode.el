@@ -132,10 +132,9 @@
     "actor"
     "be"
     "class"
-    "else" "embed"
+    "else"
     "for" "fun"
     "if" "ifdef" "interface"
-    "let"
     "match"
     "new"
     "primitive"
@@ -143,7 +142,6 @@
     "struct"
     "tag" "then" "trait" "try" "type"
     "until"
-    "var"
     "while" "with")
   "Pony keywords which indicate a new indentation level.")
 
@@ -285,7 +283,7 @@
 (defun ponylang--looking-at-indent-start ()
   "Determines if the current position is 'looking at' a keyword
   that starts new indentation."
-  (-any? (lambda (k) (looking-at (concat  "^[ \t]*" k))) ponylang-indent-start-keywords))
+  (-any? (lambda (k) (looking-at (concat  "^[ \t]*" k " "))) ponylang-indent-start-keywords))
 
 (defun ponylang-syntactic-indent-line ()
   "Indent current line as pony code based on language syntax and
@@ -343,7 +341,7 @@ the current context."
 	    (forward-line -1)
 	    (cond
 	     ;; if the previous line ends in =, indent one level
-	     ((looking-at ".*\\(=>\\|=\\)[ \t]*$")
+	     ((looking-at ".*\\(=>\\|=\\,\\|/|\\)[ \t]*$")
 	      (setq cur-indent (+ (current-indentation) tab-width)))
 
 	     ((ponylang--looking-at-indent-start)
