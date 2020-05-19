@@ -128,19 +128,22 @@
   "Pony language keywords.")
 
 (defconst ponylang-indent-start-keywords
-  '("actor"
+  '("|"
+    "actor"
     "be"
     "class"
-    "else"
+    "else" "embed"
     "for" "fun"
     "if" "ifdef" "interface"
+    "let"
     "match"
     "new"
     "primitive"
     "recover" "ref" "repeat"
     "struct"
-    "tag" "then" "trait" "try"
+    "tag" "then" "trait" "try" "type"
     "until"
+    "var"
     "while" "with")
   "Pony keywords which indicate a new indentation level.")
 
@@ -340,7 +343,7 @@ the current context."
 	    (forward-line -1)
 	    (cond
 	     ;; if the previous line ends in =, indent one level
-	     ((looking-at ".*=[ \t]*$")
+	     ((looking-at ".*\\(=>\\|=\\)[ \t]*$")
 	      (setq cur-indent (+ (current-indentation) tab-width)))
 
 	     ((ponylang--looking-at-indent-start)
