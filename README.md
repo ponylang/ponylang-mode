@@ -23,12 +23,6 @@ deployed to MELPA Stable.
 
 <kbd>M-x package-install [RET] ponylang-mode [RET]</kbd>
 
-Then somewhere in your Emacs configuration, call:
-
-```
-(require 'ponylang-mode)
-```
-
 ## Configuration
 
 Right now `ponylang-mode` doesn't take a lot of configuration (i.e.
@@ -37,11 +31,9 @@ indentation matches that in the `ponyc` project's examples, you can
 use something like this:
 
 ```
-(add-hook
-  'ponylang-mode-hook
-  (lambda ()
-    (set-variable 'indent-tabs-mode nil)
-    (set-variable 'tab-width 2)))
+(require 'ponylang-mode)
+(setq ponylang-banner 1) ;; 1: Word (Default) 2: Horse 3: Knight
+(define-key ponylang-mode-map "<f6>" 'ponylang-menu)
 ```
 
 If you're using
@@ -51,13 +43,11 @@ your configuration, you can configure `ponylang-mode` like so:
 ```
 (use-package ponylang-mode
   :ensure t
+  :init
+  (setq ponylang-banner 1) ;; 1: Word (Default) 2: Horse 3: Knight
   :config
-  (progn
-    (add-hook
-     'ponylang-mode-hook
-     (lambda ()
-       (set-variable 'indent-tabs-mode nil)
-       (set-variable 'tab-width 2)))))
+  :bind-keymap
+  ("<f6>" . ponylang-menu))
 ```
 
 ## Testing

@@ -4,7 +4,7 @@
 ;; Version: 0.0.12
 ;; URL: https://github.com/seantallen/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((dash "2.10.0"))
+;; Package-Requires: ((dash "2.10.0") (hydra "0.15.0))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -59,6 +59,8 @@
 ;;; Code:
 
 (require 'dash)
+(require 'hydra)
+(require 'easymenu)
 
 (defvar ponylang-mode-hook nil)
 
@@ -488,6 +490,102 @@ the current context."
      ["Open" ponylang-corral-open t]
      ["Fetch" ponylang-corral-fetch t]
      ["Update" ponylang-corral-update t])))
+
+(defconst ponylang-banner-default
+  "
+ _ __   ___  _ __  _   _ 
+| '_ \\ / _ \\| '_ \\| | | |
+| |_) | (_) | | | | |_| |
+| .__/ \\___/|_| |_|\\__, |
+| |                 __/ |
+|_|                |___/
+"
+  "ponylang word logo.")
+
+(defconst ponylang-banner-horse
+  "
+                               ,(\\_/)
+                            ((((^`\\
+                          ((((  (6 \\
+                         ((((( ,    \\
+     ,,,_              (((((  /\"._  ,`,
+    ((((\\\\ ,...       ((((   /    `-.-'
+    )))  ;'    `\"'\"'\"((((    (
+   (((  /           (((       \\
+    )) |                      |
+   ((  |        .       '     |
+   ))  \\     _ '      `\\   ,.'Y
+   (   |   y;---,-\"\"'\"-.\\   \\/
+   )   / ./  ) /         `\\  \\
+      |./   ( (           / /'
+      ||     \\\\          //'|
+      ||      \\\\       _// ||
+      ||       ))     |_/  ||
+      \\_\\     |_/          ||
+      `'\"                  \\_\\
+                           `'\""
+  "ponylang horse logo.")
+
+(defconst ponylang-banner-knight
+  "
+                                 .
+                                 |\\
+                                 ||
+                                 ||
+                                 ||
+                     ,__,,       ||
+                     =/= /       ||
+         ,   ,       \\j /     o-</>>o
+        _)\\_/)      __//___,____/_\\
+       (/ (6\\>   __// /_ /__\\_/_/
+      /`  _ /\\><'_\\/\\/__/
+     / ,_//\\  \\>    _)_/
+     \\_('  |  )>   x)_::\\       ______,
+           /  \\>__//  o |----.,/(  )\\\\))
+           \\'  \\|  )___/ \\     \\/  \\\\\\\\\\
+           /    +-/o/----+      |
+          / '     \\_\\,  ___     /
+         /  \\_|  _/\\_|-\" /,    /
+        / _/ / _/   )\\|  |   _/
+       ( (  / /    /_/ \\_ \\_(__
+        \\`./ /           / /  /
+         \\/ /           / / _/
+        _/,/          _/_/,/
+  _____/ (______,____/_/ (______
+       ^-'             ^-'"
+  "ponylang knight logo.")
+
+(defcustom ponylang-banner 1
+  "Specify the startup banner.
+Default value is `1', it displaysthe `Horse' logo.  
+`2' displays Emacs `Knight' logo. `3' displays Emacs `Word' logo."
+  :type  'integer
+  :group 'ponylang)
+
+(defun ponylang-choose-banner ()
+  "Return the banner content."
+  (cond ((= 1 ponylang-banner) ponylang-banner-default)
+        ((= 2 ponylang-banner) ponylang-banner-knight)
+        ((= 3 ponylang-banner) ponylang-banner-horse)
+        (t ponylang-banner-horse)))
+
+(defhydra ponylang-hydra-menu
+  (:color blue :hint none)
+  "
+%s(ponylang-choose-banner)
+  _b_: Build   _r_: Run      _o_: corral.json
+  _f_: Fetch   _u_: Update   _q_: Quit"
+  ("b" ponylang-project-build "Build")
+  ("r" ponylang-project-run "Run")
+  ("o" ponylang-corral-open "Open corral.json")
+  ("f" ponylang-corral-fetch "corral fetch")
+  ("u" ponylang-corral-update "corral udate")
+  ("q" nil "Quit"))
+
+(defun ponylang-menu ()
+  "Open ponylang hydra menu."
+  (interactive)
+  (ponylang-hydra-menu/body))
 
 ;;;###autoload
 (define-derived-mode ponylang-mode ponylang-parent-mode "Pony"
