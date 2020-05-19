@@ -404,22 +404,24 @@ the current context."
    ("\"\"\"" ; A triple quoted string
     (0 (ignore (ponylang-stringify-triple-quote))))))
 
-(defun ponylang-project-root-p (path)
-  (setq-local files '("corral.json" "lock.json" "Makefile" "Dockerfile"
-                       ".editorconfig" ".gitignore" "CMakeLists.txt"))
+(defun ponylang-project-root-p (PATH)
+  "Return `t' if directory `PATH' is the root of the pony project."
+  (setq-local files '("corral.json" "lock.json" "Makefile"
+                      "Dockerfile" ".editorconfig" ".gitignore"))
   (setq-local foundp nil)
   (while (and files
            (not foundp))
     (let* ((filename (car files))
-            (filepath (concat (file-name-as-directory path) filename)))
+            (filepath (concat (file-name-as-directory PATH) filename)))
       (setq-local files (cdr files))
       (setq-local foundp (file-exists-p filepath))))
   foundp)
 
-(defun ponylang-project-root (&optional path)
+(defun ponylang-project-root (&optional PATH)
+  "Return the root of the pony project."
   (let* ((bufdir (if buffer-file-name
                    (file-name-directory buffer-file-name) default-directory))
-          (curdir (if path (file-name-as-directory path) bufdir))
+          (curdir (if PATH (file-name-as-directory PATH) bufdir))
           (parent (file-name-directory (directory-file-name curdir))))
     (if (or (not parent)
           (string= parent curdir)
@@ -428,16 +430,20 @@ the current context."
       curdir (ponylang-project-root parent))))
 
 (defun ponylang-project-name ()
+  "Return pony project name."
   (file-name-base (directory-file-name (ponylang-project-root))))
 
-(defun ponylang-project-file-exists-p (filename)
-  (file-exists-p (concat (ponylang-project-root) filename)))
+(defun ponylang-project-file-exists-p (FILENAME)
+  "Return t if file `FILENAME' exists"
+  (file-exists-p (concat (ponylang-project-root) FILENAME)))
 
-(defun ponylang-run-command (command &optional path)
-  (setq default-directory (if path path (ponylang-project-root path)))
-  (compile command))
+(defun ponylang-run-command (COMMAND &optional PATH)
+  "Return `COMMAND' in the root of the pony project."
+  (setq default-directory (if PATH PATH (ponylang-project-root PATH)))
+  (compile COMMAND))
 
 (defun ponylang-project-build ()
+  "Build project with ponyc."
   (interactive)
   (if (ponylang-project-file-exists-p "corral.json")
     (ponylang-run-command "corral run -- ponyc --debug")
@@ -446,6 +452,7 @@ the current context."
       (ponylang-run-command "ponyc"))))
 
 (defun ponylang-project-run ()
+  "Run project."
   (interactive)
   (let* ((bin1 (concat (ponylang-project-root) "bin/" (ponylang-project-name)))
           (bin2 (concat (ome-buf-dirpath) "/" (ponylang-project-name))))
@@ -455,16 +462,19 @@ the current context."
         (ponylang-run-command bin2)))))
 
 (defun ponylang-corral-fetch ()
+  "Run corral `fetch' command."
   (interactive)
   (if (file-exists-p "corral.json")
       (ponylang-run-command "corral fetch")))
 
 (defun ponylang-corral-update ()
+  "Run corral `update' command."
   (interactive)
   (if (file-exists-p "corral.json")
       (ponylang-run-command "corral update")))
 
 (defun ponylang-corral-open ()
+  "open `corral.json' file."
   (interactive)
   (find-file (concat (ponylang-project-root) "corral.json")))
 
