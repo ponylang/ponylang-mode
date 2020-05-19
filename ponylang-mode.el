@@ -409,11 +409,13 @@ the current context."
 (define-derived-mode ponylang-mode ponylang-parent-mode "Pony"
   "Major mode for editing Pony files."
   :syntax-table ponylang-mode-syntax-table
-  (set (make-local-variable 'comment-start) "// ")
-  (set (make-local-variable 'comment-start-skip) "//+")
-  (set (make-local-variable 'font-lock-defaults) '(ponylang-font-lock-keywords))
-  (set (make-local-variable 'indent-line-function) 'ponylang-indent-line)
-  (set (make-local-variable 'syntax-propertize-function) ponylang-syntax-propertize-function))
+  (setq-local comment-start "// ")
+  (setq-local comment-start-skip "//+")
+  (setq-local font-lock-defaults '(ponylang-font-lock-keywords))
+  (setq-local indent-line-function 'ponylang-indent-line)
+  (setq-local syntax-propertize-function ponylang-syntax-propertize-function)
+  (setq-local indent-tabs-mode nil)
+  (setq-local tab-width 2))
 
 (provide 'ponylang-mode)
 
