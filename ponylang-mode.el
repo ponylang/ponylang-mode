@@ -557,8 +557,9 @@ the current context."
 
 (defcustom ponylang-banner 1
   "Specify the startup banner.
-Default value is `1', it displaysthe `Horse' logo.  
-`2' displays Emacs `Knight' logo. `3' displays Emacs `Word' logo."
+Default value is `1', it displays the `Word' logo.
+`2' displays the `Horse' logo. 
+`3' displays the `Knight' logo."
   :type  'integer
   :group 'ponylang)
 

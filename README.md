@@ -33,7 +33,7 @@ use something like this:
 ```
 (require 'ponylang-mode)
 (setq ponylang-banner 1) ;; 1: Word (Default) 2: Horse 3: Knight
-(define-key ponylang-mode-map "<f6>" 'ponylang-menu)
+(define-key ponylang-mode-map "M-z" 'ponylang-menu)
 ```
 
 If you're using
@@ -47,7 +47,7 @@ your configuration, you can configure `ponylang-mode` like so:
   (setq ponylang-banner 1) ;; 1: Word (Default) 2: Horse 3: Knight
   :config
   :bind-keymap
-  ("<f6>" . ponylang-menu))
+  ("M-z" . ponylang-menu))
 ```
 
 ## Testing
