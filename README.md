@@ -30,24 +30,40 @@ it's too simple to need any). If you want to make sure your
 indentation matches that in the `ponyc` project's examples, you can
 use something like this:
 
-```
+```elisp
 (require 'ponylang-mode)
-(setq ponylang-banner 1) ;; 1: Word (Default) 2: Horse 3: Knight
-(define-key ponylang-mode-map "M-z" 'ponylang-menu)
+(setq ponylang-banner 1) ;; 0: None 1: Word (Default) 2: Horse 3: Knight
+(define-key ponylang-mode-map (kbd "M-z") 'ponylang-menu)
+(define-key ponylang-mode-map (kbd "<f6>")  'ponylang-menu)
+```
+If you like, you can customize the banner:
+```elisp
+(setq ponylang-banner "¯\\_(ツ)_/¯")
+(setq ponylang-banner "
+             _|\\ _/|_,
+           ,((\\\\``-\\\\\\\\_
+         ,(())      `))\\
+       ,(()))       ,_ \\
+      ((())'   |        \\
+      )))))     >.__     \\
+      ((('     /    `-. .c|
+              /        `-`'
+")
 ```
 
 If you're using
 [`use-package`](https://github.com/jwiegley/use-package) to manage
 your configuration, you can configure `ponylang-mode` like so:
 
-```
+```elisp
 (use-package ponylang-mode
   :ensure t
   :init
-  (setq ponylang-banner 1) ;; 1: Word (Default) 2: Horse 3: Knight
+  (setq ponylang-banner 1)
   :config
   :bind-keymap
-  ("M-z" . ponylang-menu))
+  ("M-z" . ponylang-menu)
+  ("<f6>" . ponylang-menu))
 ```
 
 ## Testing

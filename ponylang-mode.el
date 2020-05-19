@@ -94,6 +94,8 @@
 (defvar ponylang-mode-map
   (let ((map (make-keymap)))
     (define-key map "\C-j" 'newline-and-indent)
+    (define-key map (kbd "<f6>")  'ponylang-menu)
+    (define-key map (kbd "M-z")  'ponylang-menu)
     map)
   "Keymap for Pony major mode")
 
@@ -557,18 +559,21 @@ the current context."
 
 (defcustom ponylang-banner 1
   "Specify the startup banner.
-Default value is `1', it displays the `Word' logo.
-`2' displays the `Horse' logo. 
-`3' displays the `Knight' logo."
-  :type  'integer
+Default value is `1', it displaysthe `Horse' logo.`2' displays Emacs `Knight' 
+logo. `3' displays Emacs `Word' logo.A string to customize the banner.If the 
+value is 0 then no banner is displayed."
+  :type  '(choice (integer :tag "Index")
+                  (string :tag "Custom"))
   :group 'ponylang)
 
 (defun ponylang-choose-banner ()
   "Return the banner content."
-  (cond ((= 1 ponylang-banner) ponylang-banner-default)
+  (cond ((not ponylang-banner) "")
+        ((stringp ponylang-banner) ponylang-banner)
+        ((= 1 ponylang-banner) ponylang-banner-default)
         ((= 2 ponylang-banner) ponylang-banner-knight)
         ((= 3 ponylang-banner) ponylang-banner-horse)
-        (t ponylang-banner-horse)))
+        (t ponylang-banner-default)))
 
 (defhydra ponylang-hydra-menu
   (:color blue :hint none)
