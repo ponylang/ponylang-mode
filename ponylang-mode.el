@@ -343,6 +343,10 @@ the current context."
 	     ((looking-at ".*=[ \t]*$")
 	      (setq cur-indent (+ (current-indentation) tab-width)))
 
+       ;; if the previous line ends in |, indent one level
+       ((looking-at ".*|[ \t]*$")
+	      (setq cur-indent (+ (current-indentation) tab-width)))
+
 	     ((ponylang--looking-at-indent-start)
 	      (setq cur-indent (+ (current-indentation) tab-width)))
 
