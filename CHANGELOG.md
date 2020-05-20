@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file. This projec
 
 - Differentiate docstrings from strings ([PR #45](https://github.com/ponylang/ponylang-mode/pull/45))
 - Fix this and reference capabilities highlight color ([PR #47](https://github.com/ponylang/ponylang-mode/pull/47))
+- Fixed multi-line method indentation ([PR #36](https://github.com/ponylang/ponylang-mode/pull/46))
+- Fixed match clause indentation ([PR #36](https://github.com/ponylang/ponylang-mode/pull/46))
+- Fixed multi-line type indentation ([PR #36](https://github.com/ponylang/ponylang-mode/pull/46))
 
 ### Added
 
