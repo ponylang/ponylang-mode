@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+- Differentiate docstrings from strings ([PR #45](https://github.com/ponylang/ponylang-mode/pull/45))
 
 ### Added
 
