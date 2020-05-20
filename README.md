@@ -71,3 +71,6 @@ run them, eval `ponylang-test.el` and run <kbd>M-x ert [RET] t
 
 Big thanks to Austin Bingham who did the first version of ponylang-mode.
 We wouldn't be where we are now without your initial work Austin!
+
+And a huge thanks to Damon Kwok who fixed a number of bugs and added a
+number of new features to ponylang-mode. You rock Damon!
