@@ -95,9 +95,9 @@ by parse-partial-sexp, and should return a face. "
   (if (nth 3 state)
       (save-excursion
         (goto-char (nth 8 state))
-        (while (and (progn (beginning-of-line) (bobp))
+        (while (and (progn (previous-line) (beginning-of-line) (not (bobp)))
                     (or (looking-at "^$") (looking-at "^[ \t]*$")))
-          (previous-line))
+          nil)
         (if (looking-at "^[ \t]*\\(class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|fun\\|be\\)")
             'font-lock-doc-face
           'font-lock-string-face))
@@ -283,8 +283,6 @@ by parse-partial-sexp, and should return a face. "
 
     ;; keywords
     (,ponylang-keywords-regexp . font-lock-keyword-face)
-
-    ("\'\\\\?.\'" . font-lock-string-face)
 
     ;; note: order above matters. “ponylang-keywords-regexp” goes last because
     ;; otherwise the keyword “state” in the function “state_entry”
