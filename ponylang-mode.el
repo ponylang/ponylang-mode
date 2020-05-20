@@ -186,7 +186,7 @@
   "Pony language operators functions.")
 
 (defconst ponylang-constants
-  '("false" "true" "None")
+  '("false" "true" "this" "None")
   "Common constants.")
 
 ;; create the regex string for each class of keywords
@@ -235,7 +235,7 @@
     (,ponylang-functions-regexp . font-lock-constant-face)
 
     ;; capabilities
-    (,ponylang-capabilities-regexp . font-lock-preprocessor-face)
+    (,ponylang-capabilities-regexp . font-lock-builtin-face)
 
     ;; capability constraints
     ("#\\(?:read\\|send\\|share\\|any\\|alias\\)" . 'font-lock-builtin-face)
