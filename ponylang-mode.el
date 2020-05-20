@@ -342,8 +342,12 @@ the current context."
 	    (setq keep-looking nil)
 	    (forward-line -1)
 	    (cond
-	     ;; if the previous line ends in =, indent one level
-	     ((looking-at ".*\\(=>\\|=\\)[ \t]*$")
+	     ;; if the previous line ends in =, => or | , indent one level
+         ((looking-at ".*\\(=>\\|=\\||\\)[ \t]*$")
+	      (setq cur-indent (+ (current-indentation) tab-width)))
+
+         ;; If the previous line is a variable declaration, and ends with a comma
+         ((looking-at ".*\\(let\\|var\\|embed\\).*,[ \t]*$")
 	      (setq cur-indent (+ (current-indentation) tab-width)))
 
 	     ((ponylang--looking-at-indent-start)
