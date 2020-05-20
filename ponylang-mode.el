@@ -282,7 +282,14 @@
 (defun ponylang--looking-at-indent-start ()
   "Determines if the current position is 'looking at' a keyword
   that starts new indentation."
-  (-any? (lambda (k) (looking-at (concat  "^[ \t]*" k))) ponylang-indent-start-keywords))
+  (-any? (lambda (k) (looking-at (concat  "^[ \t]*" k)))
+         ponylang-indent-start-keywords))
+
+(defun ponylang--looking-at-indent-declare ()
+  "Determines if the current position is 'looking at' a keyword
+  that declaration new indentation."
+  (-any? (lambda (k) (looking-at (concat  ".*" k ".*[,|][ \t]*$")))
+         ponylang-declaration-keywords))
 
 (defun ponylang-syntactic-indent-line ()
   "Indent current line as pony code based on language syntax and
@@ -339,10 +346,17 @@ the current context."
 	    (setq keep-looking nil)
 	    (forward-line -1)
 	    (cond
-	     ;; if the previous line ends in =, indent one level
-	     ((looking-at ".*=[ \t]*$")
+	     ;; if the previous line ends in = or =>, indent one level
+	     ((looking-at ".*\\(=>\\|=\\)[ \t]*$")
 	      (setq cur-indent (+ (current-indentation) tab-width)))
 
+       ;; if the previous line ends in )
+       ((looking-at ".*)[ \t]*$")
+        (setq cur-indent (max 0 (- (current-indentation) tab-width))))
+
+       ((ponylang--looking-at-indent-declare)
+	      (setq cur-indent (+ (current-indentation) tab-width)))
+       
 	     ((ponylang--looking-at-indent-start)
 	      (setq cur-indent (+ (current-indentation) tab-width)))
 
