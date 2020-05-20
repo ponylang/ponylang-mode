@@ -89,6 +89,20 @@
 
     table))
 
+(defun ponylang-mode-syntactic-face-function (state)
+  "The function is called with one argument, the parse state at point returned 
+by parse-partial-sexp, and should return a face. "
+  (if (nth 3 state)
+      (save-excursion
+        (goto-char (nth 8 state))
+        (while (and (progn (previous-line) (beginning-of-line) (not (bobp)))
+                    (or (looking-at "^$") (looking-at "^[ \t]*$")))
+          nil)
+        (if (looking-at "^[ \t]*\\(class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|fun\\|be\\)")
+            'font-lock-doc-face
+          'font-lock-string-face))
+    'font-lock-comment-face))
+
 (defvar ponylang-mode-map
   (let ((map (make-keymap)))
     (define-key map "\C-j" 'newline-and-indent)
@@ -269,8 +283,6 @@
 
     ;; keywords
     (,ponylang-keywords-regexp . font-lock-keyword-face)
-
-    ("\'\\\\?.\'" . font-lock-string-face)
 
     ;; note: order above matters. “ponylang-keywords-regexp” goes last because
     ;; otherwise the keyword “state” in the function “state_entry”
@@ -495,7 +507,11 @@ the current context."
   :syntax-table ponylang-mode-syntax-table
   (setq-local comment-start "// ")
   (setq-local comment-start-skip "//+")
-  (setq-local font-lock-defaults '(ponylang-font-lock-keywords))
+  (setq-local font-lock-defaults
+              '(ponylang-font-lock-keywords
+                nil nil nil nil
+                (font-lock-syntactic-face-function
+                 . ponylang-mode-syntactic-face-function)))
   (setq-local indent-line-function 'ponylang-indent-line)
   (setq-local syntax-propertize-function ponylang-syntax-propertize-function)
   (setq-local indent-tabs-mode nil)
