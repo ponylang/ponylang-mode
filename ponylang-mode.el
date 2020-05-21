@@ -4,7 +4,7 @@
 ;; Version: 0.0.12
 ;; URL: https://github.com/seantallen/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((dash "2.10.0"))
+;; Package-Requires: ((dash "2.10.0") (hydra "0.15.0))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -59,6 +59,8 @@
 ;;; Code:
 
 (require 'dash)
+(require 'hydra)
+(require 'easymenu)
 
 (defvar ponylang-mode-hook nil)
 
@@ -106,6 +108,8 @@ by parse-partial-sexp, and should return a face. "
 (defvar ponylang-mode-map
   (let ((map (make-keymap)))
     (define-key map "\C-j" 'newline-and-indent)
+    (define-key map (kbd "<f6>")  'ponylang-menu)
+    (define-key map (kbd "M-z")  'ponylang-menu)
     map)
   "Keymap for Pony major mode")
 
@@ -490,13 +494,13 @@ the current context."
 (defun ponylang-corral-fetch ()
   "Run corral `fetch' command."
   (interactive)
-  (if (file-exists-p "corral.json")
+  (if (ponylang-project-file-exists-p "corral.json")
       (ponylang-run-command "corral fetch")))
 
 (defun ponylang-corral-update ()
   "Run corral `update' command."
   (interactive)
-  (if (file-exists-p "corral.json")
+  (if (ponylang-project-file-exists-p "corral.json")
       (ponylang-run-command "corral update")))
 
 (defun ponylang-corral-open ()
@@ -514,6 +518,106 @@ the current context."
      ["Open" ponylang-corral-open t]
      ["Fetch" ponylang-corral-fetch t]
      ["Update" ponylang-corral-update t])))
+
+(defconst ponylang-banner-default
+  "
+ _ __   ___  _ __  _   _ 
+| '_ \\ / _ \\| '_ \\| | | |
+| |_) | (_) | | | | |_| |
+| .__/ \\___/|_| |_|\\__, |
+| |                 __/ |
+|_|                |___/
+"
+  "ponylang word logo.")
+
+(defconst ponylang-banner-horse
+  "
+                               ,(\\_/)
+                            ((((^`\\
+                          ((((  (6 \\
+                         ((((( ,    \\
+     ,,,_              (((((  /\"._  ,`,
+    ((((\\\\ ,...       ((((   /    `-.-'
+    )))  ;'    `\"'\"'\"((((    (
+   (((  /           (((       \\
+    )) |                      |
+   ((  |        .       '     |
+   ))  \\     _ '      `\\   ,.'Y
+   (   |   y;---,-\"\"'\"-.\\   \\/
+   )   / ./  ) /         `\\  \\
+      |./   ( (           / /'
+      ||     \\\\          //'|
+      ||      \\\\       _// ||
+      ||       ))     |_/  ||
+      \\_\\     |_/          ||
+      `'\"                  \\_\\
+                           `'\""
+  "ponylang horse logo.")
+
+(defconst ponylang-banner-knight
+  "
+                                 .
+                                 |\\
+                                 ||
+                                 ||
+                                 ||
+                     ,__,,       ||
+                     =/= /       ||
+         ,   ,       \\j /     o-</>>o
+        _)\\_/)      __//___,____/_\\
+       (/ (6\\>   __// /_ /__\\_/_/
+      /`  _ /\\><'_\\/\\/__/
+     / ,_//\\  \\>    _)_/
+     \\_('  |  )>   x)_::\\       ______,
+           /  \\>__//  o |----.,/(  )\\\\))
+           \\'  \\|  )___/ \\     \\/  \\\\\\\\\\
+           /    +-/o/----+      |
+          / '     \\_\\,  ___     /
+         /  \\_|  _/\\_|-\" /,    /
+        / _/ / _/   )\\|  |   _/
+       ( (  / /    /_/ \\_ \\_(__
+        \\`./ /           / /  /
+         \\/ /           / / _/
+        _/,/          _/_/,/
+  _____/ (______,____/_/ (______
+       ^-'             ^-'"
+  "ponylang knight logo.")
+
+(defcustom ponylang-banner 1
+  "Specify the startup banner.
+Default value is `1', it displaysthe `Word' logo.`2' displays Emacs `Horse' 
+logo. `3' displays Emacs `Knight' logo.A string to customize the banner.If the 
+value is 0 then no banner is displayed."
+  :type  '(choice (integer :tag "banner index")
+                  (string :tag "custom banner"))
+  :group 'ponylang)
+
+(defun ponylang-choose-banner ()
+  "Return the banner content."
+  (cond ((not ponylang-banner) "")
+        ((stringp ponylang-banner) ponylang-banner)
+        ((= 1 ponylang-banner) ponylang-banner-default)
+        ((= 2 ponylang-banner) ponylang-banner-horse)
+        ((= 3 ponylang-banner) ponylang-banner-knight)
+        (t ponylang-banner-default)))
+
+(defhydra ponylang-hydra-menu
+  (:color blue :hint none)
+  "
+%s(ponylang-choose-banner)
+  _b_: Build   _r_: Run      _o_: corral.json
+  _f_: Fetch   _u_: Update   _q_: Quit"
+  ("b" ponylang-project-build "Build")
+  ("r" ponylang-project-run "Run")
+  ("o" ponylang-corral-open "Open corral.json")
+  ("f" ponylang-corral-fetch "corral fetch")
+  ("u" ponylang-corral-update "corral udate")
+  ("q" nil "Quit"))
+
+(defun ponylang-menu ()
+  "Open ponylang hydra menu."
+  (interactive)
+  (ponylang-hydra-menu/body))
 
 ;;;###autoload
 (define-derived-mode ponylang-mode ponylang-parent-mode "Pony"
