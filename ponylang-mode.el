@@ -468,13 +468,13 @@ the current context."
 (defun ponylang-corral-fetch ()
   "Run corral `fetch' command."
   (interactive)
-  (if (file-exists-p "corral.json")
+  (if (ponylang-project-file-exists-p "corral.json")
       (ponylang-run-command "corral fetch")))
 
 (defun ponylang-corral-update ()
   "Run corral `update' command."
   (interactive)
-  (if (file-exists-p "corral.json")
+  (if (ponylang-project-file-exists-p "corral.json")
       (ponylang-run-command "corral update")))
 
 (defun ponylang-corral-open ()
@@ -562,8 +562,8 @@ the current context."
 Default value is `1', it displaysthe `Horse' logo.`2' displays Emacs `Knight' 
 logo. `3' displays Emacs `Word' logo.A string to customize the banner.If the 
 value is 0 then no banner is displayed."
-  :type  '(choice (integer :tag "Index")
-                  (string :tag "Custom"))
+  :type  '(choice (integer :tag "banner index")
+                  (string :tag "custom banner"))
   :group 'ponylang)
 
 (defun ponylang-choose-banner ()
