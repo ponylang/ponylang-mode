@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file. This projec
 - Compilation Integration ([PR #41](https://github.com/ponylang/ponylang-mode/pull/41))
 - Added Hydra support ([PR #42](https://github.com/ponylang/ponylang-mode/pull/42))
 - Added some banners to the Hydra menu ([PR #42](https://github.com/ponylang/ponylang-mode/pull/42))
+- Better type and constant highlighting ([PR #48](https://github.com/ponylang/ponylang-mode/pull/48))
 
 ### Changed
 
