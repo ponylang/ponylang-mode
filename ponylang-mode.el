@@ -100,7 +100,7 @@ by parse-partial-sexp, and should return a face. "
         (while (and (progn (previous-line) (beginning-of-line) (not (bobp)))
                     (or (looking-at "^$") (looking-at "^[ \t]*$")))
           nil)
-        (if (looking-at "^[ \t]*\\(class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|fun\\|be\\)")
+        (if (looking-at "^[ \t]*\\(class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|fun\\|be\\|new\\)")
             'font-lock-doc-face
           'font-lock-string-face))
     'font-lock-comment-face))
