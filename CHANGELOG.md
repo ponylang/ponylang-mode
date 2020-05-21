@@ -18,10 +18,11 @@ All notable changes to this project will be documented in this file. This projec
 - Added Hydra support ([PR #42](https://github.com/ponylang/ponylang-mode/pull/42))
 - Added some banners to the Hydra menu ([PR #42](https://github.com/ponylang/ponylang-mode/pull/42))
 - Better type and constant highlighting ([PR #48](https://github.com/ponylang/ponylang-mode/pull/48))
+- Font lock for variable definitions ([PR #49](https://github.com/ponylang/ponylang-mode/pull/49))
 
 ### Changed
 
-- Font lock for variable definitions ([PR #49](https://github.com/ponylang/ponylang-mode/pull/49))
+
 
 ## [0.0.12] - 2020-05-10
 
