@@ -559,8 +559,8 @@ the current context."
 
 (defcustom ponylang-banner 1
   "Specify the startup banner.
-Default value is `1', it displaysthe `Horse' logo.`2' displays Emacs `Knight' 
-logo. `3' displays Emacs `Word' logo.A string to customize the banner.If the 
+Default value is `1', it displaysthe `Word' logo.`2' displays Emacs `Horse' 
+logo. `3' displays Emacs `Knight' logo.A string to customize the banner.If the 
 value is 0 then no banner is displayed."
   :type  '(choice (integer :tag "banner index")
                   (string :tag "custom banner"))
@@ -571,8 +571,8 @@ value is 0 then no banner is displayed."
   (cond ((not ponylang-banner) "")
         ((stringp ponylang-banner) ponylang-banner)
         ((= 1 ponylang-banner) ponylang-banner-default)
-        ((= 2 ponylang-banner) ponylang-banner-knight)
-        ((= 3 ponylang-banner) ponylang-banner-horse)
+        ((= 2 ponylang-banner) ponylang-banner-horse)
+        ((= 3 ponylang-banner) ponylang-banner-knight)
         (t ponylang-banner-default)))
 
 (defhydra ponylang-hydra-menu

@@ -47,8 +47,7 @@ If you like, you can customize the banner:
       ((())'   |        \\
       )))))     >.__     \\
       ((('     /    `-. .c|
-              /        `-`'
-")
+              /        `-`'")
 ```
 
 If you're using
