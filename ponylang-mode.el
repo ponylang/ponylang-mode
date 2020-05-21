@@ -278,14 +278,17 @@ by parse-partial-sexp, and should return a face. "
      1
      'font-lock-function-name-face)
 
-    ;; actor, class, and type references
+    ;; type references: first filter
+    (".*:\\s +\\($?[A-Z_][A-Za-z0-9_]*\\)" 1 'font-lock-type-face)
+    
+    ;; constants
+    (,ponylang-constant-regexp . font-lock-constant-face)
+    
+    ;; type references: second filter
     ("\\(\s\\|[\[]\\|[\(]\\)\\($?_?[A-Z][A-Za-z0-9_]*\\)" 2 'font-lock-type-face)
 
     ;; ffi
     ("@[A-Za-z_][A-Z-a-z0-9_]+" . 'font-lock-builtin-face)
-
-    ;; constants
-    (,ponylang-constant-regexp . font-lock-constant-face)
 
     ;;(,ponylang-event-regexp . font-lock-builtin-face)
     ;;(,ponylang-functions-regexp . font-lock-function-name-face)
