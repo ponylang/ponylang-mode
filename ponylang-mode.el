@@ -596,6 +596,7 @@ value is 0 then no banner is displayed."
   "Return the banner content."
   (cond ((not ponylang-banner) "")
         ((stringp ponylang-banner) ponylang-banner)
+        ((= 0 ponylang-banner) "")
         ((= 1 ponylang-banner) ponylang-banner-default)
         ((= 2 ponylang-banner) ponylang-banner-horse)
         ((= 3 ponylang-banner) ponylang-banner-knight)
