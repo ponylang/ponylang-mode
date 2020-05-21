@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Changed
 
+- Font lock for variable definitions ([PR #49](https://github.com/ponylang/ponylang-mode/pull/49))
 
 ## [0.0.12] - 2020-05-10
 
