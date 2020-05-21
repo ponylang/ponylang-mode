@@ -258,6 +258,11 @@ by parse-partial-sexp, and should return a face. "
     ;; capability constraints
     ("#\\(?:read\\|send\\|share\\|any\\|alias\\)" . 'font-lock-builtin-face)
 
+    ;; Variables definitions
+    (".*\\(object\\|let\\|var\\|embed\\|for\\)\\s +\\([^( \t\n,:]+\\)"
+     2
+     'font-lock-variable-name-face)
+
     ;; actor and class definitions
     ("\\(?:actor\\|class\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[A-Z_][A-Za-z0-9_]*\\)"
      1
