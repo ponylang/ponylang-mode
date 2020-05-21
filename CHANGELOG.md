@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
+## [0.1.0] - 2020-05-21
 
 ### Fixed
 
@@ -19,10 +19,6 @@ All notable changes to this project will be documented in this file. This projec
 - Added some banners to the Hydra menu ([PR #42](https://github.com/ponylang/ponylang-mode/pull/42))
 - Better type and constant highlighting ([PR #48](https://github.com/ponylang/ponylang-mode/pull/48))
 - Font lock for variable definitions ([PR #49](https://github.com/ponylang/ponylang-mode/pull/49))
-
-### Changed
-
-
 
 ## [0.0.12] - 2020-05-10
 

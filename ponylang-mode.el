@@ -1,7 +1,7 @@
 ;;; ponylang-mode.el --- Major mode for Pony code
 ;;
 ;; Authors: Sean T Allen <sean@monkeysnatchbanana.com>
-;; Version: 0.0.12
+;; Version: 0.1.0
 ;; URL: https://github.com/seantallen/ponylang-mode
 ;; Keywords: languages programming
 ;; Package-Requires: ((dash "2.10.0") (hydra "0.15.0))
