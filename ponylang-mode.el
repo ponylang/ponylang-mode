@@ -370,6 +370,10 @@ the current context."
 	    (setq keep-looking nil)
 	    (forward-line -1)
 	    (cond
+	     ;; if the previous line ends in `end', keep indent 
+	     ((looking-at ".*end?[ \t]?$")
+	      (setq cur-indent (current-indentation)))
+
 	     ;; if the previous line ends in = or =>, indent one level
 	     ((looking-at ".*\\(=>\\|=\\)[ \t]*$")
 	      (setq cur-indent (+ (current-indentation) tab-width)))
