@@ -2,17 +2,11 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
+## [0.1.1] - 2020-05-22
 
 ### Fixed
 
 - Fixed melpa recipe format ([PR #52](https://github.com/ponylang/ponylang-mode/pull/52))
-
-### Added
-
-
-### Changed
-
 
 ## [0.1.0] - 2020-05-21
 

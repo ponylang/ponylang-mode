@@ -1,7 +1,7 @@
 ;;; ponylang-test.el --- Tests for ponylang-mode
 ;;
 ;; Author: Sean T Allen <sean@monkeysnatchbanana.com>
-;; Version: 0.1.0
+;; Version: 0.1.1
 ;; URL: https://github.com/seantallen/ponylang-mode
 ;; Keywords: programming
 ;; Package-Requires: ()
