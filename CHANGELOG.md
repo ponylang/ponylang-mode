@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- Added parameter highlighting ([PR #59](https://github.com/ponylang/ponylang-mode/pull/59))
 
 ### Changed
 
