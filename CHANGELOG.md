@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+- Added end keyword keep indent ([PR #54](https://github.com/ponylang/ponylang-mode/pull/54))
 
 ### Added
 
