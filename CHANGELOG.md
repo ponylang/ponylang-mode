@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+- Fixed melpa recipe format ([PR #52](https://github.com/ponylang/ponylang-mode/pull/52))
 
 ### Added
 
