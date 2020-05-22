@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file. This projec
 
 - Added end keyword keep indent ([PR #54](https://github.com/ponylang/ponylang-mode/pull/54))
 - Improved variable highlighting ([PR #55](https://github.com/ponylang/ponylang-mode/pull/55))
+- Improved type highlighting ([PR #56](https://github.com/ponylang/ponylang-mode/pull/56))
 
 ### Added
 
