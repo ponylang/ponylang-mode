@@ -1,10 +1,10 @@
-;;; ponylang-mode.el --- Major mode for Pony code
+;;; ponylang-mode.el --- A major mode for the Pony programming language
 ;;
 ;; Authors: Sean T Allen <sean@monkeysnatchbanana.com>
 ;; Version: 0.1.0
-;; URL: https://github.com/seantallen/ponylang-mode
+;; URL: https://github.com/ponylang/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((dash "2.10.0") (hydra "0.15.0))
+;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -15,10 +15,10 @@
 ;;
 ;; Description:
 ;;
-;; This is a language mode for the Pony actor language
+;; This is a major mode for the Pony programming language
 ;;
 ;; For more details, see the project page at
-;; https://github.com/seantallen/ponylang-mode
+;; https://github.com/ponylang/ponylang-mode
 ;;
 ;; Installation:
 ;;
