@@ -297,11 +297,17 @@ by parse-partial-sexp, and should return a face. "
     ;; method references
     ("$?.?\\($?[a-z_][a-z0-9_]+\\)(+" 1 'font-lock-function-name-face)
 
+    ;; numeric literals
+    ("\\([0-9]+\\)+" 1 'font-lock-builtin-face)
+    
     ;;(,ponylang-event-regexp . font-lock-builtin-face)
     ;;(,ponylang-functions-regexp . font-lock-function-name-face)
 
     ;; keywords
     (,ponylang-keywords-regexp . font-lock-keyword-face)
+
+    ;; numeric literals
+    ("\\([0-9]+\\)+" 1 'font-lock-builtin-face)
 
     ;; note: order above matters. “ponylang-keywords-regexp” goes last because
     ;; otherwise the keyword “state” in the function “state_entry”
