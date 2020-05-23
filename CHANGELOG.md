@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file. This projec
 
 - Added parameter highlighting ([PR #59](https://github.com/ponylang/ponylang-mode/pull/59))
 - Added method references highlighting ([PR #60](https://github.com/ponylang/ponylang-mode/pull/60))
+- Added numeric literals highlighting ([PR #63](https://github.com/ponylang/ponylang-mode/pull/63))
 
 ### Changed
 
