@@ -259,8 +259,8 @@ by parse-partial-sexp, and should return a face. "
     ("#\\(?:read\\|send\\|share\\|any\\|alias\\)" . 'font-lock-builtin-face)
 
     ;; parameter
-    ("\\(?:(\\|,\\)\\([^ \t\r\n,:)]*\\)" 1 'font-lock-variable-name-face)
-    ("\\(?:(\\|,\\)[ \t]+\\([^ \t\r\n,:)]*\\)" 1 'font-lock-variable-name-face)
+    ("\\(?:(\\|,\\)\\([a-z_][a-z0-9_']*\\)\\([^ \t\r\n,:)]*\\)" 1 'font-lock-variable-name-face)
+    ("\\(?:(\\|,\\)[ \t]+\\([a-z_][a-z0-9_']*\\)\\([^ \t\r\n,:)]*\\)" 1 'font-lock-variable-name-face)
     
     ;; variable definitions
     ("\\(?:object\\|let\\|var\\|embed\\|for\\)\\s +\\([^ \t\r\n,:;=)]+\\)"
