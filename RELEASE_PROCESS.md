@@ -23,5 +23,5 @@ For the duration of this document, that we are releasing version is `0.3.1`. Any
 
 ```bash
 git tag release-0.3.1
-git push release-0.3.1
+git push origin release-0.3.1
 ```
