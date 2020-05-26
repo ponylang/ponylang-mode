@@ -10,6 +10,7 @@
 ;;
 ;; Copyright (c) 2015 Austin Bingham
 ;; Copyright (c) 2016 Sean T. Allen
+;; Copyright (c) 2020 Damon Kwok
 ;;
 ;;; Commentary:
 ;;
