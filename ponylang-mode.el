@@ -299,10 +299,10 @@ by parse-partial-sexp, and should return a face. "
     ("@[A-Za-z_][A-Z-a-z0-9_]+" . 'font-lock-builtin-face)
 
     ;; method references
-    ("$?.?\\($?[a-z_][a-z0-9_]+\\)$?[ \t]?(+" 1 'font-lock-negation-char-face)
+    ("\\([a-z_]$?[a-z0-9_]?+\\)$?[ \t]?(+" 1 'font-lock-function-name-face)
 
     ;; numeric literals
-    ("\\([0-9]+\\)+" 1 'font-lock-builtin-face)
+    ("\\([0-9]+\\)+" 1 'font-lock-constant-face)
     
     ;;(,ponylang-event-regexp . font-lock-builtin-face)
     ;;(,ponylang-functions-regexp . font-lock-function-name-face)
