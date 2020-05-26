@@ -320,7 +320,7 @@ by parse-partial-sexp, and should return a face. "
 (defun ponylang--looking-at-indent-start ()
   "Determines if the current position is 'looking at' a keyword
   that starts new indentation."
-  (-any? (lambda (k) (looking-at (concat  "^[ \t]*" k "[ \t]")))
+  (-any? (lambda (k) (looking-at (concat  "^[ \t]*" k "\\($\\|[ \t]\\)")))
          ponylang-indent-start-keywords))
 
 (defun ponylang--looking-at-indent-declare ()
