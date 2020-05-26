@@ -173,7 +173,7 @@ by parse-partial-sexp, and should return a face. "
 (defconst ponylang-careful-keywords
   '("continue" "break" "return"
     "new" "object"
-    "consume" "recover"
+    "consume" "recover" "try"
     "_init" "_final"
     "is" "isnt" "as"
     "error" "compile_error" "compile_intrinsic")
