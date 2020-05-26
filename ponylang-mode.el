@@ -250,7 +250,11 @@ by parse-partial-sexp, and should return a face. "
     (,ponylang-declaration-keywords-regexp . font-lock-preprocessor-face)
 
     ;; functions
-    (,ponylang-functions-regexp . font-lock-constant-face)
+    (,ponylang-functions-regexp . font-lock-negation-char-face)
+
+    ;; operators:
+    ("\\($?[+-/*//:=!%<>~|;/^]+\\)" 1 'font-lock-negation-char-face)
+    ("\\($?[/?]+\\)" 1 'font-lock-warning-face)
 
     ;; capabilities
     (,ponylang-capabilities-regexp . font-lock-builtin-face)
