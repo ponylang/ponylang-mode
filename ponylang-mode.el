@@ -262,8 +262,8 @@ by parse-partial-sexp, and should return a face. "
     ;; functions
     (,ponylang-functions-regexp . font-lock-negation-char-face)
 
-    ;; operators:
-    ("\\($?[+-/*//:=!%<>~|;/^]+\\)" 1 'font-lock-negation-char-face)
+    ;; operator symbols
+    ("\\($?[+-/*//%~^!=<>]+\\)" 1 'font-lock-negation-char-face)
     ("\\($?[/?]+\\)" 1 'font-lock-warning-face)
 
     ;; capabilities
