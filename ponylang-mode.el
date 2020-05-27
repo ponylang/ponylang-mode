@@ -260,7 +260,7 @@ by parse-partial-sexp, and should return a face. "
     ("[^+-/*//%~^!=<>]\\([=:]\\)[^+-/*//%~^!=<>]" 1 'font-lock-comment-delimiter-face)
 
     ;; delimiter: modifier
-    ("\\(=>\\|\\.>\\|:>\\||\\)" 1 'font-lock-keyword-face)
+    ("\\(=>\\|\\.>\\|:>\\||\\|&\\)" 1 'font-lock-keyword-face)
 
     ;; delimiter: brackets
     ("\\(\\[\\|\\]\\|[()]\\)" 1 'font-lock-comment-delimiter-face)
@@ -309,7 +309,7 @@ by parse-partial-sexp, and should return a face. "
      'font-lock-function-name-face)
 
     ;; type references: first filter
-    (":$?[ \t]?\\($?[A-Z_][A-Za-z0-9_]*\\)" 1 'font-lock-type-face)
+    ("[:,|&]$?[ \t]?\\($?[A-Z_][A-Za-z0-9_]*\\)" 1 'font-lock-type-face)
     
     ;; constants
     (,ponylang-constant-regexp . font-lock-constant-face)
