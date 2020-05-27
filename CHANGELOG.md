@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 - Added delimiter highlighting ([PR #69](https://github.com/ponylang/ponylang-mode/pull/69))
+- Added variable references highlighting ([PR #71](https://github.com/ponylang/ponylang-mode/pull/71))
 
 ### Changed
 
