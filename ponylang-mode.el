@@ -232,12 +232,13 @@ by parse-partial-sexp, and should return a face. "
   (regexp-opt ponylang-declaration-keywords 'words)
   "Regular expression for matching declaration keywords.")
 
-(defconst ponylang-functions-regexp
-  (regexp-opt
-   (append ponylang-operator-functions
-	   ponylang-common-functions)
-   'words)
-  "Regular expression for matching functions.")
+(defconst ponylang-operator-functions-regexp
+  (regexp-opt ponylang-operator-functions 'words)
+  "Regular expression for matching operator functions.")
+
+(defconst ponylang-common-functions-regexp
+  (regexp-opt ponylang-common-functions 'words)
+  "Regular expression for matching common functions.")
 
 ;(setq ponylang-event-regexp (regexp-opt ponylang-events 'words))
 ;(setq ponylang-functions-regexp (regexp-opt ponylang-functions 'words))
@@ -264,9 +265,12 @@ by parse-partial-sexp, and should return a face. "
 
     ;; delimiter: lambda
     ("\\($?[{}]+\\)" 1 'font-lock-function-name-face)
+
+    ;; common functions
+    (,ponylang-common-functions-regexp . font-lock-negation-char-face)
     
-    ;; functions
-    (,ponylang-functions-regexp . font-lock-negation-char-face)
+    ;; operator functions
+    (,ponylang-operator-functions-regexp . font-lock-negation-char-face)
 
     ;; operator symbols
     ("\\($?[+-/*//%~^!=<>]+\\)" 1 'font-lock-negation-char-face)
