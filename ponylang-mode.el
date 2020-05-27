@@ -250,6 +250,15 @@ by parse-partial-sexp, and should return a face. "
     ;; declaration
     (,ponylang-declaration-keywords-regexp . font-lock-preprocessor-face)
 
+    ;; delimiter
+    ("[^=]\\([=|:/.;,]\\)[^+-/*//%!<>=]" 1 'font-lock-comment-delimiter-face)
+
+    ;; modifier
+    ("\\(=>\\|\\.>\\|:>\\|\\[\\|\\]\\|[()]\\)" 1 'font-lock-comment-delimiter-face)
+
+    ;; lambda
+    ("\\($?[{}]+\\)" 1 'font-lock-function-name-face)
+    
     ;; functions
     (,ponylang-functions-regexp . font-lock-negation-char-face)
 
