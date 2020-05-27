@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Changed
 
+- Changed operator symbols highlighting ([PR #70](https://github.com/ponylang/ponylang-mode/pull/70))
 
 ## [0.1.2] - 2020-05-26
 
