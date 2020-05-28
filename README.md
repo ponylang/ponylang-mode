@@ -8,7 +8,7 @@ indentation for the [Pony](http://www.ponylang.org/) programming
 language.
 
 At the moment, ponylang-mode is fairly new and immature. From the
-standpoint of indentation, it should work for about 95% of use cases.
+standpoint of indentation, it should work for about 99% of use cases.
 In order to work for the rest, it is going to require a rewrite. If
 you are interested in contributing to Emacs tooling for Pony, please
 get in touch. Contributions and feedback are welcome.
@@ -77,5 +77,5 @@ run them, eval `ponylang-test.el` and run <kbd>M-x ert [RET] t
 Big thanks to [Austin Bingham](https://github.com/abingham) who did the first version of ponylang-mode.
 We wouldn't be where we are now without your initial work Austin!
 
-And a huge thanks to [Damon Kwok](https://github.com/damon-kwok/) who fixed a number of bugs and added a
+And a huge thanks to [Damon Kwok](https://github.com/damon-kwok) who fixed a number of bugs and added a
 number of new features to ponylang-mode. You rock Damon!
