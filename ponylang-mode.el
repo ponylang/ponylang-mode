@@ -268,10 +268,10 @@ by parse-partial-sexp, and should return a face. "
     ;; delimiter: lambda
     ("\\($?[{}]+\\)" 1 'font-lock-function-name-face)
 
-    ;; common functions
+    ;; common methods
     (,ponylang-common-functions-regexp . font-lock-negation-char-face)
     
-    ;; operator functions
+    ;; operator methods
     (,ponylang-operator-functions-regexp . font-lock-negation-char-face)
 
     ;; operator symbols
@@ -293,25 +293,20 @@ by parse-partial-sexp, and should return a face. "
      1
      'font-lock-variable-name-face)
 
-    ;; actor and class definitions
-    ("\\(?:actor\\|class\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[A-Z_][A-Za-z0-9_]*\\)"
-     1
-     'font-lock-function-name-face)
-
-    ;; type and primitive definitions
-    ("\\(?:type\\|primitive\\)\s+\\($?[A-Z_][A-Za-z0-9_]*\\)"
-     1
-     'font-lock-function-name-face)
-
-    ;; constructor, method, and behavior definitions
+    ;; method definitions
     ("\\(?:new\\|fun\\|be\\)\s+\\(?:\\(?:box\\|iso\\|ref\\|tag\\|trn\\|val\\)\s+\\)?\\($?[a-z_][A-Za-z0-9_]*\\)"
      1
      'font-lock-function-name-face)
 
+    ;; type definitions
+    ("\\(?:class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|type\\)\s+\\($?[A-Z_][A-Za-z0-9_]*\\)"
+     1
+     'font-lock-type-face)
+
     ;; type references: first filter
     ("[:,|&]$?[ \t]?\\($?[A-Z_][A-Za-z0-9_]*\\)" 1 'font-lock-type-face)
     
-    ;; constants
+    ;; constants references
     (,ponylang-constant-regexp . font-lock-constant-face)
     
     ;; type references: second filter
