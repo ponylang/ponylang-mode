@@ -2,18 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
+## [0.1.4] - 2020-05-28
 
 ### Fixed
 
 - Fixed docstring highlighting ([PR #75](https://github.com/ponylang/ponylang-mode/pull/75))
 - Fixed intersections and methods indent ([PR #77](https://github.com/ponylang/ponylang-mode/pull/77))
-
-### Added
-
-
-### Changed
-
 
 ## [0.1.3] - 2020-05-27
 
