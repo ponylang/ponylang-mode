@@ -528,10 +528,16 @@ the current context."
   (interactive)
   (let* ((bin1 (concat (ponylang-project-root) "bin/" (ponylang-project-name)))
           (bin2 (concat (ome-buf-dirpath) "/" (ponylang-project-name))))
-    (if (ponylang-project-file-exists-p bin1)
+    (if (file-exists-p bin1)
       (ponylang-run-command bin1)
-      (if (ponylang-project-file-exists-p bin2)
+      (if (file-exists-p bin2)
         (ponylang-run-command bin2)))))
+
+(defun ponylang-corral-init ()
+  "Run corral `init' command."
+  (interactive)
+  (unless (ponylang-project-file-exists-p "corral.json")
+      (ponylang-run-command "corral init")))
 
 (defun ponylang-corral-fetch ()
   "Run corral `fetch' command."
@@ -548,7 +554,8 @@ the current context."
 (defun ponylang-corral-open ()
   "open `corral.json' file."
   (interactive)
-  (find-file (concat (ponylang-project-root) "corral.json")))
+  (if (ponylang-project-file-exists-p "corral.json")
+    (find-file (concat (ponylang-project-root) "corral.json"))))
 
 (easy-menu-define ponylang-mode-menu ponylang-mode-map
   "Menu for Ponylang mode."
@@ -557,6 +564,7 @@ the current context."
     ["Run" ponylang-project-run t]
     "---"
     ("Corral"
+     ["Init" ponylang-corral-init t]
      ["Open" ponylang-corral-open t]
      ["Fetch" ponylang-corral-fetch t]
      ["Update" ponylang-corral-update t])))
@@ -648,11 +656,12 @@ value is 0 then no banner is displayed."
   (:color blue :hint none)
   "
 %s(ponylang-choose-banner)
-  _b_: Build   _r_: Run      _o_: corral.json
-  _f_: Fetch   _u_: Update   _q_: Quit"
+  Corral |  _i_: Init    _f_: Fetch   _u_: Update  _o_: corral.json 
+  Pony   |  _b_: Build   _r_: Run     _q_: Quit"
   ("b" ponylang-project-build "Build")
   ("r" ponylang-project-run "Run")
   ("o" ponylang-corral-open "Open corral.json")
+  ("i" ponylang-corral-init "corral init")
   ("f" ponylang-corral-fetch "corral fetch")
   ("u" ponylang-corral-update "corral udate")
   ("q" nil "Quit"))
