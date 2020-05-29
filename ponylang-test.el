@@ -51,47 +51,51 @@
 (require 'ert)
 (require 'ponylang-mode)
 
-(ert-deftest ponylang-test-class-indents-to-zero ()
+(ert-deftest 
+    ponylang-test-class-indents-to-zero
+    ()
   "The class keyword indents to zero when alone in a file."
-  (dolist (k '(" class" " class" "class " " class "))
-    (with-temp-buffer
-      (ponylang-mode)
-      (insert k)
-      (ponylang-indent-line)
-      (should (= (current-indentation) 0)))))
+  (dolist (k '(" class" " class" "class " " class ")) 
+    (with-temp-buffer (ponylang-mode) 
+                      (insert k) 
+                      (ponylang-indent-line) 
+                      (should (= (current-indentation) 0)))))
 
-(ert-deftest ponylang-test-class-indents-to-zero-after-actor ()
+(ert-deftest 
+    ponylang-test-class-indents-to-zero-after-actor
+    ()
   "The class keyword indents to zero after an actor definition."
-  (dolist (k '(" class" " class" "class " " class "))
-    (with-temp-buffer
-      (ponylang-mode)
-      (insert "actor Test\n")
-      (insert "  var foo: U64 = 0\n")
-      (insert "\n")
-      (insert k)
-      (ponylang-indent-line)
-      (should (= (current-indentation) 0)))))
+  (dolist (k '(" class" " class" "class " " class ")) 
+    (with-temp-buffer (ponylang-mode) 
+                      (insert "actor Test\n") 
+                      (insert "  var foo: U64 = 0\n") 
+                      (insert "\n") 
+                      (insert k) 
+                      (ponylang-indent-line) 
+                      (should (= (current-indentation) 0)))))
 
-(ert-deftest ponylang-test-actor-indents-to-zero ()
+(ert-deftest 
+    ponylang-test-actor-indents-to-zero
+    ()
   "The actor keyword indents to zero when alone in a file."
-  (dolist (k '(" actor" " actor" "actor " " actor "))
-    (with-temp-buffer
-      (ponylang-mode)
-      (insert k)
-      (ponylang-indent-line)
-      (should (= (current-indentation) 0)))))
+  (dolist (k '(" actor" " actor" "actor " " actor ")) 
+    (with-temp-buffer (ponylang-mode) 
+                      (insert k) 
+                      (ponylang-indent-line) 
+                      (should (= (current-indentation) 0)))))
 
-(ert-deftest ponylang-test-actor-indents-to-zero-after-actor ()
+(ert-deftest 
+    ponylang-test-actor-indents-to-zero-after-actor
+    ()
   "The actor keyword indents to zero after an actor definition."
-  (dolist (k '(" actor" " actor" "actor " " actor "))
-    (with-temp-buffer
-      (ponylang-mode)
-      (insert "actor Test\n")
-      (insert "  var foo: U64 = 0\n")
-      (insert "\n")
-      (insert k)
-      (ponylang-indent-line)
-      (should (= (current-indentation) 0)))))
+  (dolist (k '(" actor" " actor" "actor " " actor ")) 
+    (with-temp-buffer (ponylang-mode) 
+                      (insert "actor Test\n") 
+                      (insert "  var foo: U64 = 0\n") 
+                      (insert "\n") 
+                      (insert k) 
+                      (ponylang-indent-line) 
+                      (should (= (current-indentation) 0)))))
 
 ;; NB: These don't really work right now, but hopefully someday. I've
 ;; kept them around as a reminder.
