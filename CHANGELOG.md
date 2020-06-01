@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+- Fixed generic references highlighting ([PR #86](https://github.com/ponylang/ponylang-mode/pull/86))
 
 ### Added
 
