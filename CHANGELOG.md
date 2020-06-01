@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- Added tuple references highlighting ([PR #85](https://github.com/ponylang/ponylang-mode/pull/85))
 
 ### Changed
 
@@ -145,3 +146,4 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 - 'lambda' as a highlighted keyword
+
