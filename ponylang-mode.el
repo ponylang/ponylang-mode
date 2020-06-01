@@ -302,6 +302,9 @@ by parse-partial-sexp, and should return a face. "
     ;; type references: second filter
     ("\\(\s\\|[\[]\\|[\(]\\)\\($?_?[A-Z][A-Za-z0-9_]*\\)" 2 'font-lock-type-face)
 
+    ;; tuple references
+    ("[.]$?[ \t]?\\($?_[1-9]$?[0-9]?*\\)" 1 'font-lock-variable-name-face)
+
     ;; ffi
     ("@[A-Za-z_][A-Z-a-z0-9_]+" . 'font-lock-builtin-face)
 
