@@ -15,6 +15,15 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [0.1.5] - 2020-05-29
 
+### Added
+
+- Added EditorConfig support ([PR 82](https://github.com/ponylang/ponylang-mode/pull/82))
+
+### Changed
+
+- Format source ([PR 81](https://github.com/ponylang/ponylang-mode/pull/81))
+- Update ponylang menu ([PR 80](https://github.com/ponylang/ponylang-mode/pull/80))
+
 ## [0.1.4] - 2020-05-28
 
 ### Fixed
@@ -60,9 +69,9 @@ All notable changes to this project will be documented in this file. This projec
 
 - Differentiate docstrings from strings ([PR #45](https://github.com/ponylang/ponylang-mode/pull/45))
 - Fix this and reference capabilities highlight color ([PR #47](https://github.com/ponylang/ponylang-mode/pull/47))
-- Fixed multi-line method indentation ([PR #36](https://github.com/ponylang/ponylang-mode/pull/46))
-- Fixed match clause indentation ([PR #36](https://github.com/ponylang/ponylang-mode/pull/46))
-- Fixed multi-line type indentation ([PR #36](https://github.com/ponylang/ponylang-mode/pull/46))
+- Fixed multi-line method indentation ([PR #46](https://github.com/ponylang/ponylang-mode/pull/46))
+- Fixed match clause indentation ([PR #46](https://github.com/ponylang/ponylang-mode/pull/46))
+- Fixed multi-line type indentation ([PR #46](https://github.com/ponylang/ponylang-mode/pull/46))
 
 ### Added
 
@@ -136,4 +145,3 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 - 'lambda' as a highlighted keyword
-
