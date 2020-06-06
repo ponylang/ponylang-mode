@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
+## [0.1.6] - 2020-06-06
 
 ### Fixed
 
@@ -12,9 +12,6 @@ All notable changes to this project will be documented in this file. This projec
 
 - Added tuple references highlighting ([PR #85](https://github.com/ponylang/ponylang-mode/pull/85))
 - Replace trivial dependency on Oh My Emacs ([PR #87](https://github.com/ponylang/ponylang-mode/pull/87))
-
-### Changed
-
 
 ## [0.1.5] - 2020-05-29
 
