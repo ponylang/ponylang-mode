@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+- Fixed Incorrect indentation ([PR #88](https://github.com/ponylang/ponylang-mode/pull/88))
 
 ### Added
 
