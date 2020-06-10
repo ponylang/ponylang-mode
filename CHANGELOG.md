@@ -2,18 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
+## [0.1.7] - 2020-06-10
 
 ### Fixed
 
 - Fixed Incorrect indentation ([PR #88](https://github.com/ponylang/ponylang-mode/pull/88))
 - Fixed type references highlighting ([PR #89](https://github.com/ponylang/ponylang-mode/pull/89))
-
-### Added
-
-
-### Changed
-
 
 ## [0.1.6] - 2020-06-06
 
