@@ -276,11 +276,6 @@ by parse-partial-sexp, and should return a face. "
     ;; capability constraints
     ("#\\(?:read\\|send\\|share\\|any\\|alias\\)" . 'font-lock-builtin-face)
 
-    ;; parameter
-    ("\\(?:(\\|,\\)\\([a-z_][a-z0-9_']*\\)\\([^ \t\r\n,:)]*\\)" 1 'font-lock-variable-name-face)
-    ("\\(?:(\\|,\\)[ \t]+\\([a-z_][a-z0-9_']*\\)\\([^ \t\r\n,:)]*\\)" 1
-     'font-lock-variable-name-face)
-
     ;; variable definitions
     ("\\(?:object\\|let\\|var\\|embed\\|for\\)\\s +\\([^ \t\r\n,:;=)]+\\)" 1
      'font-lock-variable-name-face)
@@ -301,6 +296,12 @@ by parse-partial-sexp, and should return a face. "
 
     ;; type references: second filter
     ("\\(\s\\|->\\|[\[]\\|[\(]\\)\\($?_?[A-Z][A-Za-z0-9_]*\\)" 2 'font-lock-type-face)
+
+    ;; parameter
+    ("\\(?:(\\|,\\)\\([a-z_][a-z0-9_']*\\)\\([^ \t\r\n,:)]*\\)" 1
+       'font-lock-variable-name-face)
+    ("\\(?:(\\|,\\)[ \t]+\\([a-z_][a-z0-9_']*\\)\\([^ \t\r\n,:)]*\\)" 1
+     'font-lock-variable-name-face)
 
     ;; tuple references
     ("[.]$?[ \t]?\\($?_[1-9]$?[0-9]?*\\)" 1 'font-lock-variable-name-face)
