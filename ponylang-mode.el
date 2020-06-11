@@ -105,7 +105,7 @@ by parse-partial-sexp, and should return a face. "
                      (looking-at "^$?[ \t]*?\"*$"))
                 (looking-at ".*=>$?[ \t]*?$")
                 (looking-at
-                 "^[ \t]*\\(class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|type\\|fun\\|be\\|new\\)")) ;
+                 "^[ \t]*\\(use\\|class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|type\\|fun\\|be\\|new\\)")) ;
             'font-lock-doc-face         ;
           'font-lock-string-face))      ;
     'font-lock-comment-face))
