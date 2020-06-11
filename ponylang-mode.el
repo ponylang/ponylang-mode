@@ -96,12 +96,14 @@ by parse-partial-sexp, and should return a face. "
   (if (nth 3 state)                     ;
       (save-excursion                   ;
         (goto-char (nth 8 state))
-        (while (and (progn (previous-line)
-                           (beginning-of-line)
-                           (not (bobp)))
-                    (or (looking-at "^$")
-                        (looking-at "^[ \t]*$"))) nil)
-        (if (or (looking-at ".*=>$?[ \t]?$")
+        (beginning-of-line)
+        (while (and (not (bobp))
+                    (looking-at "^$?[ \t]*?$?\"?*$"))
+          (previous-line))
+        (beginning-of-line)
+        (if (or (and (bobp)
+                     (looking-at "^$?[ \t]*?\"*$"))
+                (looking-at ".*=>$?[ \t]*?$")
                 (looking-at
                  "^[ \t]*\\(class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|type\\|fun\\|be\\|new\\)")) ;
             'font-lock-doc-face         ;
