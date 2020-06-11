@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+- Fixed numeric highlighting ([PR #92](https://github.com/ponylang/ponylang-mode/pull/92))
 
 ### Added
 
