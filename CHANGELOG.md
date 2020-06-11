@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 - Added source file doc highlighting ([PR #90](https://github.com/ponylang/ponylang-mode/pull/90))
+- Added use keyword highlighting ([PR #91](https://github.com/ponylang/ponylang-mode/pull/91))
 
 ### Changed
 
