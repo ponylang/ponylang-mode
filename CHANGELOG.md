@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- Added character literals highlighting ([PR #93](https://github.com/ponylang/ponylang-mode/pull/93))
 
 ### Changed
 
