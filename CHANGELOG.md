@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- Added playground support ([PR #98](https://github.com/ponylang/ponylang-mode/pull/98))
 
 ### Changed
 
