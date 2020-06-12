@@ -6,14 +6,31 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+- Fixed character literals highlighting ([PR #95](https://github.com/ponylang/ponylang-mode/pull/95))
+
+### Added
+
+
+### Changed
+
+
+## [0.2.0] - 2020-06-12
+
+### Fixed
+
+- Fixed numeric highlighting ([PR #92](https://github.com/ponylang/ponylang-mode/pull/92))
+
+### Added
+
+- Added character literals highlighting ([PR #93](https://github.com/ponylang/ponylang-mode/pull/93))
+- Added imenu support ([PR #94](https://github.com/ponylang/ponylang-mode/pull/94))
+
+## [0.1.8] - 2020-06-11
 
 ### Added
 
 - Added source file doc highlighting ([PR #90](https://github.com/ponylang/ponylang-mode/pull/90))
 - Added use keyword highlighting ([PR #91](https://github.com/ponylang/ponylang-mode/pull/91))
-
-### Changed
-
 
 ## [0.1.7] - 2020-06-10
 

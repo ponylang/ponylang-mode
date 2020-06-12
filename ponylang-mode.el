@@ -1,7 +1,7 @@
 ;;; ponylang-mode.el --- A major mode for the Pony programming language
 ;;
 ;; Authors: Sean T Allen <sean@monkeysnatchbanana.com>
-;; Version: 0.1.7
+;; Version: 0.2.0
 ;; URL: https://github.com/ponylang/ponylang-mode
 ;; Keywords: languages programming
 ;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0"))
@@ -59,8 +59,10 @@
 
 ;;; Code:
 
+(require 'cl)
 (require 'dash)
 (require 'hydra)
+(require 'imenu)
 (require 'easymenu)
 
 (defvar ponylang-mode-hook nil)
@@ -86,6 +88,9 @@
 
     ;; \n is a comment ender
     (modify-syntax-entry ?\n ">" table)
+
+    ;; string
+    (modify-syntax-entry ?\" "\"" table)
 
     ;; Don't treat underscores as whitespace
     (modify-syntax-entry ?_ "w" table) table))
@@ -314,14 +319,17 @@ by parse-partial-sexp, and should return a face. "
     ;; method references
     ("\\([a-z_]$?[a-z0-9_]?+\\)$?[ \t]?(+" 1 'font-lock-function-name-face)
 
-    ;; numeric literals
-    ("[^A-Za-z]\\([0-9]+\\)+" 1 'font-lock-constant-face)
-
     ;;(,ponylang-event-regexp . font-lock-builtin-face)
     ;;(,ponylang-functions-regexp . font-lock-function-name-face)
 
     ;; keywords
     (,ponylang-keywords-regexp . font-lock-keyword-face)
+
+    ;; character literals
+    ("\\('[\\].'\\)" 1 'font-lock-constant-face)
+
+    ;; numeric literals
+    ("[^A-Za-z]\\([0-9][A-Za-z0-9]*\\)+" 1 'font-lock-constant-face)
 
     ;; variable references
     ("\\([a-z_]$?[a-z0-9_']?+\\)+" 1 'font-lock-variable-name-face)
@@ -662,6 +670,18 @@ value is 0 then no banner is displayed."
   "Pony"
   "Major mode for editing Pony files."
   :syntax-table ponylang-mode-syntax-table
+  (setq-local imenu-generic-expression
+              '(("TODO" "^[ \t]*TODO[ \t]*\\(.*\\)$" 1)
+                ("fun" "^[ \t]*\\(fun\\|be\\new\\)[ \t]*\\(.*\\)=>" 2)
+                ("type" "^[ \t]*type[ \t]*\\(.*\\)$" 1)
+                ("interface" "^[ \t]*interface[ \t]*\\(.*\\)$" 1)
+                ("struct" "^[ \t]*struct[ \t]*\\(.*\\)$" 1)
+                ("trait" "^[ \t]*trait[ \t]*\\(.*\\)$" 1)
+                ("primitive" "^[ \t]*primitive[ \t]*\\(.*\\)$" 1)
+                ("actor" "^[ \t]*actor[ \t]*\\(.*\\)$" 1)
+                ("class" "^[ \t]*class[ \t]*\\(.*\\)$" 1)
+                ("use" "^[ \t]*use[ \t]*\\(.*\\)$" 1)))
+  (imenu-add-to-menubar "Index")
   (setq-local comment-start "// ")
   (setq-local comment-start-skip "//+")
   (setq-local font-lock-defaults            ;
