@@ -59,8 +59,10 @@
 
 ;;; Code:
 
+(require 'cl)
 (require 'dash)
 (require 'hydra)
+(require 'imenu)
 (require 'easymenu)
 
 (defvar ponylang-mode-hook nil)
@@ -663,6 +665,18 @@ value is 0 then no banner is displayed."
   "Pony"
   "Major mode for editing Pony files."
   :syntax-table ponylang-mode-syntax-table
+  (setq-local imenu-generic-expression
+              '(("TODO" "^[ \t]*TODO[ \t]*\\(.*\\)$" 1)
+                ("fun" "^[ \t]*\\(fun\\|be\\new\\)[ \t]*\\(.*\\)=>" 2)
+                ("type" "^[ \t]*type[ \t]*\\(.*\\)$" 1)
+                ("interface" "^[ \t]*interface[ \t]*\\(.*\\)$" 1)
+                ("struct" "^[ \t]*struct[ \t]*\\(.*\\)$" 1)
+                ("trait" "^[ \t]*trait[ \t]*\\(.*\\)$" 1)
+                ("primitive" "^[ \t]*primitive[ \t]*\\(.*\\)$" 1)
+                ("actor" "^[ \t]*actor[ \t]*\\(.*\\)$" 1)
+                ("class" "^[ \t]*class[ \t]*\\(.*\\)$" 1)
+                ("use" "^[ \t]*use[ \t]*\\(.*\\)$" 1)))
+  (imenu-add-to-menubar "Index")
   (setq-local comment-start "// ")
   (setq-local comment-start-skip "//+")
   (setq-local font-lock-defaults            ;
