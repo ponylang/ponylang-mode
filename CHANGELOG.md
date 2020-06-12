@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Changed
 
 - Changed imenu grouping ([PR #96](https://github.com/ponylang/ponylang-mode/pull/96))
+- Update project run menu behavior ([PR #97](https://github.com/ponylang/ponylang-mode/pull/97))
 
 ## [0.2.0] - 2020-06-12
 
