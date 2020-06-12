@@ -89,9 +89,8 @@
     ;; \n is a comment ender
     (modify-syntax-entry ?\n ">" table)
 
-    ;; string and character
+    ;; string
     (modify-syntax-entry ?\" "\"" table)
-    (modify-syntax-entry ?\' "\"" table)
 
     ;; Don't treat underscores as whitespace
     (modify-syntax-entry ?_ "w" table) table))
@@ -320,14 +319,17 @@ by parse-partial-sexp, and should return a face. "
     ;; method references
     ("\\([a-z_]$?[a-z0-9_]?+\\)$?[ \t]?(+" 1 'font-lock-function-name-face)
 
-    ;; numeric literals
-    ("\\([0-9][A-Za-z0-9]*\\)" 1 'font-lock-constant-face)
-
     ;;(,ponylang-event-regexp . font-lock-builtin-face)
     ;;(,ponylang-functions-regexp . font-lock-function-name-face)
 
     ;; keywords
     (,ponylang-keywords-regexp . font-lock-keyword-face)
+
+    ;; character literals
+    ("\\('[\\].'\\)" 1 'font-lock-constant-face)
+
+    ;; numeric literals
+    ("[^A-Za-z]\\([0-9][A-Za-z0-9]*\\)+" 1 'font-lock-constant-face)
 
     ;; variable references
     ("\\([a-z_]$?[a-z0-9_']?+\\)+" 1 'font-lock-variable-name-face)
