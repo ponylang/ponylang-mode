@@ -2,14 +2,11 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
+## [0.2.1] - 2020-06-12
 
 ### Fixed
 
 - Fixed character literals highlighting ([PR #95](https://github.com/ponylang/ponylang-mode/pull/95))
-
-### Added
-
 
 ### Changed
 
