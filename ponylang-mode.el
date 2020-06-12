@@ -76,6 +76,16 @@
   :type '(repeat symbol)
   :group 'ponylang)
 
+(defcustom ponylang-share-url-format "https://playground.ponylang.io/?code=%s"
+  "Format string to use when submitting code to the share."
+  :type 'string
+  :group 'ponylang)
+
+(defcustom ponylang-shortener-url-format "https://is.gd/create.php?format=simple&url=%s"
+  "Format string to use for creating the shortened link of a share submission."
+  :type 'string
+  :group 'ponylang)
+
 (defconst ponylang-mode-syntax-table
   (let ((table (make-syntax-table)))
     ;; fontify " using ponylang-keywords
@@ -550,17 +560,61 @@ the current context."
   "open `corral.json' file."
   (interactive)
   (if (ponylang-project-file-exists-p "corral.json")
-      (find-file (concat (ponylang-project-root) "corral.json"))))
+    (find-file (concat (ponylang-project-root) "corral.json"))))
+
+(defun ponylang-share-region (begin end)
+  "Create a shareable URL for the region from BEGIN to END on the Pony `playground'."
+  (interactive "r")
+  (let* ((data (buffer-substring begin end))
+         (escaped-data (url-hexify-string data))
+         (escaped-share-url (url-hexify-string
+                               (format ponylang-share-url-format escaped-data))))
+    (if (> (length escaped-share-url) 50000)
+        (error "encoded share data exceeds 50000 character limit (length %s)"
+               (length escaped-share-url))
+      (let ((shortener-url (format ponylang-shortener-url-format escaped-share-url))
+            (url-request-method "POST"))
+        (url-retrieve shortener-url
+                      (lambda (state)
+                        ;; filter out the headers etc. included at the
+                        ;; start of the buffer: the relevant text
+                        ;; (shortened url or error message) is exactly
+                        ;; the last line.
+                        (goto-char (point-max))
+                        (let ((last-line (thing-at-point 'line t))
+                              (err (plist-get state :error)))
+                          (kill-buffer)
+                          (if err
+                              (error "failed to shorten share url: %s" last-line)
+                            (progn
+                              (kill-new last-line)
+                              (message "%s is append to system clipboard." last-line))))))))))
+
+(defun ponylang-region-length ()
+  "Return selection region length."
+  (let ((selection
+          (buffer-substring-no-properties (region-beginning) (region-end))))
+    (length selection)))
+
+(defun ponylang-share-buffer ()
+  "Create a shareable URL for the contents of the buffer on the Pony `playground'."
+  (interactive)
+  (ponylang-share-region (point-min) (point-max)))
 
 (easy-menu-define ponylang-mode-menu ponylang-mode-map ;
   "Menu for Ponylang mode."                            ;
   '("Ponylang" ["Build" ponylang-project-build t]
-    ["Run" ponylang-project-run t]      ;
-    "---"                               ;
-    ("Corral" ["Init" ponylang-corral-init t]
-     ["Open" ponylang-corral-open t]
-     ["Fetch" ponylang-corral-fetch t]
-     ["Update" ponylang-corral-update t])))
+     ["Run" ponylang-project-run t]      ;
+     "---"
+     ("Playground";
+       ["Share Buffer"          ponylang-share-buffer t]
+       ["Share Region"          (ponylang-share-region (region-beginning) (region-end))
+         (> (ponylang-region-length) 0)])
+     "---"                               ;
+     ("Corral" ["Init" ponylang-corral-init t]
+       ["Open" ponylang-corral-open t]
+       ["Fetch" ponylang-corral-fetch t]
+       ["Update" ponylang-corral-update t])))
 
 (defconst ponylang-banner-default
   "
@@ -650,14 +704,19 @@ value is 0 then no banner is displayed."
           :hint none)
   "
 %s(ponylang-choose-banner)
-  Corral |  _i_: Init    _f_: Fetch   _u_: Update  _o_: corral.json
-  Pony   |  _b_: Build   _r_: Run     _q_: Quit" ;
+  Corral      |  _i_: Init    _f_: Fetch   _u_: Update  _o_: corral.json
+  Pony        |  _b_: Build   _r_: Run
+  Playground  |  _s_: Buffer  _S_: Region
+  _q_: Quit" ;
+
   ("b" ponylang-project-build "Build")
   ("r" ponylang-project-run "Run")
   ("o" ponylang-corral-open "Open corral.json")
   ("i" ponylang-corral-init "corral init")
   ("f" ponylang-corral-fetch "corral fetch")
   ("u" ponylang-corral-update "corral udate")
+  ("s" ponylang-share-buffer "share buffer")
+  ("S" (ponylang-share-region (region-beginning) (region-end)) "share region")
   ("q" nil "Quit"))
 
 (defun ponylang-menu ()
