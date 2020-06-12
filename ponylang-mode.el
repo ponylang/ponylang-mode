@@ -508,8 +508,8 @@ the current context."
         (ponylang-run-command "make")
       (ponylang-run-command "ponyc"))))
 
-(defun ponylang-buf-dirpath ()
-  "Replacement for ome-buf-dirpath."
+(defun ponylang-buffer-dirname ()
+  "Return current buffer directory file name."
   (directory-file-name
    (if buffer-file-name
        (file-name-directory buffer-file-name)
@@ -519,11 +519,14 @@ the current context."
   "Run project."
   (interactive)
   (let* ((bin1 (concat (ponylang-project-root) "bin/" (ponylang-project-name)))
-         (bin2 (concat (ponylang-buf-dirpath) "/" (ponylang-project-name))))
+         (bin2 (concat (ponylang-project-root) "/" (ponylang-project-name)))
+         (bin3 (concat (ponylang-buffer-dirname) "/" (ponylang-project-name))))
     (if (file-exists-p bin1)
-        (ponylang-run-command bin1)
+      (ponylang-run-command bin1)
       (if (file-exists-p bin2)
-          (ponylang-run-command bin2)))))
+        (ponylang-run-command bin2)
+        (if (file-exists-p bin3)
+          (ponylang-run-command bin3))))))
 
 (defun ponylang-corral-init ()
   "Run corral `init' command."
