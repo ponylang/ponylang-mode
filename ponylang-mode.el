@@ -76,13 +76,13 @@
   :type '(repeat symbol)
   :group 'ponylang)
 
-(defcustom ponylang-playpen-url-format "https://playground.ponylang.io/?code=%s"
-  "Format string to use when submitting code to the playpen."
+(defcustom ponylang-share-url-format "https://playground.ponylang.io/?code=%s"
+  "Format string to use when submitting code to the share."
   :type 'string
   :group 'ponylang)
 
 (defcustom ponylang-shortener-url-format "https://is.gd/create.php?format=simple&url=%s"
-  "Format string to use for creating the shortened link of a playpen submission."
+  "Format string to use for creating the shortened link of a share submission."
   :type 'string
   :group 'ponylang)
 
@@ -562,17 +562,17 @@ the current context."
   (if (ponylang-project-file-exists-p "corral.json")
     (find-file (concat (ponylang-project-root) "corral.json"))))
 
-(defun ponylang-playpen-region (begin end)
-  "Create a shareable URL for the region from BEGIN to END on the Rust playpen."
+(defun ponylang-share-region (begin end)
+  "Create a shareable URL for the region from BEGIN to END on the Pony `playground'."
   (interactive "r")
   (let* ((data (buffer-substring begin end))
          (escaped-data (url-hexify-string data))
-         (escaped-playpen-url (url-hexify-string
-                               (format ponylang-playpen-url-format escaped-data))))
-    (if (> (length escaped-playpen-url) 50000)
-        (error "encoded playpen data exceeds 50000 character limit (length %s)"
-               (length escaped-playpen-url))
-      (let ((shortener-url (format ponylang-shortener-url-format escaped-playpen-url))
+         (escaped-share-url (url-hexify-string
+                               (format ponylang-share-url-format escaped-data))))
+    (if (> (length escaped-share-url) 50000)
+        (error "encoded share data exceeds 50000 character limit (length %s)"
+               (length escaped-share-url))
+      (let ((shortener-url (format ponylang-shortener-url-format escaped-share-url))
             (url-request-method "POST"))
         (url-retrieve shortener-url
                       (lambda (state)
@@ -585,20 +585,21 @@ the current context."
                               (err (plist-get state :error)))
                           (kill-buffer)
                           (if err
-                              (error "failed to shorten playpen url: %s" last-line)
+                              (error "failed to shorten share url: %s" last-line)
                             (progn
                               (kill-new last-line)
                               (message "%s is append to system clipboard." last-line))))))))))
 
 (defun ponylang-region-length ()
+  "Return selection region length."
   (let ((selection
           (buffer-substring-no-properties (region-beginning) (region-end))))
     (length selection)))
 
-(defun ponylang-playpen-buffer ()
-  "Create a shareable URL for the contents of the buffer on the Rust playpen."
+(defun ponylang-share-buffer ()
+  "Create a shareable URL for the contents of the buffer on the Pony `playground'."
   (interactive)
-  (ponylang-playpen-region (point-min) (point-max)))
+  (ponylang-share-region (point-min) (point-max)))
 
 (easy-menu-define ponylang-mode-menu ponylang-mode-map ;
   "Menu for Ponylang mode."                            ;
@@ -606,8 +607,8 @@ the current context."
      ["Run" ponylang-project-run t]      ;
      "---"
      ("Playground";
-       ["Share Buffer"          ponylang-playpen-buffer t]
-       ["Share Region"          (ponylang-playpen-region (region-beginning) (region-end))
+       ["Share Buffer"          ponylang-share-buffer t]
+       ["Share Region"          (ponylang-share-region (region-beginning) (region-end))
          (> (ponylang-region-length) 0)])
      "---"                               ;
      ("Corral" ["Init" ponylang-corral-init t]
@@ -714,8 +715,8 @@ value is 0 then no banner is displayed."
   ("i" ponylang-corral-init "corral init")
   ("f" ponylang-corral-fetch "corral fetch")
   ("u" ponylang-corral-update "corral udate")
-  ("s" ponylang-playpen-buffer "share buffer")
-  ("S" (ponylang-playpen-region (region-beginning) (region-end)) "share region")
+  ("s" ponylang-share-buffer "share buffer")
+  ("S" (ponylang-share-region (region-beginning) (region-end)) "share region")
   ("q" nil "Quit"))
 
 (defun ponylang-menu ()
