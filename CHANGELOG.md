@@ -2,17 +2,11 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
-
-### Fixed
-
+## [0.3.0] - 2020-06-12
 
 ### Added
 
 - Added playground support ([PR #98](https://github.com/ponylang/ponylang-mode/pull/98))
-
-### Changed
-
 
 ## [0.2.1] - 2020-06-12
 
