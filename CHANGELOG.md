@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
+## [0.2.0] - 2020-06-12
 
 ### Fixed
 
@@ -12,9 +12,6 @@ All notable changes to this project will be documented in this file. This projec
 
 - Added character literals highlighting ([PR #93](https://github.com/ponylang/ponylang-mode/pull/93))
 - Added imenu support ([PR #94](https://github.com/ponylang/ponylang-mode/pull/94))
-
-### Changed
-
 
 ## [0.1.8] - 2020-06-11
 
