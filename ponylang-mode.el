@@ -302,11 +302,11 @@ by parse-partial-sexp, and should return a face. "
      1 'font-lock-function-name-face)
 
     ;; type definitions
-    ("\\(?:class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|type\\)\s+\\($?[A-Z_][A-Za-z0-9_]*\\)"
+    ("\\(?:class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|type\\)\s+\\($?_?[A-Z][A-Za-z0-9_]*\\)"
      1 'font-lock-type-face)
 
     ;; type references: first filter
-    ("[:,|&]$?[ \t]?\\($?[A-Z_][A-Za-z0-9_]*\\)" 1 'font-lock-type-face)
+    ("[:,|&]$?[ \t]?\\($?_?[A-Z][A-Za-z0-9_]*\\)" 1 'font-lock-type-face)
 
     ;; constants references
     (,ponylang-constant-regexp . font-lock-constant-face)
