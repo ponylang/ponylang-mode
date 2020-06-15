@@ -404,7 +404,7 @@ the current context."
                  (forward-line -1)
                  (cond
                   ;; if the previous line ends in `end', keep indent
-                  ((looking-at ".*\\(end\\|\"\\)?[ \t]?$")
+                  ((looking-at ".*\\(end\\|\"\\)$?[ \t]?$")
                    (setq cur-indent (current-indentation)))
 
                   ;; if the previous line ends in = or =>, indent one level
