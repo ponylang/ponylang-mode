@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+- Fixed condition indentation ([PR #111](https://github.com/ponylang/ponylang-mode/pull/111))
 
 ### Added
 
