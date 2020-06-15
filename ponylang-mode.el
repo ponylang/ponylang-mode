@@ -4,7 +4,7 @@
 ;; Version: 0.3.0
 ;; URL: https://github.com/ponylang/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0"))
+;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -64,6 +64,7 @@
 (require 'hydra)
 (require 'imenu)
 (require 'easymenu)
+(require 'hl-todo)
 
 (defvar ponylang-mode-hook nil)
 
@@ -750,6 +751,13 @@ value is 0 then no banner is displayed."
                 ("class" "^[ \t]*class[ \t]*\\(.*\\)$" 1)
                 ("use" "^[ \t]*use[ \t]*\\(.*\\)$" 1)))
   (imenu-add-to-menubar "Index")
+  (hl-todo-mode)
+  (setq-local hl-todo-keyword-faces
+              '(("TODO"   . "green")
+                ("FIXME"  . "yellow")
+                ("DEBUG"  . "DarkCyan")
+                ("GOTCHA" . "red")
+                ("STUB"   . "DarkGreen")))
   (setq-local comment-start "// ")
   (setq-local comment-start-skip "//+")
   (setq-local font-lock-defaults            ;
