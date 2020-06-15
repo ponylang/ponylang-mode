@@ -4,7 +4,7 @@
 ;; Version: 0.3.0
 ;; URL: https://github.com/ponylang/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2") (fill-column-indicator "1.90"))
+;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2") (rainbow-delimiters "2.1.4") (fill-column-indicator "1.90"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -66,6 +66,7 @@
 (require 'hl-todo)
 (require 'easymenu)
 (require 'whitespace)
+(require 'rainbow-delimiters)
 (require 'fill-column-indicator)
 
 (defvar ponylang-mode-hook nil)
@@ -786,7 +787,9 @@ value is 0 then no banner is displayed."
   (setq-local fci-rule-column 80)
   (setq-local fci-handle-truncate-lines nil)
   (setq-local fci-rule-width 1)
-  (setq-local fci-rule-color "grey30"))
+  (setq-local fci-rule-color "grey30")
+
+  (rainbow-delimiters-mode t))
 
 (provide 'ponylang-mode)
 
