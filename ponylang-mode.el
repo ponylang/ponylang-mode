@@ -318,6 +318,9 @@ by parse-partial-sexp, and should return a face. "
     ;; type references: second filter
     ("\\(\s\\|->\\|[\[]\\|[\(]\\)\\($?_?[A-Z][A-Za-z0-9_]*\\)" 2 'font-lock-type-face)
 
+    ;; method references
+    ("\\([a-z_]$?[a-z0-9_]?+\\)$?[ \t]?(+" 1 'font-lock-function-name-face)
+
     ;; parameter
     ("\\(?:(\\|,\\)\\([a-z_][a-z0-9_']*\\)\\([^ \t\r\n,:)]*\\)" 1
        'font-lock-variable-name-face)
@@ -329,9 +332,6 @@ by parse-partial-sexp, and should return a face. "
 
     ;; ffi
     ("@[A-Za-z_][A-Z-a-z0-9_]+" . 'font-lock-builtin-face)
-
-    ;; method references
-    ("\\([a-z_]$?[a-z0-9_]?+\\)$?[ \t]?(+" 1 'font-lock-function-name-face)
 
     ;;(,ponylang-event-regexp . font-lock-builtin-face)
     ;;(,ponylang-functions-regexp . font-lock-function-name-face)
