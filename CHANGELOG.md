@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Fixed
 
 - Improve type refrences highlighting ([PR #99](https://github.com/ponylang/ponylang-mode/pull/99))
+- Fix region length ([PR #100](https://github.com/ponylang/ponylang-mode/pull/100))
 
 ### Added
 
