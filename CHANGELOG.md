@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file. This projec
 - Added whitespace highlighting ([PR #104](https://github.com/ponylang/ponylang-mode/pull/104))
 - Added pony file coding system ([PR #105](https://github.com/ponylang/ponylang-mode/pull/105))
 - Added fill column indicator ([PR #106](https://github.com/ponylang/ponylang-mode/pull/106))
+- Added rainbow brackets highlighting ([PR #107](https://github.com/ponylang/ponylang-mode/pull/107))
 
 ### Changed
 
