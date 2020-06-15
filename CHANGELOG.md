@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Changed
 
 - Update project build method ([PR #101](https://github.com/ponylang/ponylang-mode/pull/101))
+- Update README ([PR #110](https://github.com/ponylang/ponylang-mode/pull/110))
 
 ## [0.3.0] - 2020-06-12
 
