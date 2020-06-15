@@ -512,10 +512,10 @@ the current context."
 (defun ponylang-project-build ()
   "Build project with ponyc."
   (interactive)
-  (if (ponylang-project-file-exists-p "corral.json")
-      (ponylang-run-command "corral run -- ponyc --debug")
-    (if (ponylang-project-file-exists-p "Makefile")
-        (ponylang-run-command "make")
+  (if (ponylang-project-file-exists-p "Makefile")
+      (ponylang-run-command "make")
+    (if (ponylang-project-file-exists-p "corral.json")
+        (ponylang-run-command "corral run -- ponyc --debug")
       (ponylang-run-command "ponyc"))))
 
 (defun ponylang-buffer-dirname ()
