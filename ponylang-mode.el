@@ -592,9 +592,11 @@ the current context."
 
 (defun ponylang-region-length ()
   "Return selection region length."
-  (let ((selection
-          (buffer-substring-no-properties (region-beginning) (region-end))))
-    (length selection)))
+  (if (use-region-p)
+      (let ((selection
+             (buffer-substring-no-properties (region-beginning) (region-end))))
+        (length selection))
+    0))
 
 (defun ponylang-share-buffer ()
   "Create a shareable URL for the contents of the buffer on the Pony `playground'."
