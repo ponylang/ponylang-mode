@@ -4,7 +4,7 @@
 ;; Version: 0.3.0
 ;; URL: https://github.com/ponylang/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2"))
+;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2") (fill-column-indicator "1.90"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -66,6 +66,7 @@
 (require 'hl-todo)
 (require 'easymenu)
 (require 'whitespace)
+(require 'fill-column-indicator)
 
 (defvar ponylang-mode-hook nil)
 
@@ -773,13 +774,19 @@ value is 0 then no banner is displayed."
        ("STUB" . "DarkGreen")))
   (whitespace-mode)
   (setq-local whitespace-style
-    (quote (face spaces tabs newline space-mark tab-mark newline-mark )))
+    '(face spaces tabs newline space-mark tab-mark newline-mark trailing))
   ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “▷” for tab.
   (setq-local whitespace-display-mappings
     ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
     '((space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
        (newline-mark 10 [182 10]) ; LINE FEED,
-       (tab-mark 9 [9655 9] [92 9]))))
+       (tab-mark 9 [9655 9] [92 9])))
+
+  ;; (setq-local whitespace-style '(face trailing))
+  (setq-local fci-rule-column 80)
+  (setq-local fci-handle-truncate-lines nil)
+  (setq-local fci-rule-width 1)
+  (setq-local fci-rule-color "grey30"))
 
 (provide 'ponylang-mode)
 
