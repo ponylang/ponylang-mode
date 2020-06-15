@@ -592,9 +592,16 @@ the current context."
 
 (defun ponylang-region-length ()
   "Return selection region length."
-  (let ((selection
-          (buffer-substring-no-properties (region-beginning) (region-end))))
-    (length selection)))
+  (if (use-region-p)
+      (let ((selection
+             (buffer-substring-no-properties (region-beginning) (region-end))))
+        (length selection))
+    0))
+
+(defun ponylang-share-region-auto ()
+  "Create a shareable URL for the region on the Pony `playground'."
+  (if (> (ponylang-region-length) 0)
+      (ponylang-share-region (region-beginning) (region-end))))
 
 (defun ponylang-share-buffer ()
   "Create a shareable URL for the contents of the buffer on the Pony `playground'."
@@ -608,8 +615,7 @@ the current context."
      "---"
      ("Playground";
        ["Share Buffer"          ponylang-share-buffer t]
-       ["Share Region"          (ponylang-share-region (region-beginning) (region-end))
-         (> (ponylang-region-length) 0)])
+       ["Share Region"          ponylang-share-region-auto (use-region-p)])
      "---"                               ;
      ("Corral" ["Init" ponylang-corral-init t]
        ["Open" ponylang-corral-open t]
