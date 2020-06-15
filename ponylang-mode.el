@@ -397,9 +397,7 @@ the current context."
           ((looking-at "^[ \t]*\\(end\\|else\\|elseif\\|do\\|then\\|until\\)$")
            (progn (save-excursion ;;
                     (forward-line -1)
-                    (setq cur-indent (- (current-indentation) tab-width))
-                    (if (< cur-indent 0)
-                        (setq cur-indent 0)))))
+                    (setq cur-indent (current-indentation)))))
           (t                            ;
            (save-excursion              ;
              (let ((keep-looking t))
