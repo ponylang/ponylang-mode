@@ -762,6 +762,7 @@ value is 0 then no banner is displayed."
   (setq-local syntax-propertize-function ponylang-syntax-propertize-function)
   (setq-local indent-tabs-mode nil)
   (setq-local tab-width 2)
+  (setq-local buffer-file-coding-system 'utf-8-unix)
 
   (hl-todo-mode)
   (setq-local hl-todo-keyword-faces
