@@ -63,8 +63,9 @@
 (require 'dash)
 (require 'hydra)
 (require 'imenu)
-(require 'easymenu)
 (require 'hl-todo)
+(require 'easymenu)
+(require 'whitespace)
 
 (defvar ponylang-mode-hook nil)
 
@@ -751,23 +752,33 @@ value is 0 then no banner is displayed."
                 ("class" "^[ \t]*class[ \t]*\\(.*\\)$" 1)
                 ("use" "^[ \t]*use[ \t]*\\(.*\\)$" 1)))
   (imenu-add-to-menubar "Index")
-  (hl-todo-mode)
-  (setq-local hl-todo-keyword-faces
-              '(("TODO"   . "green")
-                ("FIXME"  . "yellow")
-                ("DEBUG"  . "DarkCyan")
-                ("GOTCHA" . "red")
-                ("STUB"   . "DarkGreen")))
   (setq-local comment-start "// ")
   (setq-local comment-start-skip "//+")
   (setq-local font-lock-defaults            ;
-              '(ponylang-font-lock-keywords ;
-                nil nil nil nil             ;
-                (font-lock-syntactic-face-function . ponylang-mode-syntactic-face-function)))
+    '(ponylang-font-lock-keywords ;
+       nil nil nil nil             ;
+       (font-lock-syntactic-face-function . ponylang-mode-syntactic-face-function)))
   (setq-local indent-line-function 'ponylang-indent-line)
   (setq-local syntax-propertize-function ponylang-syntax-propertize-function)
   (setq-local indent-tabs-mode nil)
-  (setq-local tab-width 2))
+  (setq-local tab-width 2)
+
+  (hl-todo-mode)
+  (setq-local hl-todo-keyword-faces
+    '(("TODO" . "green")
+       ("FIXME" . "yellow")
+       ("DEBUG" . "DarkCyan")
+       ("GOTCHA" . "red")
+       ("STUB" . "DarkGreen")))
+  (whitespace-mode)
+  (setq-local whitespace-style
+    (quote (face spaces tabs newline space-mark tab-mark newline-mark )))
+  ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “▷” for tab.
+  (setq-local whitespace-display-mappings
+    ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+    '((space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+       (newline-mark 10 [182 10]) ; LINE FEED,
+       (tab-mark 9 [9655 9] [92 9]))))
 
 (provide 'ponylang-mode)
 
