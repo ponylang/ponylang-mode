@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file. This projec
 
 - Added TODO highlighting ([PR #103](https://github.com/ponylang/ponylang-mode/pull/103))
 - Added whitespace highlighting ([PR #104](https://github.com/ponylang/ponylang-mode/pull/104))
+- Added pony file coding system ([PR #105](https://github.com/ponylang/ponylang-mode/pull/105))
 
 ### Changed
 
