@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file. This projec
 
 - Improve type refrences highlighting ([PR #99](https://github.com/ponylang/ponylang-mode/pull/99))
 - Fix region length ([PR #100](https://github.com/ponylang/ponylang-mode/pull/100))
+- Fixed Invalid indent expression ([PR #102](https://github.com/ponylang/ponylang-mode/pull/102))
 
 ### Added
 
