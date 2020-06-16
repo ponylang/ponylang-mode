@@ -4,7 +4,7 @@
 ;; Version: 0.4.0
 ;; URL: https://github.com/ponylang/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2") (rainbow-delimiters "2.1.4") (fill-column-indicator "1.90"))
+;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2") (yafolding "0.4.1") (rainbow-delimiters "2.1.4") (fill-column-indicator "1.90"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -65,6 +65,7 @@
 (require 'imenu)
 (require 'hl-todo)
 (require 'easymenu)
+(require 'yafolding)
 (require 'whitespace)
 (require 'rainbow-delimiters)
 (require 'fill-column-indicator)
@@ -133,7 +134,9 @@ by parse-partial-sexp, and should return a face. "
   (let ((map (make-keymap)))
     (define-key map "\C-j" 'newline-and-indent)
     (define-key map (kbd "<f6>")  'ponylang-menu)
-    (define-key map (kbd "M-z")  'ponylang-menu) map)
+    (define-key map (kbd "M-z")  'ponylang-menu)
+    (define-key map (kbd "<C-return>") 'yafolding-toggle-element) ;
+    map)
   "Keymap for Pony major mode")
 
 (defvar ponylang--indent-cycle-direction 'left)
@@ -732,6 +735,18 @@ value is 0 then no banner is displayed."
   (interactive)
   (ponylang-hydra-menu/body))
 
+(defun ponylang-folding-hide-element (&optional RETRY)
+  "Hide current element."
+  (interactive)
+  (let* ((region (yafolding-get-element-region))
+         (beg (car region))
+         (end (cadr region)))
+    (if (and (eq RETRY nil) (= beg end))
+        (progn
+          (yafolding-go-parent-element)
+          (yafolding-hide-element 1))
+      (yafolding-hide-region beg end))))
+
 ;;;###autoload
 (define-derived-mode ponylang-mode ponylang-parent-mode
   "Pony"
@@ -787,7 +802,10 @@ value is 0 then no banner is displayed."
   (setq-local fci-rule-width 1)
   (setq-local fci-rule-color "grey30")
 
-  (rainbow-delimiters-mode t))
+  (rainbow-delimiters-mode t)
+
+  (defalias 'yafolding-hide-element 'ponylang-folding-hide-element)
+  (yafolding-mode t))
 
 (provide 'ponylang-mode)
 
