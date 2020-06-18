@@ -1,13 +1,14 @@
 [![MELPA](http://melpa.org/packages/ponylang-mode-badge.svg)](http://melpa.org/#/ponylang-mode)
 [![MELPA Stable](http://stable.melpa.org/packages/ponylang-mode-badge.svg)](http://stable.melpa.org/#/ponylang-mode)
-[![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ponylang/ponylang-mode/pull/new)
+[![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/ponylang/ponylang-mode/pull/new)
 
 # Pony Mode
 
 An Emacs mode that provides syntax highlighting (font-lock) and
 indentation for the [Pony](http://www.ponylang.org/) programming
-language.It also provides `imenu`, [corral](https://github.com/ponylang/corral)
-and [Playground](https://playground.ponylang.io/) integration.
+language.It also provides [Ponyc](https://github.com/ponylang/ponyc),
+[corral](https://github.com/ponylang/corral)
+and [Playground](https://playground.ponylang.io) integration.
 
 <!-- At the moment, ponylang-mode is fairly new and immature. From the -->
 <!-- standpoint of indentation, it should work for about 99% of use cases. -->
