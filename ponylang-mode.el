@@ -269,14 +269,19 @@ by parse-partial-sexp, and should return a face. "
     ;; declaration
     (,ponylang-declaration-keywords-regexp . font-lock-preprocessor-face)
 
+    ;; delimiter: modifier
+    ("\\(=>\\|\\.>\\|:>\\||\\|&\\)" 1 'font-lock-keyword-face)
+
     ;; delimiter: . , ; separate
-    ("\\([.,;]\\)" 1 'font-lock-comment-delimiter-face)
+    ("\\($?[.,;]+\\)" 1 'font-lock-comment-delimiter-face)
+
+    ;; delimiter: operator symbols
+    ;; ("\\($?[+-/*//%~^!=<>]+\\)$?,?" 1 'font-lock-negation-char-face)
+    ("\\($?[+-/*//%~=<>]+\\)$?,?" 1 'font-lock-negation-char-face)
+    ("\\($?[?^!]+\\)" 1 'font-lock-warning-face)
 
     ;; delimiter: = : separate
     ("[^+-/*//%~^!=<>]\\([=:]\\)[^+-/*//%~^!=<>]" 1 'font-lock-comment-delimiter-face)
-
-    ;; delimiter: modifier
-    ("\\(=>\\|\\.>\\|:>\\||\\|&\\)" 1 'font-lock-keyword-face)
 
     ;; delimiter: brackets
     ("\\(\\[\\|\\]\\|[()]\\)" 1 'font-lock-comment-delimiter-face)
@@ -289,10 +294,6 @@ by parse-partial-sexp, and should return a face. "
 
     ;; operator methods
     (,ponylang-operator-functions-regexp . font-lock-negation-char-face)
-
-    ;; operator symbols
-    ("\\($?[+-/*//%~^!=<>]+\\)" 1 'font-lock-negation-char-face)
-    ("\\($?[/?]+\\)" 1 'font-lock-warning-face)
 
     ;; capabilities
     (,ponylang-capabilities-regexp . font-lock-builtin-face)
