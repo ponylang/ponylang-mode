@@ -347,6 +347,7 @@ by parse-partial-sexp, and should return a face. "
 
     ;; numeric literals
     ("[^A-Za-z]\\([0-9][A-Za-z0-9]*\\)+" 1 'font-lock-constant-face)
+    ("\\(_\\)" 1 'font-lock-constant-face)
 
     ;; variable references
     ("\\([a-z_]$?[a-z0-9_']?+\\)+" 1 'font-lock-variable-name-face)
