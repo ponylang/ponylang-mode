@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 - Added source folding support ([PR #112](https://github.com/ponylang/ponylang-mode/pull/112))
+- Added underscore in numeric literals highlighting ([PR #115](https://github.com/ponylang/ponylang-mode/pull/115))
 
 ### Changed
 
