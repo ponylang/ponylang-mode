@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Changed
 
+- Improved delimiter highlighting ([PR #114](https://github.com/ponylang/ponylang-mode/pull/114))
 
 ## [0.4.0] - 2020-06-15
 
