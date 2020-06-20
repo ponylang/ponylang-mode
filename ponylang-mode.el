@@ -628,9 +628,9 @@ the current context."
        ["Share Region"          ponylang-share-region-auto (use-region-p)])
      "---";
      ("Community";
-       ["News" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") t]
-       ["Beginner Help" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") t]
-       ["Open an issue" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") t]
+       ["News" (ponylang-run-command "xdg-open https://www.ponylang.io/blog") t]
+       ["Beginner Help" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com/#narrow/stream/189985-beginner-help") t]
+       ["Open an issue" (ponylang-run-command "xdg-open https://github.com/ponylang/ponyc/issues") t]
        ["Zulip chat" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") t]
        ["Planet-pony" (ponylang-run-command "xdg-open https://www.ponylang.io/community/planet-pony") t]
        ["Papers" (ponylang-run-command "xdg-open https://www.ponylang.io/community/#papers")]
@@ -744,9 +744,9 @@ value is 0 then no banner is displayed."
   ("s" ponylang-share-buffer "share buffer")
   ("S" (ponylang-share-region (region-beginning) (region-end)) "share region")
 
-  ("1" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") "News")
-  ("2" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") "Beginner Help")
-  ("3" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") "Open an issue")
+  ("1" (ponylang-run-command "xdg-open https://www.ponylang.io/blog") "News")
+  ("2" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com/#narrow/stream/189985-beginner-help") "Beginner Help")
+  ("3" (ponylang-run-command "xdg-open https://github.com/ponylang/ponyc/issues") "Open an issue")
   ("4" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") "Zulip chat")
   ("5" (ponylang-run-command "xdg-open https://www.ponylang.io/community/planet-pony") "Planet-pony")
   ("6" (ponylang-run-command "xdg-open https://www.ponylang.io/community/#papers") "Papers")
