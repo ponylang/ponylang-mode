@@ -618,15 +618,26 @@ the current context."
   "Menu for Ponylang mode."                            ;
   '("Ponylang" ["Build" ponylang-project-build t]
      ["Run" ponylang-project-run t]      ;
-     "---"
+     ("Corral";
+       ["Init" ponylang-corral-init t]
+       ["Open" ponylang-corral-open t]
+       ["Fetch" ponylang-corral-fetch t]
+       ["Update" ponylang-corral-update t])
      ("Playground";
        ["Share Buffer"          ponylang-share-buffer t]
        ["Share Region"          ponylang-share-region-auto (use-region-p)])
-     "---"                               ;
-     ("Corral" ["Init" ponylang-corral-init t]
-       ["Open" ponylang-corral-open t]
-       ["Fetch" ponylang-corral-fetch t]
-       ["Update" ponylang-corral-update t])))
+     "---";
+     ("Community";
+       ["News" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") t]
+       ["Beginner Help" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") t]
+       ["Open an issue" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") t]
+       ["Zulip chat" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") t]
+       ["Planet-pony" (ponylang-run-command "xdg-open https://www.ponylang.io/community/planet-pony") t]
+       ["Papers" (ponylang-run-command "xdg-open https://www.ponylang.io/community/#papers")]
+       ["Tutorial" (ponylang-run-command "xdg-open https://tutorial.ponylang.io/") t]
+       ["Videos" (ponylang-run-command "xdg-open https://vimeo.com/search/sort:latest?q=pony-vug") t]
+       ["Contribute" (ponylang-run-command "xdg-open https://github.com/ponylang/contributors") t]
+       ["Sponsors" (ponylang-run-command "xdg-open https://www.ponylang.io/sponsors") t])))
 
 (defconst ponylang-banner-default
   "
@@ -716,9 +727,12 @@ value is 0 then no banner is displayed."
           :hint none)
   "
 %s(ponylang-choose-banner)
-  Corral      |  _i_: Init    _f_: Fetch   _u_: Update  _o_: corral.json
-  Pony        |  _b_: Build   _r_: Run
-  Playground  |  _s_: Buffer  _S_: Region
+  Corral      |  _i_: Init     _f_: Fetch   _u_: Update  _o_: corral.json
+  Pony        |  _b_: Build    _r_: Run
+  Playground  |  _s_: Buffer   _S_: Region
+  Community   |  _1_: News     _2_: BeginerHelp  _3_: OpenIssue
+              |  _4_: Chat     _5_: PlanetPony   _6_: Papers
+              |  _7_: Tutorial _8_: Videos       _9_: Sponsors _0_: Contribute
   _q_: Quit" ;
 
   ("b" ponylang-project-build "Build")
@@ -729,7 +743,21 @@ value is 0 then no banner is displayed."
   ("u" ponylang-corral-update "corral udate")
   ("s" ponylang-share-buffer "share buffer")
   ("S" (ponylang-share-region (region-beginning) (region-end)) "share region")
+
+  ("1" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") "News")
+  ("2" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") "Beginner Help")
+  ("3" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") "Open an issue")
+  ("4" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") "Zulip chat")
+  ("5" (ponylang-run-command "xdg-open https://www.ponylang.io/community/planet-pony") "Planet-pony")
+  ("6" (ponylang-run-command "xdg-open https://www.ponylang.io/community/#papers") "Papers")
+  ("7" (ponylang-run-command "xdg-open https://tutorial.ponylang.io/") "Tutorial")
+  ("8" (ponylang-run-command "xdg-open https://vimeo.com/search/sort:latest?q=pony-vug") "Videos")
+  ("9" (ponylang-run-command "xdg-open https://www.ponylang.io/sponsors") "Sponsors")
+  ("0" (ponylang-run-command "xdg-open https://github.com/ponylang/contributors") "Contribute")
+
   ("q" nil "Quit"))
+
+
 
 (defun ponylang-menu ()
   "Open ponylang hydra menu."
