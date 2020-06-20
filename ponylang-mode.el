@@ -270,7 +270,7 @@ by parse-partial-sexp, and should return a face. "
     (,ponylang-declaration-keywords-regexp . font-lock-preprocessor-face)
 
     ;; delimiter: modifier
-    ("\\(=>\\|\\.>\\|:>\\||\\|&\\)" 1 'font-lock-keyword-face)
+    ("\\(->\\|=>\\|\\.>\\|:>\\||\\|&\\)" 1 'font-lock-keyword-face)
 
     ;; delimiter: . , ; separate
     ("\\($?[.,;]+\\)" 1 'font-lock-comment-delimiter-face)
@@ -290,10 +290,10 @@ by parse-partial-sexp, and should return a face. "
     ("\\($?[{}]+\\)" 1 'font-lock-function-name-face)
 
     ;; common methods
-    (,ponylang-common-functions-regexp . font-lock-negation-char-face)
+    (,ponylang-common-functions-regexp . font-lock-builtin-face)
 
     ;; operator methods
-    (,ponylang-operator-functions-regexp . font-lock-negation-char-face)
+    (,ponylang-operator-functions-regexp . font-lock-builtin-face)
 
     ;; capabilities
     (,ponylang-capabilities-regexp . font-lock-builtin-face)
