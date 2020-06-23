@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file. This projec
 
 - Fixed condition indentation ([PR #111](https://github.com/ponylang/ponylang-mode/pull/111))
 - Fixed generic default parameter highlighting ([PR #113](https://github.com/ponylang/ponylang-mode/pull/113))
+- Fixed match indent to be consistent with Style Guide ([PR #121](https://github.com/ponylang/ponylang-mode/pull/121))
 
 ### Added
 
