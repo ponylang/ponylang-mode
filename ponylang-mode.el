@@ -758,8 +758,6 @@ value is 0 then no banner is displayed."
 
   ("q" nil "Quit"))
 
-
-
 (defun ponylang-menu ()
   "Open ponylang hydra menu."
   (interactive)
@@ -776,6 +774,34 @@ value is 0 then no banner is displayed."
           (yafolding-go-parent-element)
           (yafolding-hide-element 1))
       (yafolding-hide-region beg end))))
+
+(defun ponylang-build-tags ()
+  (interactive)
+  (let* ((ponyc-path (string-trim (shell-command-to-string "which ponyc")))
+          (ponyc-executable (string-trim (shell-command-to-string (concat "readlink -f " ponyc-path))))
+          (packages-path (expand-file-name (concat (file-name-directory ponyc-executable) "../packages") ))
+          (ctags-params ;
+            (concat  "ctags --langdef=pony --langmap=pony:.pony "
+              "--regex-pony='/^[ \\t]*actor[ \\t]+([a-zA-Z0-9_]+)/\\1/a,actor/' "
+              "--regex-pony='/^[ \\t]*be[ \\t]+([a-zA-Z0-9_]+)/\\1/b,behavior/' "
+              "--regex-pony='/^[ \\t]*class([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/c,class/' "
+              "--regex-pony='/^[ \\t]*fun([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/f,function/' "
+              "--regex-pony='/^[ \\t]*interface([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/i,interface/' "
+              "--regex-pony='/^[ \\t]*primitive[ \\t]+([a-zA-Z0-9_]+)/\\1/p,primitive/' "
+              "--regex-pony='/^[ \\t]*trait([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/t,trait/' "
+              "--regex-pony='/^[ \\t]*type[ \\t]+([a-zA-Z0-9_]+)/\\1/y,type/' "
+              "-e -R . " packages-path)))
+    (if (file-exists-p packages-path)
+      (progn
+        (setq default-directory (ponylang-project-root))
+        (shell-command ctags-params)
+        (visit-tags-table (concat (ponylang-project-root) "TAGS"))
+        (kill-buffer (get-buffer "TAGS"))))))
+
+(defun ponylang-after-save-hook ()
+  (if (not (executable-find "ctags"))
+    (message "Could not locate executable '%s'" "ctags")
+    (ponylang-build-tags)))
 
 ;;;###autoload
 (define-derived-mode ponylang-mode ponylang-parent-mode
@@ -835,7 +861,9 @@ value is 0 then no banner is displayed."
   (rainbow-delimiters-mode t)
 
   (defalias 'yafolding-hide-element 'ponylang-folding-hide-element)
-  (yafolding-mode t))
+  (yafolding-mode t)
+
+  (add-hook 'after-save-hook 'ponylang-after-save-hook nil t))
 
 (provide 'ponylang-mode)
 
