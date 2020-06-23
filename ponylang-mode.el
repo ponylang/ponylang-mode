@@ -178,7 +178,6 @@ by parse-partial-sexp, and should return a face. "
     "else"                              ;
     "for" "fun"                         ;
     "if" "ifdef" "interface"            ;
-    "match"                             ;
     "new"                               ;
     "primitive"                         ;
     "recover" "ref" "repeat"            ;
@@ -398,10 +397,12 @@ the current context."
            (setq cur-indent tab-width))
           ((looking-at "^[[:space:]]*new\\([[:space:]].*\\)?$")
            (setq cur-indent tab-width))
-          ((looking-at "^[ \t]*\\(end\\|else\\|elseif\\|do\\|then\\|until\\)$")
+          ((looking-at "^[ \t]*\\(|\\|end\\|else\\|elseif\\|do\\|then\\|until\\)[ \t]*.*$")
            (progn (save-excursion ;;
                     (forward-line -1)
-                    (setq cur-indent (current-indentation)))))
+                    (if (looking-at "^[ \t]*\\(|\\).*$")
+                        (setq cur-indent (current-indentation))
+                      (setq cur-indent (max 0 (- (current-indentation) tab-width)))))))
           (t                            ;
            (save-excursion              ;
              (let ((keep-looking t))
