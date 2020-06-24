@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file. This projec
 - Added underscore in numeric literals highlighting ([PR #115](https://github.com/ponylang/ponylang-mode/pull/115))
 - Added community menu items ([PR #119](https://github.com/ponylang/ponylang-mode/pull/119))
 - Added code jump support based on ctags ([PR #122](https://github.com/ponylang/ponylang-mode/pull/122))
+- Added tags autoload support ([PR #123](https://github.com/ponylang/ponylang-mode/pull/123))
 
 ### Changed
 
