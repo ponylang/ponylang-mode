@@ -874,7 +874,7 @@ value is 0 then no banner is displayed."
   (yafolding-mode t)
 
   (add-hook 'after-save-hook 'ponylang-after-save-hook nil t)
-  (ponylang-load-tags t))
+  (ponylang-load-tags))
 
 (provide 'ponylang-mode)
 
