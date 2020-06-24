@@ -6,7 +6,7 @@
 
 # Pony Mode
 
-An Emacs mode that provides `syntax highlighting` (font-lock), `indentation` 
+An Emacs mode that provides `syntax highlighting` (font-lock), `indentation`
 and `code jump` for the [Pony](http://www.ponylang.org/) programming
 language.It also provides [Ponyc](https://github.com/ponylang/ponyc),
 [Corral](https://github.com/ponylang/corral)
@@ -18,6 +18,8 @@ and [Playground](https://playground.ponylang.io) integration.
 At the moment, `code formatting` is missing.
 If you are interested in contributing to Emacs tooling for Pony, please
 get in touch. Contributions and feedback are welcome.
+
+![screenshot](https://github.com/ponylang/ponylang-mode/blob/master/screenshot.png)
 
 ## Installation
 
@@ -72,7 +74,7 @@ your configuration, you can configure `ponylang-mode` like so:
 ```
 ## Optional
 - [pony-snippets](https://github.com/ponylang/pony-snippets) Pony-Snippets is a collection of YASnippet Pony snippets for Emacs.
-- [flycheck-pony](https://github.com/ponylang/flycheck-pony) Flycheck-pony is an Emacs mode that supports on the fly syntax checking of Pony files. 
+- [flycheck-pony](https://github.com/ponylang/flycheck-pony) Flycheck-pony is an Emacs mode that supports on the fly syntax checking of Pony files.
 - [helm-xref](https://github.com/brotzeit/helm-xref) Helm interface for xref, It can improve the experience of using code jump.
 
 ## Testing
