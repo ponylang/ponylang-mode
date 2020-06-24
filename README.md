@@ -70,6 +70,10 @@ your configuration, you can configure `ponylang-mode` like so:
   ("M-z" . ponylang-menu)
   ("<f6>" . ponylang-menu))
 ```
+## Optional
+- [pony-snippets](https://github.com/ponylang/pony-snippets) Pony-Snippets is a collection of YASnippet Pony snippets for Emacs.
+- [flycheck-pony](https://github.com/ponylang/flycheck-pony) Flycheck-pony is an Emacs mode that supports on the fly syntax checking of Pony files. 
+- [helm-xref](https://github.com/brotzeit/helm-xref) Helm interface for xref, It can improve the experience of using code jump.
 
 ## Testing
 
