@@ -805,8 +805,8 @@ value is 0 then no banner is displayed."
       (progn
         (visit-tags-table (concat (ponylang-project-root) "TAGS"))
         (kill-buffer (get-buffer "TAGS")))
-      (if BUILD)
-      (ponylang-build-tags))))
+      (if BUILD
+        (ponylang-build-tags)))))
 
 (defun ponylang-after-save-hook ()
   (if (not (executable-find "ctags"))
