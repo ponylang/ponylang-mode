@@ -2,11 +2,12 @@
 [![MELPA Stable](http://stable.melpa.org/packages/ponylang-mode-badge.svg)](http://stable.melpa.org/#/ponylang-mode)
 [![GitHub contributors](https://img.shields.io/github/contributors/ponylang/ponylang-mode)](https://github.com/ponylang/ponylang-mode/graphs/contributors)
 [![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/ponylang/ponylang-mode/pull/new)
+[![Zulip](https://img.shields.io/badge/chat-on%20zulip-52c2af?logo=zulip&logoColor=52c2af&.svg)](https://ponylang.zulipchat.com/#narrow/stream/190367-tooling/topic/Emacs.3A.20ponylang-mode)
 
 # Pony Mode
 
-An Emacs mode that provides syntax highlighting (font-lock) and
-indentation for the [Pony](http://www.ponylang.org/) programming
+An Emacs mode that provides `syntax highlighting` (font-lock), `indentation` 
+and `code jump` for the [Pony](http://www.ponylang.org/) programming
 language.It also provides [Ponyc](https://github.com/ponylang/ponyc),
 [Corral](https://github.com/ponylang/corral)
 and [Playground](https://playground.ponylang.io) integration.
@@ -14,7 +15,7 @@ and [Playground](https://playground.ponylang.io) integration.
 <!-- At the moment, ponylang-mode is fairly new and immature. From the -->
 <!-- standpoint of indentation, it should work for about 99% of use cases. -->
 <!-- In order to work for the rest, it is going to require a rewrite. -->
-At the moment, `Code formatting` and `method jumps` are missing.
+At the moment, `code formatting` is missing.
 If you are interested in contributing to Emacs tooling for Pony, please
 get in touch. Contributions and feedback are welcome.
 
