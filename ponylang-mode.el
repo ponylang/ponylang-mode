@@ -313,7 +313,7 @@ by parse-partial-sexp, and should return a face. "
      1 'font-lock-type-face)
 
     ;; type references: first filter
-    ("[:,|&]$?[ \t]?\\($?_?[A-Z][A-Za-z0-9_]*\\)" 1 'font-lock-type-face)
+    ("[:,|&[]$?[ \t]*\\($?_?[A-Z][A-Za-z0-9_]*\\)" 1 'font-lock-type-face)
 
     ;; constants references
     (,ponylang-constant-regexp . font-lock-constant-face)
