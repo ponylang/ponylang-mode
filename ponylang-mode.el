@@ -61,6 +61,7 @@
 
 (require 'cl)
 (require 'dash)
+(require 'xref)
 (require 'hydra)
 (require 'imenu)
 (require 'hl-todo)
@@ -777,6 +778,12 @@ value is 0 then no banner is displayed."
 
 (defun ponylang-build-tags ()
   (interactive)
+  (let ((tags-buffer (get-buffer "TAGS"))
+        (tags-buffer2 (get-buffer (format "TAGS<%s>" (ponylang-project-name)))))
+    (if tags-buffer
+        (kill-buffer tags-buffer))
+    (if tags-buffer2
+      (kill-buffer tags-buffer2)))
   (let* ((ponyc-path (string-trim (shell-command-to-string "which ponyc")))
           (ponyc-executable (string-trim (shell-command-to-string (concat "readlink -f " ponyc-path))))
           (packages-path (expand-file-name (concat (file-name-directory ponyc-executable) "../packages") ))
@@ -800,11 +807,10 @@ value is 0 then no banner is displayed."
 (defun ponylang-load-tags (&optional BUILD)
   "Visit tags table."
   (interactive)
-  (let ((tags-file-name (concat (ponylang-project-root) "TAGS")))
-    (if (file-exists-p tags-file-name)
+  (let* ((tags-file (concat (ponylang-project-root) "TAGS")))
+    (if (file-exists-p tags-file)
       (progn
-        (visit-tags-table (concat (ponylang-project-root) "TAGS"))
-        (kill-buffer (get-buffer "TAGS")))
+        (visit-tags-table (concat (ponylang-project-root) "TAGS")))
       (if BUILD
         (ponylang-build-tags)))))
 
