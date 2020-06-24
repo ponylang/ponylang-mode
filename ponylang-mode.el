@@ -795,8 +795,18 @@ value is 0 then no banner is displayed."
       (progn
         (setq default-directory (ponylang-project-root))
         (shell-command ctags-params)
+        (ponylang-load-tags)))))
+
+(defun ponylang-load-tags (&optional BUILD)
+  "Visit tags table."
+  (interactive)
+  (let ((tags-file-name (concat (ponylang-project-root) "TAGS")))
+    (if (file-exists-p tags-file-name)
+      (progn
         (visit-tags-table (concat (ponylang-project-root) "TAGS"))
-        (kill-buffer (get-buffer "TAGS"))))))
+        (kill-buffer (get-buffer "TAGS")))
+      (if BUILD)
+      (ponylang-build-tags))))
 
 (defun ponylang-after-save-hook ()
   (if (not (executable-find "ctags"))
@@ -863,7 +873,8 @@ value is 0 then no banner is displayed."
   (defalias 'yafolding-hide-element 'ponylang-folding-hide-element)
   (yafolding-mode t)
 
-  (add-hook 'after-save-hook 'ponylang-after-save-hook nil t))
+  (add-hook 'after-save-hook 'ponylang-after-save-hook nil t)
+  (ponylang-load-tags t))
 
 (provide 'ponylang-mode)
 
