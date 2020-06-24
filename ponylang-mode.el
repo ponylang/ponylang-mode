@@ -398,6 +398,8 @@ the current context."
            (setq cur-indent tab-width))
           ((looking-at "^[[:space:]]*new\\([[:space:]].*\\)?$")
            (setq cur-indent tab-width))
+          ((looking-at "^.*\\(end\\|\"\\)[ \t]*$")
+           (setq cur-indent (current-indentation)))
           ((looking-at "^[ \t]*\\(|\\|end\\|else\\|elseif\\|do\\|then\\|until\\)[ \t]*.*$")
            (progn (save-excursion ;;
                     (forward-line -1)
