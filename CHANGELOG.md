@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Changed
 
 - No prompt for ctags update ([PR #124](https://github.com/ponylang/ponylang-mode/pull/124))
+- Simplified regular expression for indentation ([PR #129](https://github.com/ponylang/ponylang-mode/pull/129))
 
 ## [0.5.0] - 2020-06-24
 
