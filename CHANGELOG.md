@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Fixed
 
 - Fixed match indent ([PR #126](https://github.com/ponylang/ponylang-mode/pull/126))
+- Fixed type alias highlighting ([PR #130](https://github.com/ponylang/ponylang-mode/pull/130))
 
 ### Added
 
