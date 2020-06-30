@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Changed
 
+- Better imenu parsing rules ([PR #133](https://github.com/ponylang/ponylang-mode/pull/133))
 
 ## [0.5.1] - 2020-06-28
 
