@@ -781,6 +781,7 @@ value is 0 then no banner is displayed."
               "--regex-pony='/^[ \\t]*fun([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/f,function/' "
               "--regex-pony='/^[ \\t]*interface([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/i,interface/' "
               "--regex-pony='/^[ \\t]*primitive[ \\t]+([a-zA-Z0-9_]+)/\\1/p,primitive/' "
+              "--regex-pony='/^[ \\t]*struct[ \\t]+([a-zA-Z0-9_]+)/\\1/p,struct/' "
               "--regex-pony='/^[ \\t]*trait([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/t,trait/' "
               "--regex-pony='/^[ \\t]*type[ \\t]+([a-zA-Z0-9_]+)/\\1/y,type/' "
               "-e -R . " packages-path)))
