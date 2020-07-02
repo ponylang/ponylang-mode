@@ -196,7 +196,8 @@ by parse-partial-sexp, and should return a face. "
   "Pony declaration keywords.")
 
 (defconst ponylang-careful-keywords
-  '("continue" "break" "return"              ;
+  '("addressof"                              ;
+    "continue" "break" "return"              ;
     "new" "object" "consume" "recover" "try" ;
     "_init" "_final"                         ;
     "is" "isnt" "as"                         ;
