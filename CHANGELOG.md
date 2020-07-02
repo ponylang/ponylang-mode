@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file. This projec
 
 - Added ffi bare lambdas callback hightlighting ([PR #131](https://github.com/ponylang/ponylang-mode/pull/131))
 - Added struct support for ctags ([PR #132](https://github.com/ponylang/ponylang-mode/pull/132))
+- Added addressof keyword highhighting ([PR #134](https://github.com/ponylang/ponylang-mode/pull/134))
 
 ### Changed
 
