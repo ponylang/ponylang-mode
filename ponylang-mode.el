@@ -348,10 +348,10 @@ by parse-partial-sexp, and should return a face. "
     ("\\('[\\].'\\)" 1 'font-lock-constant-face)
 
     ;; numeric literals
-    ("[^A-Za-z]\\([0-9][A-Za-z0-9_]*\\)+" 1 'font-lock-constant-face)
+    ("[ \t/+-/*//=><([,;]\\([0-9]+[0-9a-zA-Z_]*\\)+" 1 'font-lock-constant-face)
 
     ;; variable references
-    ("\\([a-z_]$?[a-z0-9_']?+\\)+" 1 'font-lock-variable-name-face)
+    ("\\([a-z_]+[a-z0-9_']*\\)+" 1 'font-lock-variable-name-face)
 
     ;; note: order above matters. “ponylang-keywords-regexp” goes last because
     ;; otherwise the keyword “state” in the function “state_entry”
