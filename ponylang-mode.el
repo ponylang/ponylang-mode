@@ -388,7 +388,7 @@ the current context."
           ((looking-at "^[ \t]*\\(|\\|end\\|else\\|elseif\\|do\\|then\\|until\\)[ \t]*.*$")
            (progn (save-excursion ;;
                     (forward-line -1)
-                    (if (looking-at "^[ \t]*\\(|\\|match\\).*$")
+                    (if (looking-at ".*[ \t]*\\(|\\|match\\).*$")
                         (setq cur-indent (current-indentation))
                       (setq cur-indent (max 0 (- (current-indentation) tab-width)))))))
           (t                            ;
