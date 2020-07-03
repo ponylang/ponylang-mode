@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+- Improve number and variable recognition expressions. ([PR #135](https://github.com/ponylang/ponylang-mode/pull/135))
 
 ### Added
 
