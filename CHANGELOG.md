@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Changed
 
+- Update ctags settings ([PR #137](https://github.com/ponylang/ponylang-mode/pull/137))
 
 ## [0.5.2] - 2020-07-03
 
