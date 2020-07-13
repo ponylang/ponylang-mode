@@ -775,7 +775,7 @@ value is 0 then no banner is displayed."
           (ponyc-executable (string-trim (shell-command-to-string (concat "readlink -f " ponyc-path))))
           (packages-path (expand-file-name (concat (file-name-directory ponyc-executable) "../packages") ))
           (ctags-params ;
-            (concat  "ctags --langdef=pony --langmap=pony:.pony "
+            (concat  "ctags --languages=-pony --langdef=pony --langmap=pony:.pony "
               "--regex-pony='/^[ \\t]*actor[ \\t]+([a-zA-Z0-9_]+)/\\1/a,actor/' "
               "--regex-pony='/^[ \\t]*be[ \\t]+([a-zA-Z0-9_]+)/\\1/b,behavior/' "
               "--regex-pony='/^[ \\t]*class([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/c,class/' "
