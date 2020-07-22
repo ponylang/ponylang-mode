@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- New feature: Code completion ([PR #140](https://github.com/ponylang/ponylang-mode/pull/140))
 
 ### Changed
 
