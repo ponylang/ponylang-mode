@@ -6,11 +6,33 @@
 
 # Pony Mode
 
-An Emacs mode that provides `syntax highlighting` (font-lock), `indentation`
-and `code jump` for the [Pony](http://www.ponylang.org/) programming
-language.It also provides [Ponyc](https://github.com/ponylang/ponyc),
-[Corral](https://github.com/ponylang/corral)
-and [Playground](https://playground.ponylang.io) integration.
+<!-- An Emacs mode that provides `syntax highlighting` (font-lock), `indentation` -->
+<!-- and `code jump` for the [Pony](http://www.ponylang.org/) programming -->
+<!-- language.It also provides [Ponyc](https://github.com/ponylang/ponyc), -->
+<!-- [Corral](https://github.com/ponylang/corral) -->
+<!-- and [Playground](https://playground.ponylang.io) integration. -->
+An Emacs major mode for the [Ponyc](https://github.com/ponylang/ponyc)
+programming language.
+
+- Screenshot
+![screenshot](https://github.com/ponylang/ponylang-mode/blob/master/screenshot.png)
+
+## Features
+- [X] Syntax highlighting (font-lock)
+- [X] Indentation
+- [x] TODO highlighting
+- [x] Rainbow delimiters
+- [x] Whitespace character dsiplay
+- [x] Fill column indicator
+- [x] `Ponylang` menu
+- [x] Workspace support
+- [x] Code folding
+- [x] Compilation integration
+- [x] Code navigation (using `imenu`)
+- [x] Go to definition (using `ctags`)
+- [x] Code completion (using `company-mode`)
+- [x] [Playground](https://playground.ponylang.io)
+- [ ] Code formatting
 
 <!-- At the moment, ponylang-mode is fairly new and immature. From the -->
 <!-- standpoint of indentation, it should work for about 99% of use cases. -->
@@ -19,10 +41,9 @@ At the moment, `code formatting` is missing.
 If you are interested in contributing to Emacs tooling for Pony, please
 get in touch. Contributions and feedback are welcome.
 
-![screenshot](https://github.com/ponylang/ponylang-mode/blob/master/screenshot.png)
-
 ## Installation
 
+### Using MELPA
 This package can be obtain from
 [MELPA](http://melpa.org/#/ponylang-mode) or
 [MELPA Stable](http://stable.melpa.org/#/ponylang-mode). The `master`
@@ -30,8 +51,6 @@ branch is continuously deployed to MELPA, and released versions are
 deployed to MELPA Stable.
 
 <kbd>M-x package-install [RET] ponylang-mode [RET]</kbd>
-
-## Configuration
 
 Right now `ponylang-mode` doesn't take a lot of configuration (i.e.
 it's too simple to need any). If you want to make sure your
@@ -44,7 +63,7 @@ use something like this:
 (define-key ponylang-mode-map (kbd "M-z") 'ponylang-menu)
 (define-key ponylang-mode-map (kbd "<f6>")  'ponylang-menu)
 ```
-If you like, you can customize the banner:
+- Customize banner:
 ```elisp
 (setq ponylang-banner "¯\\_(ツ)_/¯")
 (setq ponylang-banner "
@@ -58,10 +77,11 @@ If you like, you can customize the banner:
               /        `-`'")
 ```
 
-If you're using
-[`use-package`](https://github.com/jwiegley/use-package) to manage
-your configuration, you can configure `ponylang-mode` like so:
+### Using [use-package](https://github.com/jwiegley/use-package)
 
+<!-- If you're using -->
+<!-- [`use-package`](https://github.com/jwiegley/use-package) to manage -->
+<!-- your configuration, you can configure `ponylang-mode` like so: -->
 ```elisp
 (use-package ponylang-mode
   :ensure t
@@ -72,7 +92,7 @@ your configuration, you can configure `ponylang-mode` like so:
   ("M-z" . ponylang-menu)
   ("<f6>" . ponylang-menu))
 ```
-## Optional
+### Optional
 - [pony-snippets](https://github.com/ponylang/pony-snippets) Pony-Snippets is a collection of YASnippet Pony snippets for Emacs.
 - [flycheck-pony](https://github.com/ponylang/flycheck-pony) Flycheck-pony is an Emacs mode that supports on the fly syntax checking of Pony files.
 - [helm-xref](https://github.com/brotzeit/helm-xref) Helm interface for xref, It can improve the experience of using code jump.
