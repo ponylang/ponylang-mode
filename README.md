@@ -11,7 +11,7 @@
 <!-- language.It also provides [Ponyc](https://github.com/ponylang/ponyc), -->
 <!-- [Corral](https://github.com/ponylang/corral) -->
 <!-- and [Playground](https://playground.ponylang.io) integration. -->
-An Emacs major mode for the [Ponyc](https://github.com/ponylang/ponyc)
+An Emacs major mode for the [Pony](https://github.com/ponylang/ponyc)
 programming language.
 
 - Screenshot
