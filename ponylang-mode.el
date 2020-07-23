@@ -783,10 +783,10 @@ Optional argument RETRY ."
           (ctags-params ;
             (concat  "ctags --languages=-pony --langdef=pony --langmap=pony:.pony "
               "--regex-pony=/^[ \\t]*actor[ \\t]+([a-zA-Z0-9_]+)/\\1/a,actor/ "
-              "--regex-pony=/^[ \\t]*be[ \\t]+([a-zA-Z0-9_]+)/\\1/b,behavior/ "
               "--regex-pony=/^[ \\t]*class([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/c,class/ "
-              "--regex-pony=/^[ \\t]*new([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/n,new/ "
-              "--regex-pony=/^[ \\t]*fun([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/f,function/ "
+              "--regex-pony=/[ \\t]*fun([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/f,function/ "
+              "--regex-pony=/[ \\t]*be[ \\t]+([a-zA-Z0-9_]+)/\\1/b,behavior/ "
+              "--regex-pony=/[ \\t]*new([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/n,new/ "
               "--regex-pony=/^[ \\t]*interface([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/i,interface/ "
               "--regex-pony=/^[ \\t]*primitive[ \\t]+([a-zA-Z0-9_]+)/\\1/p,primitive/ "
               "--regex-pony=/^[ \\t]*struct[ \\t]+([a-zA-Z0-9_]+)/\\1/s,struct/ "
@@ -823,9 +823,9 @@ Optional argument BUILD ."
   :syntax-table ponylang-mode-syntax-table
   (setq-local imenu-generic-expression
     '(("TODO" ".*TODO:[ \t]*\\(.*\\)$" 1)
-       ("fun" "^[ \t]*fun[ \t]+$?\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)" 2)
-       ("be" "^[ \t]*be[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
-       ("new" "^[ \t]*new[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)*[ \t]*\\([a-zA-Z0-9_]+\\)" 2)
+       ("fun" "[ \t]*fun[ \t]+$?\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)" 2)
+       ("be" "[ \t]*be[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
+       ("new" "[ \t]*new[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)*[ \t]*\\([a-zA-Z0-9_]+\\)" 2)
        ("type" "^[ \t]*type[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
        ("interface" "^[ \t]*interface[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)" 2)
        ("trait" "^[ \t]*trait[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)" 2)
