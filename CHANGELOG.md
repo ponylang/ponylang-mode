@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+- Fix package-lint feedback ([PR #145](https://github.com/ponylang/ponylang-mode/pull/145))
 
 ### Added
 
