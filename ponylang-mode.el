@@ -4,7 +4,7 @@
 ;; Version: 0.5.2
 ;; URL: https://github.com/ponylang/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2") (yafolding "0.4.1") (yasnippet "0.14.0") (rainbow-delimiters "2.1.4") (fill-column-indicator "1.90"))
+;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2") (yafolding "0.4.1") (yasnippet "0.14.0") (company-ctags "0.0.4") (rainbow-delimiters "2.1.4") (fill-column-indicator "1.90"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -73,6 +73,8 @@
 (require 'fill-column-indicator)
 
 (defvar ponylang-mode-hook nil)
+
+(with-eval-after-load 'company (company-ctags-auto-setup))
 
 ;; TODO: I don't like having to mention yas-* here, but that's how
 ;; e.g. python does it. It seems like there should be more general way
@@ -774,19 +776,19 @@ value is 0 then no banner is displayed."
       (kill-buffer tags-buffer2)))
   (let* ((ponyc-path (string-trim (shell-command-to-string "which ponyc")))
           (ponyc-executable (string-trim (shell-command-to-string (concat "readlink -f " ponyc-path))))
-          (packages-path (expand-file-name (concat (file-name-directory ponyc-executable) "../packages") ))
+          (packages-path (concat (file-name-directory ponyc-executable) "../packages") )
           (ctags-params ;
             (concat  "ctags --languages=-pony --langdef=pony --langmap=pony:.pony "
-              "--regex-pony='/^[ \\t]*actor[ \\t]+([a-zA-Z0-9_]+)/\\1/a,actor/' "
-              "--regex-pony='/^[ \\t]*be[ \\t]+([a-zA-Z0-9_]+)/\\1/b,behavior/' "
-              "--regex-pony='/^[ \\t]*class([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/c,class/' "
-              "--regex-pony='/^[ \\t]*new([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/n,new/' "
-              "--regex-pony='/^[ \\t]*fun([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/f,function/' "
-              "--regex-pony='/^[ \\t]*interface([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/i,interface/' "
-              "--regex-pony='/^[ \\t]*primitive[ \\t]+([a-zA-Z0-9_]+)/\\1/p,primitive/' "
-              "--regex-pony='/^[ \\t]*struct[ \\t]+([a-zA-Z0-9_]+)/\\1/s,struct/' "
-              "--regex-pony='/^[ \\t]*trait([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/t,trait/' "
-              "--regex-pony='/^[ \\t]*type[ \\t]+([a-zA-Z0-9_]+)/\\1/y,type/' "
+              "--regex-pony=/^[ \\t]*actor[ \\t]+([a-zA-Z0-9_]+)/\\1/a,actor/ "
+              "--regex-pony=/^[ \\t]*be[ \\t]+([a-zA-Z0-9_]+)/\\1/b,behavior/ "
+              "--regex-pony=/^[ \\t]*class([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/c,class/ "
+              "--regex-pony=/^[ \\t]*new([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/n,new/ "
+              "--regex-pony=/^[ \\t]*fun([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/f,function/ "
+              "--regex-pony=/^[ \\t]*interface([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/i,interface/ "
+              "--regex-pony=/^[ \\t]*primitive[ \\t]+([a-zA-Z0-9_]+)/\\1/p,primitive/ "
+              "--regex-pony=/^[ \\t]*struct[ \\t]+([a-zA-Z0-9_]+)/\\1/s,struct/ "
+              "--regex-pony=/^[ \\t]*trait([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/t,trait/ "
+              "--regex-pony=/^[ \\t]*type[ \\t]+([a-zA-Z0-9_]+)/\\1/y,type/ "
               "-e -R . " packages-path)))
     (if (file-exists-p packages-path)
       (progn
