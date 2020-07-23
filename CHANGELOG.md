@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file. This projec
 - Update ctags settings ([PR #137](https://github.com/ponylang/ponylang-mode/pull/137))
 - Avoid ctags configuration conflicts ([PR #138](https://github.com/ponylang/ponylang-mode/pull/138))
 - Update README.md ([PR #141](https://github.com/ponylang/ponylang-mode/pull/141))
+- Improve methods parse regex ([PR #144](https://github.com/ponylang/ponylang-mode/pull/144))
 
 ## [0.5.2] - 2020-07-03
 
