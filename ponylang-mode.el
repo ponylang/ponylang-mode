@@ -4,7 +4,7 @@
 ;; Version: 0.5.3
 ;; URL: https://github.com/ponylang/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2") (yafolding "0.4.1") (yasnippet "0.14.0") (company-ctags "0.0.4") (rainbow-delimiters "2.1.4") (fill-column-indicator "1.90"))
+;; Package-Requires: ((emacs "25.1") (dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2") (yafolding "0.4.1") (yasnippet "0.14.0") (company-ctags "0.0.4") (rainbow-delimiters "2.1.4") (fill-column-indicator "1.90"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -59,7 +59,7 @@
 
 ;;; Code:
 
-(require 'cl)
+(require 'cl-lib)
 (require 'dash)
 (require 'xref)
 (require 'hydra)
@@ -73,8 +73,6 @@
 (require 'fill-column-indicator)
 
 (defvar ponylang-mode-hook nil)
-
-(with-eval-after-load 'company (company-ctags-auto-setup))
 
 ;; TODO: I don't like having to mention yas-* here, but that's how
 ;; e.g. python does it. It seems like there should be more general way
@@ -125,7 +123,7 @@ should return a face.  This is normally set via `font-lock-defaults'."
         (beginning-of-line)
         (while (and (not (bobp))
                     (looking-at "^$?[ \t]*?$?\"?*$"))
-          (previous-line))
+          (forward-line -1))
         (beginning-of-line)
         (if (or (and (bobp)
                      (looking-at "^$?[ \t]*?\"*$"))
@@ -139,8 +137,6 @@ should return a face.  This is normally set via `font-lock-defaults'."
 (defvar ponylang-mode-map
   (let ((map (make-keymap)))
     (define-key map "\C-j" 'newline-and-indent)
-    (define-key map (kbd "<f6>")  'ponylang-menu)
-    (define-key map (kbd "M-z")  'ponylang-menu)
     (define-key map (kbd "<C-return>") 'yafolding-toggle-element) ;
     map)
   "Keymap for Pony major mode.")
@@ -765,7 +761,7 @@ Optional argument RETRY ."
     (if (and (eq RETRY nil) (= beg end))
         (progn
           (yafolding-go-parent-element)
-          (yafolding-hide-element 1))
+          (ponylang-folding-hide-element t))
       (yafolding-hide-region beg end))))
 
 (defun ponylang-build-tags ()

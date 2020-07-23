@@ -62,6 +62,8 @@ use something like this:
 (setq ponylang-banner 1) ;; 0: None 1: Word (Default) 2: Horse 3: Knight
 (define-key ponylang-mode-map (kbd "M-z") 'ponylang-menu)
 (define-key ponylang-mode-map (kbd "<f6>")  'ponylang-menu)
+
+(with-eval-after-load 'company (company-ctags-auto-setup))
 ```
 - Customize banner:
 ```elisp
@@ -91,6 +93,8 @@ use something like this:
   :bind-keymap
   ("M-z" . ponylang-menu)
   ("<f6>" . ponylang-menu))
+
+(with-eval-after-load 'company (company-ctags-auto-setup))
 ```
 ### Optional
 - [pony-snippets](https://github.com/ponylang/pony-snippets) Pony-Snippets is a collection of YASnippet Pony snippets for Emacs.
