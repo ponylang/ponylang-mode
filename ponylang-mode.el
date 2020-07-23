@@ -194,14 +194,14 @@ should return a face.  This is normally set via `font-lock-defaults'."
   "Pony keywords which indicate a new indentation level.")
 
 (defconst ponylang-declaration-keywords
-  '("use"                                                           ;
-    "type" "class" "actor" "primitive" "struct" "trait" "interface" ;
+  '("type" "class" "actor" "primitive" "struct" "trait" "interface" ;
     "fun" "be"                                                      ;
     "let" "var" "embed")
   "Pony declaration keywords.")
 
 (defconst ponylang-careful-keywords
-  '("addressof"                              ;
+  '("use"                                    ;
+    "addressof"                              ;
     "continue" "break" "return"              ;
     "new" "object" "consume" "recover" "try" ;
     "_init" "_final"                         ;
