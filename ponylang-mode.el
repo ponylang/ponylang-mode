@@ -27,8 +27,8 @@
 ;;
 ;;   M-x package-install ponylang-mode
 ;;
-;; Or, copy ponylang-mode.el to some location in your emacs load
-;; path. Then add "(require 'ponylang-mode)" to your emacs initialization
+;; Or, copy ponylang-mode.el to some location in your Emacs load
+;; path.  Then add "(require 'ponylang-mode)" to your Emacs initialization
 ;; (.emacs, init.el, or something).
 ;;
 ;; Example config:
@@ -114,12 +114,14 @@
     ;; Don't treat underscores as whitespace
     (modify-syntax-entry ?_ "w" table) table))
 
-(defun ponylang-mode-syntactic-face-function (state)
-  "The function is called with one argument, the parse state at point returned
-by parse-partial-sexp, and should return a face. "
-  (if (nth 3 state)                     ;
+(defun ponylang-mode-syntactic-face-function (STATE)
+  "Function to determine which face to use when fontifying syntactically.
+The function is called with a single parameter (the STATE as returned by
+`parse-partial-sexp' at the beginning of the region to highlight) and
+should return a face.  This is normally set via `font-lock-defaults'."
+  (if (nth 3 STATE)                     ;
       (save-excursion                   ;
-        (goto-char (nth 8 state))
+        (goto-char (nth 8 STATE))
         (beginning-of-line)
         (while (and (not (bobp))
                     (looking-at "^$?[ \t]*?$?\"?*$"))
@@ -141,7 +143,7 @@ by parse-partial-sexp, and should return a face. "
     (define-key map (kbd "M-z")  'ponylang-menu)
     (define-key map (kbd "<C-return>") 'yafolding-toggle-element) ;
     map)
-  "Keymap for Pony major mode")
+  "Keymap for Pony major mode.")
 
 (defvar ponylang--indent-cycle-direction 'left)
 
@@ -364,20 +366,17 @@ by parse-partial-sexp, and should return a face. "
 
 ;; Indentation
 (defun ponylang--looking-at-indent-start ()
-  "Determines if the current position is 'looking at' a keyword
-  that starts new indentation."
+  "Determines if the current position is 'looking at' a keyword that start new indentation."
   (-any? (lambda (k)
            (looking-at (concat  "^[ \t]*" k "\\($\\|[ \t]\\)"))) ponylang-indent-start-keywords))
 
 (defun ponylang--looking-at-indent-declare ()
-  "Determines if the current position is 'looking at' a keyword
-  that declaration new indentation."
+  "Determines if the current position is 'looking at' a keyword that declaration new indentation."
   (-any? (lambda (k)
            (looking-at (concat  ".*" k ".*[:,|&][ \t]*$"))) ponylang-declaration-keywords))
 
 (defun ponylang-syntactic-indent-line ()
-  "Indent current line as pony code based on language syntax and
-the current context."
+  "Indent current line as pony code based on language syntax and the current context."
   (beginning-of-line)
   (let ((cur-indent (current-indentation)))
     (cond ((bobp)
@@ -425,6 +424,7 @@ the current context."
     (indent-line-to cur-indent)))
 
 (defun ponylang-cycle-indentation ()
+  "Ponylang cycle indentation."
   (if (eq (current-indentation) 0)
       (setq ponylang--indent-cycle-direction 'right))
   (if (eq ponylang--indent-cycle-direction 'left)
@@ -432,8 +432,7 @@ the current context."
     (indent-line-to (+ (current-indentation) tab-width))))
 
 (defun ponylang-indent-line ()
-  "Indent the current line based either on syntax or repeated use
-  of the TAB key."
+  "Indent the current line based either on syntax or repeated use of the TAB key."
   (interactive)
   (let ((repeated-indent (memq last-command ponylang-indent-trigger-commands)))
     (if repeated-indent (ponylang-cycle-indentation)
@@ -467,7 +466,7 @@ the current context."
                             (0 (ignore (ponylang-stringify-triple-quote))))))
 
 (defun ponylang-project-root-p (PATH)
-  "Return `t' if directory `PATH' is the root of the pony project."
+  "Return t if directory `PATH' is the root of the pony project."
   (setq-local files '("corral.json" "lock.json" "Makefile" ;
                       "Dockerfile" ".editorconfig" ".gitignore"))
   (setq-local foundp nil)
@@ -482,7 +481,8 @@ the current context."
 (defun ponylang-project-root
     (&optional
      PATH)
-  "Return the root of the pony project."
+  "Return the root of the pony project.
+Optional argument PATH ."
   (let* ((bufdir (if buffer-file-name   ;
                      (file-name-directory buffer-file-name) default-directory))
          (curdir (if PATH (file-name-as-directory PATH) bufdir))
@@ -499,11 +499,12 @@ the current context."
   (file-name-base (directory-file-name (ponylang-project-root))))
 
 (defun ponylang-project-file-exists-p (FILENAME)
-  "Return t if file `FILENAME' exists"
+  "Return t if file `FILENAME' exists."
   (file-exists-p (concat (ponylang-project-root) FILENAME)))
 
 (defun ponylang-run-command (COMMAND &optional PATH)
-  "Return `COMMAND' in the root of the pony project."
+  "Return `COMMAND' in the root of the pony project.
+Optional argument PATH ."
   (setq default-directory (if PATH PATH (ponylang-project-root PATH)))
   (compile COMMAND))
 
@@ -555,7 +556,7 @@ the current context."
       (ponylang-run-command "corral update")))
 
 (defun ponylang-corral-open ()
-  "open `corral.json' file."
+  "Open `corral.json' file."
   (interactive)
   (if (ponylang-project-file-exists-p "corral.json")
     (find-file (concat (ponylang-project-root) "corral.json"))))
@@ -568,7 +569,7 @@ the current context."
          (escaped-share-url (url-hexify-string
                                (format ponylang-share-url-format escaped-data))))
     (if (> (length escaped-share-url) 50000)
-        (error "encoded share data exceeds 50000 character limit (length %s)"
+        (error "Encoded share data exceeds 50000 character limit (length %s)"
                (length escaped-share-url))
       (let ((shortener-url (format ponylang-shortener-url-format escaped-share-url))
             (url-request-method "POST"))
@@ -583,7 +584,7 @@ the current context."
                               (err (plist-get state :error)))
                           (kill-buffer)
                           (if err
-                              (error "failed to shorten share url: %s" last-line)
+                              (error "Failed to shorten share url: %s" last-line)
                             (progn
                               (kill-new last-line)
                               (message "%s is append to system clipboard." last-line))))))))))
@@ -640,7 +641,7 @@ the current context."
 | |                 __/ |
 |_|                |___/
 "
-  "ponylang word logo.")
+  "Ponylang word logo.")
 
 (defconst ponylang-banner-horse
   "
@@ -664,7 +665,7 @@ the current context."
       \\_\\     |_/          ||
       `'\"                  \\_\\
                            `'\""
-  "ponylang horse logo.")
+  "Ponylang horse logo.")
 
 (defconst ponylang-banner-knight
   "
@@ -693,12 +694,12 @@ the current context."
         _/,/          _/_/,/
   _____/ (______,____/_/ (______
        ^-'             ^-'"
-  "ponylang knight logo.")
+  "Ponylang knight logo.")
 
 (defcustom ponylang-banner 1
   "Specify the startup banner.
 Default value is `1', it displaysthe `Word' logo.`2' displays Emacs `Horse'
-logo. `3' displays Emacs `Knight' logo.A string to customize the banner.If the
+logo.  `3' displays Emacs `Knight' logo.A string to customize the banner.If the
 value is 0 then no banner is displayed."
   :type  '(choice (integer :tag "banner index")
                   (string :tag "custom banner"))
@@ -755,7 +756,8 @@ value is 0 then no banner is displayed."
   (ponylang-hydra-menu/body))
 
 (defun ponylang-folding-hide-element (&optional RETRY)
-  "Hide current element."
+  "Hide current element.
+Optional argument RETRY ."
   (interactive)
   (let* ((region (yafolding-get-element-region))
          (beg (car region))
@@ -767,6 +769,7 @@ value is 0 then no banner is displayed."
       (yafolding-hide-region beg end))))
 
 (defun ponylang-build-tags ()
+  "Build TAGS file for current project."
   (interactive)
   (let ((tags-buffer (get-buffer "TAGS"))
         (tags-buffer2 (get-buffer (format "TAGS<%s>" (ponylang-project-name)))))
@@ -797,7 +800,8 @@ value is 0 then no banner is displayed."
         (ponylang-load-tags)))))
 
 (defun ponylang-load-tags (&optional BUILD)
-  "Visit tags table."
+  "Visit tags table.
+Optional argument BUILD ."
   (interactive)
   (let* ((tags-file (concat (ponylang-project-root) "TAGS")))
     (if (file-exists-p tags-file)
@@ -807,6 +811,7 @@ value is 0 then no banner is displayed."
         (ponylang-build-tags)))))
 
 (defun ponylang-after-save-hook ()
+  "After save hook."
   (if (not (executable-find "ctags"))
     (message "Could not locate executable '%s'" "ctags")
     (ponylang-build-tags)))
