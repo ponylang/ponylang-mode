@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Fixed
 
 - Fix missing dependencies ([PR #139](https://github.com/ponylang/ponylang-mode/pull/139))
+- Fix the docs ([PR #142](https://github.com/ponylang/ponylang-mode/pull/142))
 
 ### Added
 
