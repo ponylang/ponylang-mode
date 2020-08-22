@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## [unreleased] - unreleased
+## [0.6.0] - 2020-08-22
 
 ### Fixed
 
@@ -14,9 +14,6 @@ All notable changes to this project will be documented in this file. This projec
 - Add elseif indent keyword ([PR #147](https://github.com/ponylang/ponylang-mode/pull/147))
 - Add code formatting feature ([PR #149](https://github.com/ponylang/ponylang-mode/pull/149))
 - Add beginner example ([PR #150](https://github.com/ponylang/ponylang-mode/pull/150))
-
-### Changed
-
 
 ## [0.5.3] - 2020-07-23
 
