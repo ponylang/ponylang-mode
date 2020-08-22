@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 - Add elseif indent keyword ([PR #147](https://github.com/ponylang/ponylang-mode/pull/147))
+- Add ode formatting feature ([PR #149](https://github.com/ponylang/ponylang-mode/pull/149))
 
 ### Changed
 
