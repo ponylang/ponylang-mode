@@ -177,7 +177,7 @@ should return a face.  This is normally set via `font-lock-defaults'."
   '("actor"                             ;
      "be"                               ;
      "class"                            ;
-     "else"                             ;
+     "else" "elseif"                    ;
      "for" "fun"                        ;
      "if" "ifdef" "interface"           ;
      "new"                              ;
