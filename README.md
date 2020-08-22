@@ -96,6 +96,9 @@ use something like this:
 - [flycheck-pony](https://github.com/ponylang/flycheck-pony) Flycheck-pony is an Emacs mode that supports on the fly syntax checking of Pony files.
 - [helm-xref](https://github.com/brotzeit/helm-xref) Helm interface for xref, It can improve the experience of using code jump.
 
+### For Emacs beginner
+- [.emacs](https://github.com/ponylang/ponylang-mode/blob/master/examples/for-beginner/.emacs)
+
 ## Testing
 
 The tests require
