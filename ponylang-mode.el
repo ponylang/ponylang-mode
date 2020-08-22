@@ -77,7 +77,8 @@
 ;; TODO: I don't like having to mention yas-* here, but that's how
 ;; e.g. python does it. It seems like there should be more general way
 ;; to detect "repeated tab presses".
-(defcustom ponylang-indent-trigger-commands ;
+(defcustom ponylang-indent-trigger-commands
+                                        ;
   '(indent-for-tab-command yas-expand yas/expand)
   "Commands that might trigger a `ponylang-indent-line' call."
   :type '(repeat symbol)
@@ -88,7 +89,8 @@
   :type 'string
   :group 'ponylang)
 
-(defcustom ponylang-shortener-url-format "https://is.gd/create.php?format=simple&url=%s"
+(defcustom ponylang-shortener-url-format
+  "https://is.gd/create.php?format=simple&url=%s"
   "Format string to use for creating the shortened link of a share submission."
   :type 'string
   :group 'ponylang)
@@ -236,27 +238,33 @@ should return a face.  This is normally set via `font-lock-defaults'."
   (regexp-opt (append ponylang-keywords ponylang-capabilities) 'words)
   "Regular expression for matching keywords.")
 
-(defconst ponylang-constant-regexp      ;
+(defconst ponylang-constant-regexp
+                                        ;
   (regexp-opt ponylang-constants 'words)
   "Regular expression for matching common constants.")
 
-(defconst ponylang-capabilities-regexp  ;
+(defconst ponylang-capabilities-regexp
+                                        ;
   (regexp-opt ponylang-capabilities 'words)
   "Regular expression for matching capabilities.")
 
-(defconst ponylang-careful-keywords-regexp ;
+(defconst ponylang-careful-keywords-regexp
+                                        ;
   (regexp-opt ponylang-careful-keywords 'words)
   "Regular expression for matching careful keywords.")
 
-(defconst ponylang-declaration-keywords-regexp ;
+(defconst ponylang-declaration-keywords-regexp
+                                        ;
   (regexp-opt ponylang-declaration-keywords 'words)
   "Regular expression for matching declaration keywords.")
 
-(defconst ponylang-operator-functions-regexp ;
+(defconst ponylang-operator-functions-regexp
+                                        ;
   (regexp-opt ponylang-operator-functions 'words)
   "Regular expression for matching operator functions.")
 
-(defconst ponylang-common-functions-regexp ;
+(defconst ponylang-common-functions-regexp
+                                        ;
   (regexp-opt ponylang-common-functions 'words)
   "Regular expression for matching common functions.")
 
@@ -283,7 +291,8 @@ should return a face.  This is normally set via `font-lock-defaults'."
      ("\\($?[?^!]+\\)" 1 'font-lock-warning-face)
 
      ;; delimiter: = : separate
-     ("[^+-/*//%~^!=<>]\\([=:]\\)[^+-/*//%~^!=<>]" 1 'font-lock-comment-delimiter-face)
+     ("[^+-/*//%~^!=<>]\\([=:]\\)[^+-/*//%~^!=<>]" 1
+       'font-lock-comment-delimiter-face)
 
      ;; delimiter: brackets
      ("\\(\\[\\|\\]\\|[()]\\)" 1 'font-lock-comment-delimiter-face)
@@ -322,7 +331,8 @@ should return a face.  This is normally set via `font-lock-defaults'."
      (,ponylang-constant-regexp . font-lock-constant-face)
 
      ;; type references: second filter
-     ("\\(\s\\|\\.\\|->\\|[\[]\\|[\(]\\|=\\)\\($?_?[A-Z][A-Za-z0-9_]*\\)" 2 'font-lock-type-face)
+     ("\\(\s\\|\\.\\|->\\|[\[]\\|[\(]\\|=\\)\\($?_?[A-Z][A-Za-z0-9_]*\\)" 2
+       'font-lock-type-face)
 
      ;; ffi
      ("@[A-Za-z_]*[A-Z-a-z0-9_]*" . 'font-lock-builtin-face)
@@ -331,7 +341,8 @@ should return a face.  This is normally set via `font-lock-defaults'."
      ("\\([a-z_]$?[a-z0-9_]?+\\)$?[ \t]?(+" 1 'font-lock-function-name-face)
 
      ;; parameter
-     ("\\(?:(\\|,\\)\\([a-z_][a-z0-9_']*\\)\\([^ \t\r\n,:)]*\\)" 1 'font-lock-variable-name-face)
+     ("\\(?:(\\|,\\)\\([a-z_][a-z0-9_']*\\)\\([^ \t\r\n,:)]*\\)" 1
+       'font-lock-variable-name-face)
      ("\\(?:(\\|,\\)[ \t]+\\([a-z_][a-z0-9_']*\\)\\([^ \t\r\n,:)]*\\)" 1
        'font-lock-variable-name-face)
 
@@ -348,7 +359,8 @@ should return a face.  This is normally set via `font-lock-defaults'."
      ("\\('[\\].'\\)" 1 'font-lock-constant-face)
 
      ;; numeric literals
-     ("[ \t/+-/*//=><([,;]\\([0-9]+[0-9a-zA-Z_]*\\)+" 1 'font-lock-constant-face)
+     ("[ \t/+-/*//=><([,;]\\([0-9]+[0-9a-zA-Z_]*\\)+" 1
+       'font-lock-constant-face)
 
      ;; variable references
      ("\\([a-z_]+[a-z0-9_']*\\)+" 1 'font-lock-variable-name-face)
@@ -363,12 +375,14 @@ should return a face.  This is normally set via `font-lock-defaults'."
 (defun ponylang--looking-at-indent-start ()
   "Determines if the current position is 'looking at' a keyword that start new indentation."
   (-any? (lambda (k)
-           (looking-at (concat  "^[ \t]*" k "\\($\\|[ \t]\\)"))) ponylang-indent-start-keywords))
+           (looking-at (concat  "^[ \t]*" k "\\($\\|[ \t]\\)")))
+    ponylang-indent-start-keywords))
 
 (defun ponylang--looking-at-indent-declare ()
   "Determines if the current position is 'looking at' a keyword that declaration new indentation."
   (-any? (lambda (k)
-           (looking-at (concat  ".*" k ".*[:,|&][ \t]*$"))) ponylang-declaration-keywords))
+           (looking-at (concat  ".*" k ".*[:,|&][ \t]*$")))
+    ponylang-declaration-keywords))
 
 (defun ponylang-syntactic-indent-line ()
   "Indent current line as pony code based on language syntax and the current context."
@@ -384,12 +398,14 @@ should return a face.  This is normally set via `font-lock-defaults'."
         (setq cur-indent tab-width))
       ((looking-at "^.*\\(\"\\)[ \t]*$")
         (setq cur-indent (current-indentation)))
-      ((looking-at "^[ \t]*\\(|\\|end\\|else\\|elseif\\|do\\|then\\|until\\)[ \t]*.*$")
+      ((looking-at
+         "^[ \t]*\\(|\\|end\\|else\\|elseif\\|do\\|then\\|until\\)[ \t]*.*$")
         (progn (save-excursion ;;
                  (forward-line -1)
                  (if (looking-at ".*[ \t]*\\(|\\|match\\).*$")
                    (setq cur-indent (current-indentation))
-                   (setq cur-indent (max 0 (- (current-indentation) tab-width)))))))
+                   (setq cur-indent (max 0 (- (current-indentation)
+                                             tab-width)))))))
       (t                                ;
         (save-excursion                 ;
           (let ((keep-looking t))
@@ -437,7 +453,8 @@ should return a face.  This is normally set via `font-lock-defaults'."
         (setq ponylang--indent-cycle-direction 'left)
         (ponylang-syntactic-indent-line)))))
 
-(defalias 'ponylang-parent-mode         ;
+(defalias 'ponylang-parent-mode
+                                        ;
   (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
 
 (defun ponylang-stringify-triple-quote ()
@@ -516,7 +533,8 @@ Optional argument PATH ."
 
 (defun ponylang-buffer-dirname ()
   "Return current buffer directory file name."
-  (directory-file-name (if buffer-file-name (file-name-directory buffer-file-name)
+  (directory-file-name (if buffer-file-name (file-name-directory
+                                              buffer-file-name)
                          default-directory)))
 
 (defun ponylang-project-run ()
@@ -564,30 +582,34 @@ Optional argument PATH ."
              begin
              end))
           (escaped-data (url-hexify-string data))
-          (escaped-share-url (url-hexify-string (format ponylang-share-url-format escaped-data))))
+          (escaped-share-url (url-hexify-string (format
+                                                  ponylang-share-url-format
+                                                  escaped-data))))
     (if (> (length escaped-share-url) 50000)
       (error
         "Encoded share data exceeds 50000 character limit (length %s)"
         (length escaped-share-url))
-      (let ((shortener-url (format ponylang-shortener-url-format escaped-share-url))
+      (let ((shortener-url (format ponylang-shortener-url-format
+                             escaped-share-url))
              (url-request-method "POST"))
-        (url-retrieve shortener-url (lambda (state)
-                                      ;; filter out the headers etc. included at the
-                                      ;; start of the buffer: the relevant text
-                                      ;; (shortened url or error message) is exactly
-                                      ;; the last line.
-                                      (goto-char (point-max))
-                                      (let ((last-line (thing-at-point 'line t))
-                                             (err (plist-get state
-                                                    :error)))
-                                        (kill-buffer)
-                                        (if err
-                                          (error
-                                            "Failed to shorten share url: %s"
-                                            last-line)
-                                          (progn (kill-new last-line)
-                                            (message "%s is append to system clipboard."
-                                              last-line))))))))))
+        (url-retrieve shortener-url ;;
+          (lambda (state)
+            ;; filter out the headers etc. included at the
+            ;; start of the buffer: the relevant text
+            ;; (shortened url or error message) is exactly
+            ;; the last line.
+            (goto-char (point-max))
+            (let ((last-line (thing-at-point 'line t))
+                   (err (plist-get state
+                          :error)))
+              (kill-buffer)
+              (if err
+                (error
+                  "Failed to shorten share url: %s"
+                  last-line)
+                (progn (kill-new last-line)
+                  (message "%s is append to system clipboard."
+                    last-line))))))))))
 
 (defun ponylang-region-length ()
   "Return selection region length."
@@ -621,22 +643,36 @@ Optional argument PATH ."
        ["Update" ponylang-corral-update t])
      ("Playground"                      ;
        ["Share Buffer"          ponylang-share-buffer t]
-       ["Share Region"          ponylang-share-region-auto (use-region-p)]) "---" ;
+       ["Share Region"          ponylang-share-region-auto (use-region-p)])
+     "---"                              ;
      ("Community"                       ;
-       ["News" (ponylang-run-command "xdg-open https://www.ponylang.io/blog") t]
-       ["Beginner Help" (ponylang-run-command
-                          "xdg-open https://ponylang.zulipchat.com/#narrow/stream/189985-beginner-help") t]
-       ["Open an issue" (ponylang-run-command "xdg-open https://github.com/ponylang/ponyc/issues")
-         t]
-       ["Zulip chat" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") t]
-       ["Planet-pony" (ponylang-run-command "xdg-open
+       ["News"                          ;
+         (ponylang-run-command "xdg-open https://www.ponylang.io/blog") t]
+       ["Beginner Help"                 ;
+         (ponylang-run-command
+           "xdg-open https://ponylang.zulipchat.com/#narrow/stream/189985-beginner-help") t]
+       ["Open an issue"                 ;
+         (ponylang-run-command
+           "xdg-open https://github.com/ponylang/ponyc/issues") t]
+       ["Zulip chat"                    ;
+         (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") t]
+       ["Planet-pony"                   ;
+         (ponylang-run-command "xdg-open
 https://www.ponylang.io/community/planet-pony") t]
-       ["Papers" (ponylang-run-command "xdg-open https://www.ponylang.io/community/#papers")]
-       ["Tutorial" (ponylang-run-command "xdg-open https://tutorial.ponylang.io/") t]
-       ["Videos" (ponylang-run-command "xdg-open https://vimeo.com/search/sort:latest?q=pony-vug")
-         t]
-       ["Contribute" (ponylang-run-command "xdg-open https://github.com/ponylang/contributors") t]
-       ["Sponsors" (ponylang-run-command "xdg-open https://www.ponylang.io/sponsors") t])))
+       ["Papers"                        ;
+         (ponylang-run-command
+           "xdg-open https://www.ponylang.io/community/#papers")]
+       ["Tutorial"                      ;
+         (ponylang-run-command "xdg-open https://tutorial.ponylang.io/") t]
+       ["Videos"                        ;
+         (ponylang-run-command
+           "xdg-open https://vimeo.com/search/sort:latest?q=pony-vug") t]
+       ["Contribute"                    ;
+         (ponylang-run-command
+           "xdg-open https://github.com/ponylang/contributors") t]
+       ["Sponsors"                      ;
+         (ponylang-run-command "xdg-open https://www.ponylang.io/sponsors")
+         t])))
 
 (defconst ponylang-banner-default
   "
@@ -729,7 +765,7 @@ value is 0 then no banner is displayed."
   Corral      |  _i_: Init     _f_: Fetch   _u_: Update  _o_: corral.json
   Pony        |  _b_: Build    _r_: Run
   Playground  |  _s_: Buffer   _S_: Region
-  Community   |  _1_: News     _2_: BeginerHelp  _3_: OpenIssue
+  Community   |  _1_: News     _2_: BeginerHelp  _3_: Open Issue
               |  _4_: Chat     _5_: PlanetPony   _6_: Papers
               |  _7_: Tutorial _8_: Videos       _9_: Sponsors _0_: Contribute
   _q_: Quit"                            ;
@@ -744,17 +780,24 @@ value is 0 then no banner is displayed."
          (region-end)) "share region")
   ("1" (ponylang-run-command "xdg-open https://www.ponylang.io/blog") "News")
   ("2" (ponylang-run-command
-         "xdg-open https://ponylang.zulipchat.com/#narrow/stream/189985-beginner-help")
-    "Beginner Help")
-  ("3" (ponylang-run-command "xdg-open https://github.com/ponylang/ponyc/issues") "Open an issue")
-  ("4" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com") "Zulip chat")
-  ("5" (ponylang-run-command "xdg-open https://www.ponylang.io/community/planet-pony")
+         "xdg-open https://ponylang.zulipchat.com/#narrow/stream/189985-beginner-help") "Beginner Help")
+  ("3" (ponylang-run-command "xdg-open
+https://github.com/ponylang/ponyc/issues") "Open an issue")
+  ("4" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com")
+    "Zulip chat")
+  ("5" (ponylang-run-command
+         "xdg-open https://www.ponylang.io/community/planet-pony")
     "Planet-pony")
-  ("6" (ponylang-run-command "xdg-open https://www.ponylang.io/community/#papers") "Papers")
-  ("7" (ponylang-run-command "xdg-open https://tutorial.ponylang.io/") "Tutorial")
-  ("8" (ponylang-run-command "xdg-open https://vimeo.com/search/sort:latest?q=pony-vug") "Videos")
-  ("9" (ponylang-run-command "xdg-open https://www.ponylang.io/sponsors") "Sponsors")
-  ("0" (ponylang-run-command "xdg-open https://github.com/ponylang/contributors") "Contribute")
+  ("6" (ponylang-run-command
+         "xdg-open https://www.ponylang.io/community/#papers") "Papers")
+  ("7" (ponylang-run-command "xdg-open https://tutorial.ponylang.io/")
+    "Tutorial")
+  ("8" (ponylang-run-command
+         "xdg-open https://vimeo.com/search/sort:latest?q=pony-vug") "Videos")
+  ("9" (ponylang-run-command "xdg-open https://www.ponylang.io/sponsors")
+    "Sponsors")
+  ("0" (ponylang-run-command "xdg-open
+https://github.com/ponylang/contributors") "Contribute")
   ("q" nil "Quit"))
 
 (defun ponylang-menu ()
@@ -781,15 +824,19 @@ Optional argument RETRY ."
   "Build TAGS file for current project."
   (interactive)
   (let ((tags-buffer (get-buffer "TAGS"))
-         (tags-buffer2 (get-buffer (format "TAGS<%s>" (ponylang-project-name)))))
+         (tags-buffer2 (get-buffer (format "TAGS<%s>"
+                                     (ponylang-project-name)))))
     (if tags-buffer (kill-buffer tags-buffer))
     (if tags-buffer2 (kill-buffer tags-buffer2)))
   (let* ((ponyc-path (string-trim (shell-command-to-string "which ponyc")))
-          (ponyc-executable (string-trim (shell-command-to-string (concat "readlink -f "
+          (ponyc-executable (string-trim (shell-command-to-string (concat
+                                                                    "readlink -f "
                                                                     ponyc-path))))
-          (packages-path (concat (file-name-directory ponyc-executable) "../packages") )
+          (packages-path (concat (file-name-directory ponyc-executable)
+                           "../packages") )
           (ctags-params                 ;
-            (concat  "ctags --languages=-pony --langdef=pony --langmap=pony:.pony "
+            (concat
+              "ctags --languages=-pony --langdef=pony --langmap=pony:.pony "
               "--regex-pony='/^[ \\t]*actor[ \\t]+([a-zA-Z0-9_]+)/\\1/a,actor/' "
               "--regex-pony='/^[ \\t]*class([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/c,class/' "
               "--regex-pony='/[ \\t]*fun([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/f,function/' "
@@ -799,8 +846,8 @@ Optional argument RETRY ."
               "--regex-pony='/^[ \\t]*primitive[ \\t]+([a-zA-Z0-9_]+)/\\1/p,primitive/' "
               "--regex-pony='/^[ \\t]*struct[ \\t]+([a-zA-Z0-9_]+)/\\1/s,struct/' "
               "--regex-pony='/^[ \\t]*trait([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/t,trait/' "
-              "--regex-pony='/^[ \\t]*type[ \\t]+([a-zA-Z0-9_]+)/\\1/y,type/' " "-e -R . "
-              packages-path)))
+              "--regex-pony='/^[ \\t]*type[ \\t]+([a-zA-Z0-9_]+)/\\1/y,type/' "
+              "-e -R . " packages-path)))
     (if (file-exists-p packages-path)
       (progn
         (setq default-directory (ponylang-project-root))
@@ -829,36 +876,37 @@ Optional argument BUILD ."
   "Pony"
   "Major mode for editing Pony files."
   :syntax-table ponylang-mode-syntax-table
-  (setq-local imenu-generic-expression '(("TODO" ".*TODO:[ \t]*\\(.*\\)$" 1)
-                                          ("fun"
-                                            "[ \t]*fun[ \t]+$?\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)"
-                                            2)
-                                          ("be" "[ \t]*be[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
-                                          ("new"
-                                            "[ \t]*new[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)*[ \t]*\\([a-zA-Z0-9_]+\\)"
-                                            2)
-                                          ("type" "^[ \t]*type[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
-                                          ("interface"
-                                            "^[ \t]*interface[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)"
-                                            2)
-                                          ("trait"
-                                            "^[ \t]*trait[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)"
-                                            2)
-                                          ("struct" "^[ \t]*struct[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
-                                          ("primitive" "^[ \t]*primitive[ \t]+\\([a-zA-Z0-9_]+\\)"
-                                            1)
-                                          ("actor" "^[ \t]*actor[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
-                                          ("class"
-                                            "^[ \t]*class[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)"
-                                            2)
-                                          ("use" "^[ \t]*use[ \t]+\\([a-zA-Z0-9_]+\\)" 1)))
+  (setq-local imenu-generic-expression ;;
+    '(("TODO" ".*TODO:[ \t]*\\(.*\\)$" 1)
+       ("fun"
+         "[ \t]*fun[ \t]+$?\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)"
+         2)
+       ("be" "[ \t]*be[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
+       ("new"
+         "[ \t]*new[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)*[ \t]*\\([a-zA-Z0-9_]+\\)"
+         2)
+       ("type" "^[ \t]*type[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
+       ("interface"
+         "^[ \t]*interface[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)"
+         2)
+       ("trait"
+         "^[ \t]*trait[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)"
+         2)
+       ("struct" "^[ \t]*struct[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
+       ("primitive" "^[ \t]*primitive[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
+       ("actor" "^[ \t]*actor[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
+       ("class"
+         "^[ \t]*class[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)"
+         2)
+       ("use" "^[ \t]*use[ \t]+\\([a-zA-Z0-9_]+\\)" 1)))
   (imenu-add-to-menubar "Index")
   (setq-local comment-start "// ")
   (setq-local comment-start-skip "//+")
   (setq-local font-lock-defaults        ;
     '(ponylang-font-lock-keywords       ;
        nil nil nil nil                  ;
-       (font-lock-syntactic-face-function . ponylang-mode-syntactic-face-function)))
+       (font-lock-syntactic-face-function .
+         ponylang-mode-syntactic-face-function)))
   (setq-local indent-line-function 'ponylang-indent-line)
   (setq-local syntax-propertize-function ponylang-syntax-propertize-function)
   (setq-local indent-tabs-mode nil)
@@ -871,14 +919,14 @@ Optional argument BUILD ."
                                        ("GOTCHA" . "red")
                                        ("STUB" . "DarkGreen")))
   (whitespace-mode)
-  (setq-local whitespace-style '(face spaces tabs newline space-mark tab-mark newline-mark
-                                  trailing))
+  (setq-local whitespace-style '(face spaces tabs newline space-mark tab-mark
+                                  newline-mark trailing))
   ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “▷” for tab.
   (setq-local whitespace-display-mappings
     ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
     '((space-mark 32 [183]
-        [46])         ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-       (newline-mark 10 [182 10])       ; LINE FEED,
+        [46]) ;; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+       (newline-mark 10 [182 10]) ;; LINE FEED
        (tab-mark 9 [9655 9]
          [92 9])))
 
