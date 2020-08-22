@@ -6,6 +6,17 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 
+
+### Added
+
+
+### Changed
+
+
+## [0.6.0] - 2020-08-22
+
+### Fixed
+
 - Fix package-lint feedback ([PR #145](https://github.com/ponylang/ponylang-mode/pull/145))
 - Fix ctags regex for linux ([PR #148](https://github.com/ponylang/ponylang-mode/pull/148))
 
@@ -14,9 +25,6 @@ All notable changes to this project will be documented in this file. This projec
 - Add elseif indent keyword ([PR #147](https://github.com/ponylang/ponylang-mode/pull/147))
 - Add code formatting feature ([PR #149](https://github.com/ponylang/ponylang-mode/pull/149))
 - Add beginner example ([PR #150](https://github.com/ponylang/ponylang-mode/pull/150))
-
-### Changed
-
 
 ## [0.5.3] - 2020-07-23
 
