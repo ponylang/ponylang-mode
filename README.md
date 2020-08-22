@@ -20,6 +20,7 @@ programming language.
 ## Features
 - [X] Syntax highlighting (font-lock)
 - [X] Indentation
+- [x] Code formatting
 - [x] TODO highlighting
 - [x] Rainbow delimiters
 - [x] Whitespace character dsiplay
@@ -32,14 +33,13 @@ programming language.
 - [x] Go to definition (using `ctags`)
 - [x] Code completion (using `company-mode`)
 - [x] [Playground](https://playground.ponylang.io)
-- [ ] Code formatting
 
 <!-- At the moment, ponylang-mode is fairly new and immature. From the -->
 <!-- standpoint of indentation, it should work for about 99% of use cases. -->
 <!-- In order to work for the rest, it is going to require a rewrite. -->
-At the moment, `code formatting` is missing.
-If you are interested in contributing to Emacs tooling for Pony, please
-get in touch. Contributions and feedback are welcome.
+<!-- At the moment, `code formatting` is missing. -->
+<!-- If you are interested in contributing to Emacs tooling for Pony, please -->
+<!-- get in touch. Contributions and feedback are welcome. -->
 
 ## Installation
 
@@ -60,14 +60,12 @@ use something like this:
 ```elisp
 (require 'ponylang-mode)
 (setq ponylang-banner 1) ;; 0: None 1: Word (Default) 2: Horse 3: Knight
-(define-key ponylang-mode-map (kbd "M-z") 'ponylang-menu)
 (define-key ponylang-mode-map (kbd "<f6>")  'ponylang-menu)
-
-(with-eval-after-load 'company (company-ctags-auto-setup))
 ```
 - Customize banner:
 ```elisp
 (setq ponylang-banner "¯\\_(ツ)_/¯")
+
 (setq ponylang-banner "
              _|\\ _/|_,
            ,((\\\\``-\\\\\\\\_
@@ -91,10 +89,7 @@ use something like this:
   (setq ponylang-banner 1)
   :config
   :bind-keymap
-  ("M-z" . ponylang-menu)
   ("<f6>" . ponylang-menu))
-
-(with-eval-after-load 'company (company-ctags-auto-setup))
 ```
 ### Optional
 - [pony-snippets](https://github.com/ponylang/pony-snippets) Pony-Snippets is a collection of YASnippet Pony snippets for Emacs.
@@ -105,8 +100,7 @@ use something like this:
 
 The tests require
 [ERT](https://www.gnu.org/software/emacs/manual/html_node/ert/). To
-run them, eval `ponylang-test.el` and run <kbd>M-x ert [RET] t
-[RET]</kbd>
+run them, eval `ponylang-test.el` and run <kbd>M-x ert [RET] t [RET]</kbd>
 
 ## Attribution
 
