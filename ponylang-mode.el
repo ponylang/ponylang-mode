@@ -138,8 +138,9 @@ should return a face.  This is normally set via `font-lock-defaults'."
 
 (defvar ponylang-mode-map
   (let ((map (make-keymap)))
-    (define-key map "\C-j" 'newline-and-indent)
-    (define-key map (kbd "<C-return>") 'yafolding-toggle-element) ;
+    (define-key map "\C-j" #'newline-and-indent)
+    (define-key map (kbd "<C-return>") #'yafolding-toggle-element)
+    (define-key map (kbd "C-c C-f") #'ponylang-format-buffer) ;
     map)
   "Keymap for Pony major mode.")
 
@@ -865,11 +866,22 @@ Optional argument BUILD ."
       (progn (visit-tags-table (concat (ponylang-project-root) "TAGS")))
       (if BUILD (ponylang-build-tags)))))
 
+(defun ponylang-before-save-hook ()
+  "Before save hook."
+  (when (eq major-mode 'ponylang-mode)
+    (ponylang-format-buffer)))
+
+(defun ponylang-format-buffer ()
+  "Format the current buffer."
+  (indent-region (point-min)
+    (point-max)))
+
 (defun ponylang-after-save-hook ()
   "After save hook."
-  (if (not (executable-find "ctags"))
-    (message "Could not locate executable '%s'" "ctags")
-    (ponylang-build-tags)))
+  (when (eq major-mode 'ponylang-mode)
+    (if (not (executable-find "ctags"))
+      (message "Could not locate executable '%s'" "ctags")
+      (ponylang-build-tags))))
 
 ;;;###autoload
 (define-derived-mode ponylang-mode ponylang-parent-mode
@@ -935,10 +947,14 @@ Optional argument BUILD ."
   (setq-local fci-handle-truncate-lines nil)
   (setq-local fci-rule-width 1)
   (setq-local fci-rule-color "grey30")
+  ;;
   (rainbow-delimiters-mode t)
   (defalias 'yafolding-hide-element 'ponylang-folding-hide-element)
+  ;;
   (yafolding-mode t)
-  (add-hook 'after-save-hook 'ponylang-after-save-hook nil t)
+  ;;
+  (add-hook 'before-save-hook 'ponylang-before-save-hook nil t)
+  (add-hook 'after-save-hook #'ponylang-after-save-hook nil t)
   (ponylang-load-tags))
 
 (provide 'ponylang-mode)
