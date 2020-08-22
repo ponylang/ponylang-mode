@@ -1,4 +1,4 @@
-<a href="https://github.com/mgalgs/make-readme-markdown"><img src="https://www.gnu.org/software/emacs/images/emacs.png" alt="Emacs Logo" width="80" height="80" align="right"></a>
+<a href="https://github.com/ponylang/ponylang-mode"><img src="https://www.gnu.org/software/emacs/images/emacs.png" alt="Emacs Logo" width="80" height="80" align="right"></a>
 [![MELPA](http://melpa.org/packages/ponylang-mode-badge.svg)](http://melpa.org/#/ponylang-mode)
 [![MELPA Stable](http://stable.melpa.org/packages/ponylang-mode-badge.svg)](http://stable.melpa.org/#/ponylang-mode)
 [![GitHub contributors](https://img.shields.io/github/contributors/ponylang/ponylang-mode)](https://github.com/ponylang/ponylang-mode/graphs/contributors)
