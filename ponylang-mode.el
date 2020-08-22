@@ -891,11 +891,11 @@ Optional argument BUILD ."
   (setq-local imenu-generic-expression ;;
     '(("TODO" ".*TODO:[ \t]*\\(.*\\)$" 1)
        ("fun"
-         "[ \t]*fun[ \t]+$?\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)"
+         "[ \t]*fun[ \t]+$?\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)[ \t]*("
          2)
-       ("be" "[ \t]*be[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
+       ("be" "[ \t]*be[ \t]+\\([a-zA-Z0-9_]+\\)[ \t]*(" 1)
        ("new"
-         "[ \t]*new[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)*[ \t]*\\([a-zA-Z0-9_]+\\)"
+         "[ \t]*new[ \t]+\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)*[ \t]*\\([a-zA-Z0-9_]+\\)[ \t]*("
          2)
        ("type" "^[ \t]*type[ \t]+\\([a-zA-Z0-9_]+\\)" 1)
        ("interface"
