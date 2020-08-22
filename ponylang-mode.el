@@ -790,16 +790,16 @@ Optional argument RETRY ."
           (packages-path (concat (file-name-directory ponyc-executable) "../packages") )
           (ctags-params                 ;
             (concat  "ctags --languages=-pony --langdef=pony --langmap=pony:.pony "
-              "--regex-pony=/^[ \\t]*actor[ \\t]+([a-zA-Z0-9_]+)/\\1/a,actor/ "
-              "--regex-pony=/^[ \\t]*class([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/c,class/ "
-              "--regex-pony=/[ \\t]*fun([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/f,function/ "
-              "--regex-pony=/[ \\t]*be[ \\t]+([a-zA-Z0-9_]+)/\\1/b,behavior/ "
-              "--regex-pony=/[ \\t]*new([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/n,new/ "
-              "--regex-pony=/^[ \\t]*interface([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/i,interface/ "
-              "--regex-pony=/^[ \\t]*primitive[ \\t]+([a-zA-Z0-9_]+)/\\1/p,primitive/ "
-              "--regex-pony=/^[ \\t]*struct[ \\t]+([a-zA-Z0-9_]+)/\\1/s,struct/ "
-              "--regex-pony=/^[ \\t]*trait([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/t,trait/ "
-              "--regex-pony=/^[ \\t]*type[ \\t]+([a-zA-Z0-9_]+)/\\1/y,type/ " "-e -R . "
+              "--regex-pony='/^[ \\t]*actor[ \\t]+([a-zA-Z0-9_]+)/\\1/a,actor/' "
+              "--regex-pony='/^[ \\t]*class([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/c,class/' "
+              "--regex-pony='/[ \\t]*fun([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/f,function/' "
+              "--regex-pony='/[ \\t]*be[ \\t]+([a-zA-Z0-9_]+)/\\1/b,behavior/' "
+              "--regex-pony='/[ \\t]*new([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/n,new/' "
+              "--regex-pony='/^[ \\t]*interface([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/i,interface/' "
+              "--regex-pony='/^[ \\t]*primitive[ \\t]+([a-zA-Z0-9_]+)/\\1/p,primitive/' "
+              "--regex-pony='/^[ \\t]*struct[ \\t]+([a-zA-Z0-9_]+)/\\1/s,struct/' "
+              "--regex-pony='/^[ \\t]*trait([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/t,trait/' "
+              "--regex-pony='/^[ \\t]*type[ \\t]+([a-zA-Z0-9_]+)/\\1/y,type/' " "-e -R . "
               packages-path)))
     (if (file-exists-p packages-path)
       (progn
