@@ -523,6 +523,12 @@ Optional argument PATH ."
   (setq default-directory (if PATH PATH (ponylang-project-root PATH)))
   (compile COMMAND))
 
+(defun ponylang-buffer-dirname ()
+  "Return current buffer directory file name."
+  (directory-file-name (if buffer-file-name (file-name-directory
+                                              buffer-file-name)
+                         default-directory)))
+
 (defun ponylang-project-build ()
   "Build project with ponyc."
   (interactive)
@@ -532,24 +538,39 @@ Optional argument PATH ."
       (ponylang-run-command "corral run -- ponyc --debug")
       (ponylang-run-command "ponyc"))))
 
-(defun ponylang-buffer-dirname ()
-  "Return current buffer directory file name."
-  (directory-file-name (if buffer-file-name (file-name-directory
-                                              buffer-file-name)
-                         default-directory)))
-
 (defun ponylang-project-run ()
   "Run project."
   (interactive)
-  (let* ((bin1 (concat (ponylang-project-root) "bin/" (ponylang-project-name)))
-          (bin2 (concat (ponylang-project-root) "/" (ponylang-project-name)))
-          (bin3 (concat (ponylang-buffer-dirname) "/" (ponylang-project-name))))
-    (if (file-exists-p bin1)
-      (ponylang-run-command bin1)
+  (if (ponylang-project-file-exists-p "Makefile")
+    (ponylang-run-command "make run")
+    (let* ((bin1 (concat (ponylang-project-root) "bin/"
+                   (ponylang-project-name)))
+            (bin2 (concat (ponylang-project-root) "/" (ponylang-project-name)))
+            (bin3 (concat (ponylang-buffer-dirname) "/"
+                    (ponylang-project-name))))
+      (if (file-exists-p bin1)
+        (ponylang-run-command bin1)
+        (if (file-exists-p bin2)
+          (ponylang-run-command bin2)
+          (if (file-exists-p bin3)
+            (ponylang-run-command bin3)))))))
+
+(defun ponylang-project-clean ()
+  "Clean project."
+  (interactive)
+  (if (ponylang-project-file-exists-p "Makefile")
+    (ponylang-run-command "make clean")
+    (let* ((bin1 (concat (ponylang-project-root) "bin/"
+                   (ponylang-project-name)))
+            (bin2 (concat (ponylang-project-root) "/" (ponylang-project-name)))
+            (bin3 (concat (ponylang-buffer-dirname) "/"
+                    (ponylang-project-name))))
+      (if (file-exists-p bin1)
+        (delete-file bin1))
       (if (file-exists-p bin2)
-        (ponylang-run-command bin2)
-        (if (file-exists-p bin3)
-          (ponylang-run-command bin3))))))
+        (delete-file bin2))
+      (if (file-exists-p bin3)
+        (delete-file bin3)))))
 
 (defun ponylang-corral-init ()
   "Run corral `init' command."
@@ -635,8 +656,10 @@ Optional argument PATH ."
 
 (easy-menu-define ponylang-mode-menu ponylang-mode-map ;
   "Menu for Ponylang mode."                            ;
-  '("Ponylang" ["Build" ponylang-project-build t]
+  '("Ponylang" ;
+     ["Build" ponylang-project-build t]
      ["Run" ponylang-project-run t]     ;
+     ["Clean" ponylang-project-clean t]
      ("Corral"                          ;
        ["Init" ponylang-corral-init t]
        ["Open" ponylang-corral-open t]
@@ -764,7 +787,7 @@ value is 0 then no banner is displayed."
   "
 %s(ponylang-choose-banner)
   Corral      |  _i_: Init     _f_: Fetch   _u_: Update  _o_: corral.json
-  Pony        |  _b_: Build    _r_: Run
+  Pony        |  _b_: Build    _r_: Run     _c_: Clean
   Playground  |  _s_: Buffer   _S_: Region
   Community   |  _1_: News     _2_: BeginerHelp  _3_: Open Issue
               |  _4_: Chat     _5_: PlanetPony   _6_: Papers
@@ -772,6 +795,7 @@ value is 0 then no banner is displayed."
   _q_: Quit"                            ;
   ("b" ponylang-project-build "Build")
   ("r" ponylang-project-run "Run")
+  ("c" ponylang-project-clean "Clean")
   ("o" ponylang-corral-open "Open corral.json")
   ("i" ponylang-corral-init "corral init")
   ("f" ponylang-corral-fetch "corral fetch")
