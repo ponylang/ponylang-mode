@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 
+- Add project-clean menu item ([PR #151](https://github.com/ponylang/ponylang-mode/pull/151))
 
 ### Changed
 
