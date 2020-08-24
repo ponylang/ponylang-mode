@@ -489,8 +489,8 @@ should return a face.  This is normally set via `font-lock-defaults'."
              (not foundp))
       (let* ((filename (car files))
               (filepath (concat (file-name-as-directory PATH) filename)))
-        (setq-local files (cdr files))
-        (setq-local foundp (file-exists-p filepath)))) ;
+        (setq files (cdr files))
+        (setq foundp (file-exists-p filepath)))) ;
     foundp))
 
 (defun ponylang-project-root
