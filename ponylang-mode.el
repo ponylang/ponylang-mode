@@ -656,7 +656,7 @@ Optional argument PATH ."
 
 (easy-menu-define ponylang-mode-menu ponylang-mode-map ;
   "Menu for Ponylang mode."                            ;
-  '("Ponylang" ;
+  '("Ponylang"                                         ;
      ["Build" ponylang-project-build t]
      ["Run" ponylang-project-run t]     ;
      ["Clean" ponylang-project-clean t]
@@ -857,8 +857,13 @@ Optional argument RETRY ."
           (ponyc-executable (string-trim (shell-command-to-string (concat
                                                                     "readlink -f "
                                                                     ponyc-path))))
-          (packages-path (concat (file-name-directory ponyc-executable)
-                           "../packages") )
+          (packages-path1 (concat (file-name-directory ponyc-executable)
+                            "../packages") )
+          (packages-path2 (concat (file-name-directory ponyc-executable)
+                            "../packages") )
+          (packages-path (if (file-exists-p packages-path1) ;
+                             packages-path1                 ;
+                           packages-path2))
           (ctags-params                 ;
             (concat
               "ctags --languages=-pony --langdef=pony --langmap=pony:.pony "
@@ -874,10 +879,11 @@ Optional argument RETRY ."
               "--regex-pony='/^[ \\t]*type[ \\t]+([a-zA-Z0-9_]+)/\\1/y,type/' "
               "-e -R . " packages-path)))
     (if (file-exists-p packages-path)
-      (progn
+      (let ((oldir default-directory))
         (setq default-directory (ponylang-project-root))
         (shell-command ctags-params)
-        (ponylang-load-tags)))))
+        (ponylang-load-tags)
+        (setq default-directory oldir)))))
 
 (defun ponylang-load-tags
   (&optional
