@@ -860,7 +860,7 @@ Optional argument RETRY ."
           (packages-path1 (concat (file-name-directory ponyc-executable)
                             "../packages") )
           (packages-path2 (concat (file-name-directory ponyc-executable)
-                            "../packages") )
+                            "../../packages") )
           (packages-path (if (file-exists-p packages-path1) ;
                              packages-path1                 ;
                            packages-path2))
