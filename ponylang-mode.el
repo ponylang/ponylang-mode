@@ -235,37 +235,30 @@ should return a face.  This is normally set via `font-lock-defaults'."
 
 ;; create the regex string for each class of keywords
 (defconst ponylang-keywords-regexp
-                                        ;
   (regexp-opt (append ponylang-keywords ponylang-capabilities) 'words)
   "Regular expression for matching keywords.")
 
-(defconst ponylang-constant-regexp
-                                        ;
+(defconst ponylang-constant-regexp ;;
   (regexp-opt ponylang-constants 'words)
   "Regular expression for matching common constants.")
 
-(defconst ponylang-capabilities-regexp
-                                        ;
+(defconst ponylang-capabilities-regexp ;;
   (regexp-opt ponylang-capabilities 'words)
   "Regular expression for matching capabilities.")
 
 (defconst ponylang-careful-keywords-regexp
-                                        ;
   (regexp-opt ponylang-careful-keywords 'words)
   "Regular expression for matching careful keywords.")
 
 (defconst ponylang-declaration-keywords-regexp
-                                        ;
   (regexp-opt ponylang-declaration-keywords 'words)
   "Regular expression for matching declaration keywords.")
 
 (defconst ponylang-operator-functions-regexp
-                                        ;
   (regexp-opt ponylang-operator-functions 'words)
   "Regular expression for matching operator functions.")
 
 (defconst ponylang-common-functions-regexp
-                                        ;
   (regexp-opt ponylang-common-functions 'words)
   "Regular expression for matching common functions.")
 
@@ -864,7 +857,7 @@ Optional argument RETRY ."
           (packages-path2 (concat (file-name-directory ponyc-executable)
                             "../../packages") )
           (packages-path (if (file-exists-p packages-path1) ;
-                             packages-path1                 ;
+                           packages-path1                   ;
                            packages-path2))
           (ctags-params                 ;
             (concat
