@@ -391,6 +391,8 @@ should return a face.  This is normally set via `font-lock-defaults'."
   (let ((cur-indent (current-indentation)))
     (cond ((bobp)
             (setq cur-indent 0))
+      ((looking-at "^[ \t]*\\(//\\|/\\*\\)")
+        (setq cur-indent (current-indentation)))
       ((looking-at
          "^[ \t]*\\(use\\|class\\|actor\\|primitive\\|struct\\|trait\\|interface\\|type\\)[
 \t]*.*$")
@@ -983,7 +985,7 @@ Optional argument BUILD ."
   ;;
   (yafolding-mode t)
   ;;
-  (add-hook 'before-save-hook 'ponylang-before-save-hook nil t)
+  ;; (add-hook 'before-save-hook 'ponylang-before-save-hook nil t)
   (add-hook 'after-save-hook #'ponylang-after-save-hook nil t)
   (ponylang-load-tags))
 
