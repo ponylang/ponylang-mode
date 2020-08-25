@@ -20,6 +20,7 @@ set -o errexit
 
 # Pull in shared configuration specific to this repo
 base=$(dirname "$0")
+# shellcheck source=.ci-scripts/release/config.bash
 source "${base}/config.bash"
 
 # Verify ENV is set up correctly
@@ -97,9 +98,9 @@ git tag "${VERSION}"
 
 # push to release to remote
 echo -e "\e[34mPushing commited changes back to master\e[0m"
-git push ${PUSH_TO} master
+git push "${PUSH_TO}" master
 echo -e "\e[34mPushing ${VERSION} tag\e[0m"
-git push ${PUSH_TO} "${VERSION}"
+git push "${PUSH_TO}" "${VERSION}"
 
 # pull again, just in case, odds of this being needed are really slim
 git pull
@@ -114,8 +115,8 @@ git add CHANGELOG.md
 git commit -m "Add unreleased section to CHANGELOG post ${VERSION} release [skip ci]"
 
 echo -e "\e[34mPushing CHANGELOG.md\e[0m"
-git push ${PUSH_TO} master
+git push "${PUSH_TO}" master
 
 # delete release-VERSION tag
 echo -e "\e[34mDeleting no longer needed remote tag release-${VERSION}\e[0m"
-git push --delete ${PUSH_TO} "release-${VERSION}"
+git push --delete "${PUSH_TO}" "release-${VERSION}"

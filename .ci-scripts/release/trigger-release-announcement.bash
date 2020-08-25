@@ -18,6 +18,7 @@ set -o errexit
 
 # Pull in shared configuration specific to this repo
 base=$(dirname "$0")
+# shellcheck source=.ci-scripts/release/config.bash
 source "${base}/config.bash"
 
 # Verify ENV is set up correctly
@@ -67,4 +68,4 @@ git tag "announce-${VERSION}"
 
 # push tag
 echo -e "\e[34mPushing announce-${VERSION} tag\e[0m"
-git push ${PUSH_TO} "announce-${VERSION}"
+git push "${PUSH_TO}" "announce-${VERSION}"
