@@ -414,7 +414,7 @@ should return a face.  This is normally set via `font-lock-defaults'."
                   (setq cur-indent (current-indentation)))
 
                 ;; if the previous line ends in = or =>, indent one level
-                ((looking-at ".*\\(=>\\|=\\)[ \t]*$")
+                ((looking-at ".*\\(=>\\|=\\|recover\\)[ \t]*$")
                   (setq cur-indent (+ (current-indentation) tab-width)))
                 ((ponylang--looking-at-indent-declare)
                   (setq cur-indent (+ (current-indentation) tab-width)))
@@ -916,7 +916,7 @@ Optional argument BUILD ."
   (setq-local imenu-generic-expression ;;
     '(("TODO" ".*TODO:[ \t]*\\(.*\\)$" 1)
        ("fun"
-         "[ \t]*fun[ \t]+$?\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)[ \t]*("
+         "[ \t]*fun[ \t]+$?\\(iso\\|trn\\|ref\\|val\\|box\\|tag\\)?[ \t]*\\([a-zA-Z0-9_]+\\)[ \t]*"
          2)
        ("be" "[ \t]*be[ \t]+\\([a-zA-Z0-9_]+\\)[ \t]*(" 1)
        ("new"
