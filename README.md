@@ -1,11 +1,11 @@
+# Pony Mode
+
 <a href="https://github.com/ponylang/ponylang-mode"><img src="https://www.gnu.org/software/emacs/images/emacs.png" alt="Emacs Logo" width="80" height="80" align="right"></a>
 [![MELPA](http://melpa.org/packages/ponylang-mode-badge.svg)](http://melpa.org/#/ponylang-mode)
 [![MELPA Stable](http://stable.melpa.org/packages/ponylang-mode-badge.svg)](http://stable.melpa.org/#/ponylang-mode)
 [![GitHub contributors](https://img.shields.io/github/contributors/ponylang/ponylang-mode)](https://github.com/ponylang/ponylang-mode/graphs/contributors)
 [![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/ponylang/ponylang-mode/pull/new)
 [![Zulip](https://img.shields.io/badge/chat-on%20zulip-52c2af?logo=zulip&logoColor=52c2af&.svg)](https://ponylang.zulipchat.com/#narrow/stream/190367-tooling/topic/Emacs.3A.20ponylang-mode)
-
-# Pony Mode
 
 <!-- An Emacs mode that provides `syntax highlighting` (font-lock), `indentation` -->
 <!-- and `code jump` for the [Pony](http://www.ponylang.org/) programming -->
@@ -19,6 +19,7 @@ programming language.
 ![screenshot](https://github.com/ponylang/ponylang-mode/blob/master/screenshot.png)
 
 ## Features
+
 - [X] Syntax highlighting (font-lock)
 - [X] Indentation
 - [x] Code formatting
@@ -45,6 +46,7 @@ programming language.
 ## Installation
 
 ### Using MELPA
+
 This package can be obtain from
 [MELPA](http://melpa.org/#/ponylang-mode) or
 [MELPA Stable](http://stable.melpa.org/#/ponylang-mode). The `master`
@@ -63,7 +65,9 @@ use something like this:
 (setq ponylang-banner 1) ;; 0: None 1: Word (Default) 2: Horse 3: Knight
 (define-key ponylang-mode-map (kbd "<f6>")  'ponylang-menu)
 ```
+
 - Customize banner:
+
 ```elisp
 (setq ponylang-banner "¯\\_(ツ)_/¯")
 
@@ -92,12 +96,15 @@ use something like this:
   :bind-keymap
   ("<f6>" . ponylang-menu))
 ```
+
 ### Optional
+
 - [pony-snippets](https://github.com/ponylang/pony-snippets) Pony-Snippets is a collection of YASnippet Pony snippets for Emacs.
 - [flycheck-pony](https://github.com/ponylang/flycheck-pony) Flycheck-pony is an Emacs mode that supports on the fly syntax checking of Pony files.
 - [helm-xref](https://github.com/brotzeit/helm-xref) Helm interface for xref, It can improve the experience of using code jump.
 
 ### For Emacs beginner
+
 - [.emacs](https://github.com/ponylang/ponylang-mode/blob/master/examples/for-beginner/.emacs)
 
 ## Testing
