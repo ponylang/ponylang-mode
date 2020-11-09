@@ -89,6 +89,11 @@
   :type 'string
   :group 'ponylang)
 
+(defcustom ponylang-skip-ctags nil
+  "Switch to disable TAGS file generation on file save."
+  :type 'boolean
+  :group 'ponylang)
+
 (defcustom ponylang-shortener-url-format
   "https://is.gd/create.php?format=simple&url=%s"
   "Format string to use for creating the shortened link of a share submission."
@@ -848,20 +853,18 @@ Optional argument RETRY ."
                                      (ponylang-project-name)))))
     (if tags-buffer (kill-buffer tags-buffer))
     (if tags-buffer2 (kill-buffer tags-buffer2)))
-  (let* ((ponyc-path (string-trim (shell-command-to-string "which ponyc")))
-          (ponyc-executable (string-trim (shell-command-to-string (concat
-                                                                    "readlink -f "
-                                                                    ponyc-path))))
-          (packages-path1 (concat (file-name-directory ponyc-executable)
-                            "../packages") )
-          (packages-path2 (concat (file-name-directory ponyc-executable)
-                            "../../packages") )
-          (packages-path (if (file-exists-p packages-path1) ;
-                           packages-path1                   ;
-                           packages-path2))
+  (let* ((ponyc-path (executable-find "ponyc"))
+         (ponyc-executable (file-chase-links (expand-file-name ponyc-path)))
+         (packages-path1 (concat (file-name-directory ponyc-executable)
+                                 "../packages") )
+         (packages-path2 (concat (file-name-directory ponyc-executable)
+                                 "../../packages") )
+         (packages-path (if (file-exists-p packages-path1) ;
+                            packages-path1                   ;
+                          packages-path2))
           (ctags-params                 ;
             (concat
-              "ctags --languages=-pony --langdef=pony --langmap=pony:.pony "
+              "ctags --langdef=pony --langmap=pony:.pony "
               "--regex-pony='/^[ \\t]*actor[ \\t]+([a-zA-Z0-9_]+)/\\1/a,actor/' "
               "--regex-pony='/^[ \\t]*class([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/c,class/' "
               "--regex-pony='/[ \\t]*fun([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/f,function/' "
@@ -872,6 +875,7 @@ Optional argument RETRY ."
               "--regex-pony='/^[ \\t]*struct[ \\t]+([a-zA-Z0-9_]+)/\\1/s,struct/' "
               "--regex-pony='/^[ \\t]*trait([ \\t]+(iso|trn|ref|val|box|tag))?[ \\t]+([a-zA-Z0-9_]+)/\\3/t,trait/' "
               "--regex-pony='/^[ \\t]*type[ \\t]+([a-zA-Z0-9_]+)/\\1/y,type/' "
+              "--languages=pony "
               "-e -R . " packages-path)))
     (if (file-exists-p packages-path)
       (let ((oldir default-directory))
@@ -903,9 +907,10 @@ Optional argument BUILD ."
 
 (defun ponylang-after-save-hook ()
   "After save hook."
-  (when (eq major-mode 'ponylang-mode)
-    (if (not (executable-find "ctags"))
-      (message "Could not locate executable '%s'" "ctags")
+  (when (and (eq major-mode 'ponylang-mode)
+             (not ponylang-skip-ctags))
+    (if (not (= 0 (call-process-shell-command "ctags --version")))
+      (message "Could not locate suitable executable '%s'" "ctags")
       (ponylang-build-tags))))
 
 ;;;###autoload
