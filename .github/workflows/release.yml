@@ -6,8 +6,6 @@ on:
       - \d+.\d+.\d+
 
 jobs:
-  # Artifact building steps go here
-
   trigger-release-announcement:
     name: Trigger release announcement
     runs-on: ubuntu-latest
