@@ -5,9 +5,22 @@ on:
     tags: release-\d+.\d+.\d+
 
 jobs:
+  update-melpa-version:
+    name: Update .el versions
+    runs-on: ubuntu-latest
+    container:
+      image: ponylang/shared-docker-ci-release:20191107
+    steps:
+      - uses: actions/checkout@v1
+      - name: Start release process
+        run: bash .ci-scripts/release/update-melpa-version.bash
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+
   start-a-release:
     name: Start a release
     runs-on: ubuntu-latest
+    needs: [update-melpa-version]
     steps:
       - uses: actions/checkout@v1
       - name: Start
