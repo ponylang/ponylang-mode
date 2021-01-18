@@ -11,6 +11,7 @@
 ;; Copyright (c) 2015 Austin Bingham
 ;; Copyright (c) 2016 Sean T. Allen
 ;; Copyright (c) 2020 Damon Kwok
+;; Copyright (c) 2021 The Pony Developers
 ;;
 ;;; Commentary:
 ;;
