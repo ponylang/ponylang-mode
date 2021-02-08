@@ -16,7 +16,7 @@ An Emacs major mode for the [Pony](https://github.com/ponylang/ponyc)
 programming language.
 
 - Screenshot
-![screenshot](https://github.com/ponylang/ponylang-mode/blob/master/screenshot.png)
+![screenshot](https://github.com/ponylang/ponylang-mode/blob/main/screenshot.png)
 
 ## Features
 
@@ -49,7 +49,7 @@ programming language.
 
 This package can be obtain from
 [MELPA](http://melpa.org/#/ponylang-mode) or
-[MELPA Stable](http://stable.melpa.org/#/ponylang-mode). The `master`
+[MELPA Stable](http://stable.melpa.org/#/ponylang-mode). The `main`
 branch is continuously deployed to MELPA, and released versions are
 deployed to MELPA Stable.
 
@@ -105,7 +105,7 @@ use something like this:
 
 ### For Emacs beginner
 
-- [.emacs](https://github.com/ponylang/ponylang-mode/blob/master/examples/for-beginner/.emacs)
+- [.emacs](https://github.com/ponylang/ponylang-mode/blob/main/examples/for-beginner/.emacs)
 
 ## Testing
 

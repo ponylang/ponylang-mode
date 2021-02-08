@@ -21,7 +21,7 @@ to comply with formatting or the content of the change itself.
 
 Be sure to keep your PR to a single change. If you are working on multiple
 changes, make sure they are each on their own branch and that before creating a
-new branch that you are on the master branch (others multiple patterns might
+new branch that you are on the main branch (others multiple patterns might
 end up in your pull request). Each PR should be for a single logical change. We
 request that you create a good commit messages as laid out in
 ['How to Write a Git Commit Message'](http://chris.beams.io/posts/git-commit/).

@@ -2,9 +2,9 @@
 
 # Updates melpa version as part of release by:
 #
-# - Getting latest changes on master
+# - Getting latest changes on main
 # - Versioning for melpa
-# - Pushing updated *.el files back to master
+# - Pushing updated *.el files back to main
 #
 # Tools required in the environment that runs this:
 #
@@ -63,10 +63,10 @@ PUSH_TO="https://${RELEASE_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 # Version: "1.0.0"
 VERSION="${GITHUB_REF/refs\/tags\/release-/}"
 
-### this doesn't account for master changing commit, assumes we are HEAD
+### this doesn't account for main changing commit, assumes we are HEAD
 # or can otherwise push without issue. that shouldl error out without issue.
 # leaving us to restart from a different HEAD commit
-git checkout master
+git checkout main
 git pull
 
 # version for melpa
@@ -79,5 +79,5 @@ git add ponylang-mode.el ponylang-test.el
 git commit -m "${VERSION} release"
 
 # push to release to remote
-echo -e "\e[34mPushing commited changes back to master\e[0m"
-git push "${PUSH_TO}" master
+echo -e "\e[34mPushing commited changes back to main\e[0m"
+git push "${PUSH_TO}" main
