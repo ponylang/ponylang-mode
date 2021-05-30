@@ -114,8 +114,9 @@
     ;; \n is a comment ender
     (modify-syntax-entry ?\n ">" table)
 
-    ;; string
+    ;; strings and character literals
     (modify-syntax-entry ?\" "\"" table)
+    (modify-syntax-entry ?\' "\"" table)
 
     ;; Don't treat underscores as whitespace
     (modify-syntax-entry ?_ "w" table) table))
