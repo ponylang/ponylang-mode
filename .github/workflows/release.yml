@@ -5,6 +5,8 @@ on:
     tags:
       - \d+.\d+.\d+
 
+concurrency: release
+
 jobs:
   trigger-release-announcement:
     name: Trigger release announcement

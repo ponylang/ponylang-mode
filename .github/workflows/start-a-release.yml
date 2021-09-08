@@ -4,6 +4,8 @@ on:
   push:
     tags: release-\d+.\d+.\d+
 
+concurrency: prepare-for-a-release
+
 jobs:
   update-melpa-version:
     name: Update .el versions
