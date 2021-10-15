@@ -30,6 +30,7 @@ programming language.
 - [x] `Ponylang` menu
 - [x] Workspace support
 - [x] Code folding
+- [x] `Comment` and `Uncomment` (`M-;`)
 - [x] Compilation integration
 - [x] Code navigation (using `imenu`)
 - [x] Go to definition (using `ctags`)
