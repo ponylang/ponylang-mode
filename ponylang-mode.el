@@ -142,10 +142,21 @@ should return a face.  This is normally set via `font-lock-defaults'."
         'font-lock-string-face))        ;
     'font-lock-comment-face))
 
+(defun ponylang-comment-or-uncomment-region-or-line ()
+  "Comments or uncomments the region or the current line if there's no active region."
+  (interactive)
+  (let (beg end)
+    (if (region-active-p)
+      (setq beg (region-beginning) end (region-end))
+      (setq beg (line-beginning-position) end (line-end-position)))
+    (comment-or-uncomment-region beg end)
+    (next-line)))
+
 (defvar ponylang-mode-map
   (let ((map (make-keymap)))
     (define-key map "\C-j" #'newline-and-indent)
     (define-key map (kbd "<C-return>") #'yafolding-toggle-element)
+    (define-key map "\M-;" #'ponylang-comment-or-uncomment-region-or-line)
     (define-key map (kbd "C-c C-f") #'ponylang-format-buffer) ;
     map)
   "Keymap for Pony major mode.")
