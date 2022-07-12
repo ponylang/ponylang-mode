@@ -55,6 +55,7 @@ set -o nounset
 git config --global user.name 'Ponylang Main Bot'
 git config --global user.email 'ponylang.main@gmail.com'
 git config --global push.default simple
+git config --global --add safe.directory "${GITHUB_WORKSPACE}"
 
 PUSH_TO="https://${RELEASE_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
