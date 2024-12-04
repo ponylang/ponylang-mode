@@ -12,7 +12,7 @@ jobs:
     name: Update .el versions
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/ponylang/shared-docker-ci-emacs-mode-release:20231127
+      image: ghcr.io/ponylang/shared-docker-ci-emacs-mode-release:20241204
     steps:
       - uses: actions/checkout@v4.1.1
       - name: Start release process
