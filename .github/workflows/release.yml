@@ -17,7 +17,7 @@ jobs:
         uses: docker://ponylang/release-bot-action:0.5.0
         with:
           step: trigger-release-announcement
-          git_user_name: "Ponylang Main Bot"
-          git_user_email: "ponylang.main@gmail.com"
+          GIT_USER_NAME: "Ponylang Main Bot"
+          GIT_USER_EMAIL: "ponylang.main@gmail.com"
         env:
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
