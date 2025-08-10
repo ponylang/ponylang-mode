@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Changed
 
+- Removed external package dependencies: `rainbow-delimiter`, `whitespace-display`, `fill-column-indicator`, `company-mode` (code-completion) and `code-folding`. All of these configurations can still be achieve using the given external packages without need to keep it in the main language configuration ([PR #178](https://github.com/ponylang/ponylang-mode/pull/178))
+- Use [`Eldev`](https://github.com/emacs-eldev/eldev) as the package manager ([PR #178](https://github.com/ponylang/ponylang-mode/pull/178))
+- Add CI workflow in PRs ([PR #178](https://github.com/ponylang/ponylang-mode/pull/178))
+- Update minimum Emacs version support (28+) ([PR #178](https://github.com/ponylang/ponylang-mode/pull/178))
+- Removed examples folder and recommend `use-package` configuration and documentation ([PR #178](https://github.com/ponylang/ponylang-mode/pull/178))
+- Removed package attributes from test file ([PR #178](https://github.com/ponylang/ponylang-mode/pull/178))
 
 ## [0.6.0] - 2020-08-22
 
@@ -303,4 +309,3 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 - 'lambda' as a highlighted keyword
-

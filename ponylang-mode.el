@@ -1,10 +1,10 @@
-;;; ponylang-mode.el --- A major mode for the Pony programming language
+;;; ponylang-mode.el --- A major mode for the Pony programming language  -*- lexical-binding: t; -*-
 ;;
 ;; Authors: Sean T Allen <sean@monkeysnatchbanana.com>
 ;; Version: 0.6.0
 ;; URL: https://github.com/ponylang/ponylang-mode
 ;; Keywords: languages programming
-;; Package-Requires: ((emacs "25.1") (dash "2.17.0") (hydra "0.15.0") (hl-todo "3.1.2") (yafolding "0.4.1") (yasnippet "0.14.0") (company-ctags "0.0.4") (rainbow-delimiters "2.1.4") (fill-column-indicator "1.90"))
+;; Package-Requires: ((emacs "28.1"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -61,17 +61,9 @@
 ;;; Code:
 
 (require 'cl-lib)
-(require 'dash)
 (require 'xref)
-(require 'hydra)
 (require 'imenu)
-(require 'hl-todo)
-(require 'easymenu)
-(require 'yafolding)
-(require 'yasnippet)
-(require 'whitespace)
-(require 'rainbow-delimiters)
-(require 'fill-column-indicator)
+(require 'seq)
 
 (defvar ponylang-mode-hook nil)
 
@@ -143,19 +135,18 @@ should return a face.  This is normally set via `font-lock-defaults'."
     'font-lock-comment-face))
 
 (defun ponylang-comment-or-uncomment-region-or-line ()
-  "Comments or uncomments the region or the current line if there's no active region."
+  "Comments or uncomments the region or the current line."
   (interactive)
   (let (beg end)
     (if (region-active-p)
       (setq beg (region-beginning) end (region-end))
       (setq beg (line-beginning-position) end (line-end-position)))
     (comment-or-uncomment-region beg end)
-    (next-line)))
+    (forward-line)))
 
 (defvar ponylang-mode-map
   (let ((map (make-keymap)))
     (define-key map "\C-j" #'newline-and-indent)
-    (define-key map (kbd "<C-return>") #'yafolding-toggle-element)
     (define-key map "\M-;" #'ponylang-comment-or-uncomment-region-or-line)
     (define-key map (kbd "C-c C-f") #'ponylang-format-buffer) ;
     map)
@@ -384,19 +375,19 @@ should return a face.  This is normally set via `font-lock-defaults'."
 
 ;; Indentation
 (defun ponylang--looking-at-indent-start ()
-  "Determines if the current position is 'looking at' a keyword that start new indentation."
-  (-any? (lambda (k)
+  "Determine if point is keyword that start new indentation."
+  (seq-find (lambda (k)
            (looking-at (concat  "^[ \t]*" k "\\($\\|[ \t]\\)")))
     ponylang-indent-start-keywords))
 
 (defun ponylang--looking-at-indent-declare ()
-  "Determines if the current position is 'looking at' a keyword that declaration new indentation."
-  (-any? (lambda (k)
+  "Determine if point declares new indentation."
+  (seq-find (lambda (k)
            (looking-at (concat  ".*" k ".*[:,|&][ \t]*$")))
     ponylang-declaration-keywords))
 
 (defun ponylang-syntactic-indent-line ()
-  "Indent current line as pony code based on language syntax and the current context."
+  "Indent current line syntactically."
   (beginning-of-line)
   (let ((cur-indent (current-indentation)))
     (cond ((bobp)
@@ -474,7 +465,7 @@ should return a face.  This is normally set via `font-lock-defaults'."
   "Put `syntax-table' property on triple-quoted strings."
   (let* ((string-end-pos (point))
           (string-start-pos (- string-end-pos 3))
-          (ppss (prog2 (backward-char 3)
+          (_ (prog2 (backward-char 3)
                   (syntax-ppss)
                   (forward-char 3))))
     (unless (nth 4 (syntax-ppss)) ;; not inside comment
@@ -609,7 +600,7 @@ Optional argument PATH ."
     (find-file (concat (ponylang-project-root) "corral.json"))))
 
 (defun ponylang-share-region (begin end)
-  "Create a shareable URL for the region from BEGIN to END on the Pony `playground'."
+  "Share BEGIN to END through a URL on Pony playground."
   (interactive "r")
   (let* ((data
            (buffer-substring
@@ -793,71 +784,7 @@ value is 0 then no banner is displayed."
     ((= 3 ponylang-banner) ponylang-banner-knight)
     (t ponylang-banner-default)))
 
-(defhydra ponylang-hydra-menu
-  (:color blue
-    :hint none)
-  "
-%s(ponylang-choose-banner)
-  Corral      |  _i_: Init     _f_: Fetch   _u_: Update  _o_: corral.json
-  Pony        |  _b_: Build    _r_: Run     _c_: Clean
-  Playground  |  _s_: Buffer   _S_: Region
-  Community   |  _1_: News     _2_: BeginerHelp  _3_: Open Issue
-              |  _4_: Chat     _5_: PlanetPony   _6_: Papers
-              |  _7_: Tutorial _8_: Videos       _9_: Sponsors _0_: Contribute
-  _q_: Quit"                            ;
-  ("b" ponylang-project-build "Build")
-  ("r" ponylang-project-run "Run")
-  ("c" ponylang-project-clean "Clean")
-  ("o" ponylang-corral-open "Open corral.json")
-  ("i" ponylang-corral-init "corral init")
-  ("f" ponylang-corral-fetch "corral fetch")
-  ("u" ponylang-corral-update "corral udate")
-  ("s" ponylang-share-buffer "share buffer")
-  ("S" (ponylang-share-region (region-beginning)
-         (region-end)) "share region")
-  ("1" (ponylang-run-command "xdg-open https://www.ponylang.io/blog") "News")
-  ("2" (ponylang-run-command
-         "xdg-open https://ponylang.zulipchat.com/#narrow/stream/189985-beginner-help") "Beginner Help")
-  ("3" (ponylang-run-command "xdg-open
-https://github.com/ponylang/ponyc/issues") "Open an issue")
-  ("4" (ponylang-run-command "xdg-open https://ponylang.zulipchat.com")
-    "Zulip chat")
-  ("5" (ponylang-run-command
-         "xdg-open https://www.ponylang.io/community/planet-pony")
-    "Planet-pony")
-  ("6" (ponylang-run-command
-         "xdg-open https://www.ponylang.io/community/#papers") "Papers")
-  ("7" (ponylang-run-command "xdg-open https://tutorial.ponylang.io/")
-    "Tutorial")
-  ("8" (ponylang-run-command
-         "xdg-open https://vimeo.com/search/sort:latest?q=pony-vug") "Videos")
-  ("9" (ponylang-run-command "xdg-open https://www.ponylang.io/sponsors")
-    "Sponsors")
-  ("0" (ponylang-run-command "xdg-open
-https://github.com/ponylang/contributors") "Contribute")
-  ("q" nil "Quit"))
-
-(defun ponylang-menu ()
-  "Open ponylang hydra menu."
-  (interactive)
-  (ponylang-hydra-menu/body))
-
-(defun ponylang-folding-hide-element
-  (&optional
-    RETRY)
-  "Hide current element.
-Optional argument RETRY ."
-  (interactive)
-  (let* ((region (yafolding-get-element-region))
-          (beg (car region))
-          (end (cadr region)))
-    (if (and (eq RETRY nil)
-          (= beg end))
-      (progn (yafolding-go-parent-element)
-        (ponylang-folding-hide-element t))
-      (yafolding-hide-region beg end))))
-
-(defun ponylang-build-tags ()
+ (defun ponylang-build-tags ()
   "Build TAGS file for current project."
   (interactive)
   (let ((tags-buffer (get-buffer "TAGS"))
@@ -954,6 +881,7 @@ Optional argument BUILD ."
          2)
        ("use" "^[ \t]*use[ \t]+\\([a-zA-Z0-9_]+\\)" 1)))
   (imenu-add-to-menubar "Index")
+
   (setq-local comment-start "// ")
   (setq-local comment-start-skip "//+")
   (setq-local font-lock-defaults        ;
@@ -966,36 +894,7 @@ Optional argument BUILD ."
   (setq-local indent-tabs-mode nil)
   (setq-local tab-width 2)
   (setq-local buffer-file-coding-system 'utf-8-unix)
-  (hl-todo-mode)
-  (setq-local hl-todo-keyword-faces '(("TODO" . "green")
-                                       ("FIXME" . "yellow")
-                                       ("DEBUG" . "DarkCyan")
-                                       ("GOTCHA" . "red")
-                                       ("STUB" . "DarkGreen")))
-  (whitespace-mode)
-  (setq-local whitespace-style '(face spaces tabs newline space-mark tab-mark
-                                  newline-mark trailing))
-  ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “▷” for tab.
-  (setq-local whitespace-display-mappings
-    ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-    '((space-mark 32 [183]
-        [46]) ;; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-       (newline-mark 10 [182 10]) ;; LINE FEED
-       (tab-mark 9 [9655 9]
-         [92 9])))
 
-  ;; (setq-local whitespace-style '(face trailing))
-  (setq-local fci-rule-column 80)
-  (setq-local fci-handle-truncate-lines nil)
-  (setq-local fci-rule-width 1)
-  (setq-local fci-rule-color "grey30")
-  ;;
-  (rainbow-delimiters-mode t)
-  (defalias 'yafolding-hide-element 'ponylang-folding-hide-element)
-  ;;
-  (yafolding-mode t)
-  ;;
-  ;; (add-hook 'before-save-hook 'ponylang-before-save-hook nil t)
   (add-hook 'after-save-hook #'ponylang-after-save-hook nil t)
   (ponylang-load-tags))
 
