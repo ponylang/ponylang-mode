@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file. This projec
 - Update minimum Emacs version support (28+) ([PR #178](https://github.com/ponylang/ponylang-mode/pull/178))
 - Removed examples folder and recommend `use-package` configuration and documentation ([PR #178](https://github.com/ponylang/ponylang-mode/pull/178))
 - Removed package attributes from test file ([PR #178](https://github.com/ponylang/ponylang-mode/pull/178))
+- feat: remove external deps, add project manager and CI config ([PR #178](https://github.com/ponylang/ponylang-mode/pull/178))
 
 ## [0.6.0] - 2020-08-22
 
@@ -309,3 +310,4 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 
 - 'lambda' as a highlighted keyword
+
