@@ -9,14 +9,14 @@
 
 <!-- An Emacs mode that provides `syntax highlighting` (font-lock), `indentation` -->
 <!-- and `code jump` for the [Pony](http://www.ponylang.org/) programming -->
-<!-- language.It also provides [Ponyc](https://github.com/ponylang/ponyc), -->
+<!-- language. It also provides [Ponyc](https://github.com/ponylang/ponyc), -->
 <!-- [Corral](https://github.com/ponylang/corral) -->
 <!-- and [Playground](https://playground.ponylang.io) integration. -->
 An Emacs major mode for the [Pony](https://github.com/ponylang/ponyc)
 programming language.
 
 - Screenshot
-![screenshot](https://github.com/ponylang/ponylang-mode/blob/main/screenshot.png)
+![An Emacs session with `display-line-numbers-mode`.](https://github.com/ponylang/ponylang-mode/blob/main/screenshot.png)
 
 ## Features
 
@@ -24,17 +24,12 @@ programming language.
 - [X] Indentation
 - [x] Code formatting
 - [x] TODO highlighting
-- [x] Rainbow delimiters
-- [x] Whitespace character dsiplay
-- [x] Fill column indicator
 - [x] `Ponylang` menu
 - [x] Workspace support
-- [x] Code folding
 - [x] `Comment` and `Uncomment` (`M-;`)
 - [x] Compilation integration
 - [x] Code navigation (using `imenu`)
 - [x] Go to definition (using `ctags`)
-- [x] Code completion (using `company-mode`)
 - [x] [Playground](https://playground.ponylang.io)
 
 <!-- At the moment, ponylang-mode is fairly new and immature. From the -->
@@ -85,7 +80,7 @@ use something like this:
 
 ### Using [use-package](https://github.com/jwiegley/use-package)
 
-<!-- If you're using -->
+<!-- If you're using Emacs 29+ or have installed -->
 <!-- [`use-package`](https://github.com/jwiegley/use-package) to manage -->
 <!-- your configuration, you can configure `ponylang-mode` like so: -->
 ```elisp

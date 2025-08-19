@@ -1,2 +1,8 @@
 *~
 *.elc
+
+ponylang-mode-autoloads.el
+
+# Added automatically by ‘eldev init’.
+/.eldev
+/Eldev-local
