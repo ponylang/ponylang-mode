@@ -16,7 +16,7 @@ jobs:
     name: Announce a release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v6.0.2
       - name: Announce
         uses: docker://ponylang/release-bot-action:0.5.0
         with:
