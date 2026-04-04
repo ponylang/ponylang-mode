@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6.0.2
       - name: Start
-        uses: docker://ghcr.io/ponylang/release-bot-action:0.6.4
+        uses: docker://ghcr.io/ponylang/release-bot-action:0.6.5
         with:
           step: start-a-release
           GIT_USER_NAME: "Ponylang Main Bot"
